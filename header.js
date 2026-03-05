@@ -1,6 +1,6 @@
 (function () {
   function initHeader() {
-    var labels = { ro: 'Română (România)', ru: 'Русский', en: 'English' };
+    var labels = { ro: 'Română', ru: 'Русский', en: 'English' };
     var lang = localStorage.getItem('aiwineLanguage') || 'ro';
     var display = document.getElementById('currentLangDisplay');
     function updateLanguageUI() {
