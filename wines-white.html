@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiwine – Vinuri albe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-header">
+    <header class="header header--main">
+      <div class="header-inner">
+        <div class="header-left">
+          <div class="header-search">
+            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar">🔍</button>
+            <div class="header-search-bar" id="headerSearchBar" role="search" hidden>
+              <form action="wines-white.html" method="get">
+                <input type="search" name="q" id="headerSearchInput" placeholder="Search wines…">
+                <button type="submit">🔍</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <a href="index.html" class="logo logo--center">Aiwine</a>
+        <nav class="header-nav header-nav--divus header-right">
+          <div class="language-selector">
+            <button class="language-btn" id="languageBtn" type="button"><span id="currentLangDisplay">RO</span> ▼</button>
+            <div class="language-dropdown" id="languageDropdown">
+              <button class="language-option" data-lang="ro">RO</button>
+              <button class="language-option" data-lang="ru">RU</button>
+              <button class="language-option" data-lang="en">EN</button>
+            </div>
+          </div>
+          <div class="nav-menu nav-menu--primary" id="navMenu">
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰ <span data-translate="nav-menu-label">Meniu</span></button>
+            <div class="nav-menu-dropdown" id="navMenuDropdown">
+              <span class="nav-menu-category-label" data-translate="nav-wines">Vinuri</span>
+              <a href="wines-red.html" class="nav-link nav-link--category" data-translate="wine-red-type">Roșu</a>
+              <a href="wines-white.html" class="nav-link nav-link--category" data-translate="wine-white-title">Alb & Rosé</a>
+              <a href="wines-sparkling.html" class="nav-link nav-link--category" data-translate="wine-sparkling-type">Spumant</a>
+              <span class="nav-menu-divider"></span>
+              <a href="index.html#services" class="nav-link" data-translate="nav-services">Servicii</a>
+              <a href="index.html#about" class="nav-link" data-translate="nav-about">Despre</a>
+              <a href="index.html#contact" class="nav-link" data-translate="nav-contact">Contact</a>
+              <span class="nav-menu-divider"></span>
+              <a href="cart.html" class="nav-link nav-link--cart">🛒 <span data-translate="nav-cart">Coș</span> <span class="header-cart-count" id="headerCartCount">0</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div>
+  <main class="main-offset">
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title">Vinuri albe si rose</h1>
+        <div class="wine-explorer">
+          <div class="wine-filters">
+            <fieldset class="wine-filter-group wine-filter-group--brand"><legend class="wine-filter-legend" data-translate="filter-brand">Brand</legend><div id="filterBrandWhite" class="wine-filter-brand-list"></div></fieldset>
+            <fieldset class="wine-filter-group wine-filter-group--price"><legend class="wine-filter-legend" data-translate="filter-price-range">Price (MDL)</legend><p id="priceRangeDisplayWhite" class="wine-price-range-display">0 – 2000 MDL</p><div class="wine-price-range-sliders"><input type="range" id="filterPriceMinWhite" class="wine-range-input wine-range-input--min" min="0" max="2000" value="0" step="10"><input type="range" id="filterPriceMaxWhite" class="wine-range-input wine-range-input--max" min="0" max="2000" value="2000" step="10"></div><label class="wine-filter-check wine-filter-check--discount"><input type="checkbox" id="filterDiscountWhite" class="wine-filter-checkbox"> <span data-translate="filter-only-discount">Only discount</span></label></fieldset>
+            <fieldset class="wine-filter-group wine-filter-group--rating"><legend class="wine-filter-legend" data-translate="filter-min-rating">Min. rating</legend><select id="filterRatingWhite" class="wine-filter-select"><option value="" data-translate="filter-any">Any</option><option value="3.5">3.5+</option><option value="4.0">4.0+</option></select></fieldset>
+          </div>
+          <div class="wine-toolbar"><span id="resultCountWhite" class="wine-result-count">0 wines</span><label for="sortSelectWhite" data-translate="sort-label">Sort:</label><select id="sortSelectWhite"><option value="" data-translate="sort-featured">Featured</option><option value="rating" data-translate="sort-rating">Rating</option><option value="price_asc" data-translate="sort-price-asc">Price low</option><option value="price_desc" data-translate="sort-price-desc">Price high</option><option value="name" data-translate="sort-name">Name</option></select></div>
+          <div class="wine-grid" id="wineGridWhite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#about" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><span class="footer-payment-label">Plăți:</span><div class="footer-payment-icons"><img src="assets/payment/maestro.svg" alt="Maestro" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/mastercard.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/paypal.svg" alt="PayPal" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/victoriabank.svg" alt="Victoriabank" width="40" height="28" class="footer-payment-icon"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
+  <script src="translations.js"></script>
+  <script src="cart.js"></script>
+  <script src="header.js"></script>
+  <script src="wine-data.js"></script>
+  <script src="descriptions.js"></script>
+  <script src="wines.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
+    document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+    window.initWineExplorer({ gridId: 'wineGridWhite', typeFilter: function(p) { if (p.id === 'gin-0' || (p.brand || '').toLowerCase() === 'gin') return false; return p.type === 'white' || p.type === 'rose'; }, resultCountId: 'resultCountWhite', sortSelectId: 'sortSelectWhite', filterBrandId: 'filterBrandWhite', filterPriceMinId: 'filterPriceMinWhite', filterPriceMaxId: 'filterPriceMaxWhite', priceRangeDisplayId: 'priceRangeDisplayWhite', filterDiscountId: 'filterDiscountWhite', filterRatingId: 'filterRatingWhite' });
+  });
+  </script>
+</body>
+</html>

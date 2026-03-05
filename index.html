@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiwine – Servicii vin și curatare</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-header">
+    <header class="header header--main">
+      <div class="header-inner">
+        <div class="header-left">
+          <div class="header-search">
+            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar"><span class="header-search-icon" aria-hidden="true">🔍</span></button>
+            <div class="header-search-bar" id="headerSearchBar" role="search" hidden>
+              <form class="header-search-form" id="headerSearchForm" action="wines-red.html" method="get">
+                <input type="search" name="q" id="headerSearchInput" class="header-search-input" placeholder="Search wines…" data-translate-placeholder="search-placeholder">
+                <button type="submit" class="header-search-submit" aria-label="Search">🔍</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <a href="index.html" class="logo logo--center">Aiwine</a>
+        <nav class="header-nav header-nav--divus header-right">
+          <div class="language-selector">
+            <button class="language-btn" id="languageBtn" type="button" aria-label="Language"><span id="currentLangDisplay">RO</span> <span aria-hidden="true">▼</span></button>
+            <div class="language-dropdown" id="languageDropdown">
+              <button class="language-option" data-lang="ro">Română</button>
+              <button class="language-option" data-lang="ru">Русский</button>
+              <button class="language-option" data-lang="en">English</button>
+            </div>
+          </div>
+          <div class="nav-menu nav-menu--primary" id="navMenu">
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-haspopup="true">☰ <span data-translate="nav-menu-label">Meniu</span></button>
+            <div class="nav-menu-dropdown" id="navMenuDropdown">
+              <span class="nav-menu-category-label" data-translate="nav-wines">Vinuri</span>
+              <a href="wines-red.html" class="nav-link nav-link--category" data-translate="wine-red-type">Roșu</a>
+              <a href="wines-white.html" class="nav-link nav-link--category" data-translate="wine-white-title">Alb & Rosé</a>
+              <a href="wines-sparkling.html" class="nav-link nav-link--category" data-translate="wine-sparkling-type">Spumant</a>
+              <span class="nav-menu-divider"></span>
+              <a href="index.html#services" class="nav-link" data-translate="nav-services">Servicii</a>
+              <a href="index.html#about" class="nav-link" data-translate="nav-about">Despre</a>
+              <a href="index.html#contact" class="nav-link" data-translate="nav-contact">Contact</a>
+              <span class="nav-menu-divider"></span>
+              <a href="cart.html" class="nav-link nav-link--cart" id="headerCartLink">🛒 <span data-translate="nav-cart">Coș</span> <span class="header-cart-count" id="headerCartCount">0</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div>
+  <main class="main-offset">
+    <!-- Divus-style image banner: full-bleed image, overlay, scroll animation -->
+    <section class="banner banner--hero banner--divus" id="bannerHero">
+      <div class="banner__overlay"></div>
+      <div class="banner__content banner__content--center" id="bannerContent">
+        <p class="banner-tag" data-translate="wines-tag">Selecție</p>
+        <h2 class="banner-title" data-translate="wines-title">Vinuri alese</h2>
+        <p class="banner-sub" data-translate="hero-sub">Surse, curatare și livrare de vinuri excepționale.</p>
+      </div>
+    </section>
+    <section id="wines" class="section section-dark">
+      <div class="container">
+        <p class="section-tag" data-translate="wines-tag">Selecție</p>
+        <h2 class="section-title" data-translate="wines-title">Vinuri alese</h2>
+        <div class="wine-grid">
+          <a class="wine-card" href="wines-red.html"><div class="wine-card-img wine-card-img--red"><img src="https://7iholv399c.ufs.sh/f/HaR9udCabRJAuaNHEX62ltophdsBUwVIkm6TJcEXO9fC31Ny" alt="Vin roșu" loading="lazy"></div><div class="wine-card-body"><span class="wine-type" data-translate="wine-red-type">Roșu</span><h3 data-translate="wine-red-title">Rezerve și roșii premium</h3><p class="wine-card-desc" data-translate="wine-red-desc">Vinuri roșii sec și de rezervă din podgoriile Moldovei: Cabernet, Merlot, Fetească Neagră, Saperavi. Taninuri fine, arome de fructe negre și îmbătrânire în barrique.</p></div></a>
+          <a class="wine-card" href="wines-white.html"><div class="wine-card-img wine-card-img--white"><img src="https://7iholv399c.ufs.sh/f/HaR9udCabRJAxdDojWeqo8n3es9JY2LiI4aClvPhrKwyDWEm" alt="Vin alb și roz" loading="lazy"></div><div class="wine-card-body"><span class="wine-type" data-translate="wine-white-type">Alb</span><h3 data-translate="wine-white-title">Albi și roz</h3><p class="wine-card-desc" data-translate="wine-white-desc">Albi sec și rosé din soiuri locale și internaționale: Sauvignon Blanc, Chardonnay, Fetească Regală. Proaspete, florale, ideale la masă sau în terasă.</p></div></a>
+          <a class="wine-card" href="wines-sparkling.html"><div class="wine-card-img wine-card-img--sparkling"><img src="https://7iholv399c.ufs.sh/f/HaR9udCabRJAZUqrMPW1EQOLsA4CBHMSRIluTaGWy6ocz3ZU" alt="Șampanie și spumant" loading="lazy"></div><div class="wine-card-body"><span class="wine-type" data-translate="wine-sparkling-type">Spumant</span><h3 data-translate="wine-sparkling-title">Șampanie și buline</h3><p class="wine-card-desc" data-translate="wine-sparkling-desc">Spumante brut și șampanie produse în Moldova, inclusiv din pivnițele Cricova. Perle fine, gust curat și mineral, perfecte pentru sărbători și evenimente.</p></div></a>
+        </div>
+      </div>
+    </section>
+    <section id="services" class="section section-services">
+      <div class="container">
+        <p class="section-tag" data-translate="services-tag">Ce facem</p>
+        <h2 class="section-title" data-translate="services-title">Servicii vin</h2>
+        <p class="section-lead" data-translate="services-lead">Oferim servicii complete pentru consumatori, restaurante și distribuitori, de la selecție până la livrare.</p>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-card-icon" aria-hidden="true">🍇</div>
+            <h3 class="service-card-title" data-translate="service-sourcing">Aprovizionare & selecție</h3>
+            <p class="service-card-text" data-translate="service-sourcing-desc">Surse directe din podgorii și producători autorizați. Asigurăm autenticitate și condiții de transport optime.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-card-icon" aria-hidden="true">📋</div>
+            <h3 class="service-card-title" data-translate="service-curation">Curatare colecții</h3>
+            <p class="service-card-text" data-translate="service-curation-desc">Consultanță pentru crame, restaurante și evenimente: alegerea vinurilor potrivite pentru meniu și ocazie.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-card-icon" aria-hidden="true">🚚</div>
+            <h3 class="service-card-title" data-translate="service-delivery">Livrare</h3>
+            <p class="service-card-text" data-translate="service-delivery-desc">Livrare în condiții controlate, la domiciliu sau la sediu. Livrare gratuită la comenzi de peste 300 lei.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-card-icon" aria-hidden="true">🥂</div>
+            <h3 class="service-card-title" data-translate="service-events">Evenimente & degustări</h3>
+            <p class="service-card-text" data-translate="service-events-desc">Organizare degustări, prezentări și evenimente corporate cu vinuri alese și servicii profesionale.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="regions" class="section section-dark"><div class="container"><p class="section-tag" data-translate="regions-tag">Lume</p></div></section>
+    <section id="about" class="section"><div class="container"><p class="section-tag" data-translate="about-tag">Aiwine</p></div></section>
+    <section id="contact" class="section section-contact">
+      <div class="container">
+        <p class="section-tag" data-translate="contact-tag">Contact</p>
+        <h2 class="section-title" data-translate="contact-title">Contactați-ne</h2>
+        <p class="section-lead contact-lead" data-translate="contact-lead">Suntem la dispoziția dumneavoastră pentru comenzi, parteneriate și informații despre vinuri.</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <span class="contact-item-label" data-translate="contact-email-label">Email</span>
+            <a href="mailto:contact@aiwine.md" class="contact-item-value">contact@aiwine.md</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label" data-translate="contact-phone-label">Telefon</span>
+            <a href="tel:+37360123456" class="contact-item-value">+373 60 123 456</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label" data-translate="contact-address-label">Adresă</span>
+            <span class="contact-item-value" data-translate="contact-address">Chișinău, Moldova</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label" data-translate="contact-hours-label">Program</span>
+            <span class="contact-item-value" data-translate="contact-hours">Lun.–Vineri: 09:00–18:00</span>
+          </div>
+        </div>
+        <div class="contact-cta">
+          <a href="mailto:contact@aiwine.md" class="btn btn-primary" data-translate="contact-cta">Trimite un mesaj</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer footer--vivino">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4>
+          <a href="wines-red.html" class="footer-link">Roșu</a>
+          <a href="wines-white.html" class="footer-link">Alb & Rosé</a>
+          <a href="wines-sparkling.html" class="footer-link">Spumant</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading" data-translate="nav-services">Servicii</h4>
+          <a href="#services" class="footer-link">Livrare</a>
+          <a href="#contact" class="footer-link" data-translate="nav-contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Aiwine</h4>
+          <a href="#about" class="footer-link" data-translate="nav-about">Despre</a>
+        </div>
+      </div>
+      <div class="footer-payment">
+        <span class="footer-payment-label">Plăți:</span>
+        <div class="footer-payment-icons">
+          <img src="assets/payment/maestro.svg" alt="Maestro" width="40" height="28" class="footer-payment-icon">
+          <img src="assets/payment/mastercard.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon">
+          <img src="assets/payment/paypal.svg" alt="PayPal" width="40" height="28" class="footer-payment-icon">
+          <img src="assets/payment/victoriabank.svg" alt="Victoriabank" width="40" height="28" class="footer-payment-icon">
+        </div>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p>
+    </div>
+  </footer>
+  <script src="translations.js"></script>
+  <script src="cart.js"></script>
+  <script src="header.js"></script>
+  <script src="script.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var lang = localStorage.getItem('aiwineLanguage') || 'ro';
+    if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(lang);
+
+    var searchForm = document.getElementById('headerSearchForm');
+    var searchInput = document.getElementById('headerSearchInput');
+    if (searchForm && searchInput) {
+      searchForm.addEventListener('submit', function (e) {
+        var q = (searchInput.value || '').trim();
+        if (!q) return;
+        e.preventDefault();
+        window.location.href = 'wines-red.html?q=' + encodeURIComponent(q);
+      });
+    }
+  });
+  </script>
+</body>
+</html>
