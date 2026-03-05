@@ -11,42 +11,60 @@
     <header class="header header--main">
       <div class="header-inner">
         <div class="header-left">
+          <div class="nav-menu nav-menu--primary" id="navMenu">
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><svg class="menu-btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="menuBarGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.85)"/><stop offset="50%" stop-color="#fff"/><stop offset="100%" stop-color="rgba(255,255,255,0.85)"/></linearGradient></defs><path stroke="url(#menuBarGrad)" stroke-width="1.35" stroke-linecap="round" d="M4 5h16M4 12h16M4 19h16"/></svg></button>
+            <div class="nav-menu-dropdown" id="navMenuDropdown">
+              <div class="nav-menu-header">
+                <button type="button" class="nav-menu-close" id="navMenuClose" aria-label="Close menu" onclick="var m=document.getElementById('navMenu');if(m)m.classList.remove('open');">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+                <button type="button" class="nav-menu-search-btn" aria-label="Search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}document.getElementById('navMenu').classList.remove('open');if(i){setTimeout(function(){i.focus();},50);}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg>
+                </button>
+              </div>
+              <nav class="nav-menu-links">
+                <a href="index.html#about" class="nav-link" data-translate="nav-about">Despre</a>
+                <a href="wines-red.html" class="nav-link nav-link--category" data-translate="wine-red-type">Roșu</a>
+                <a href="wines-white.html" class="nav-link nav-link--category" data-translate="wine-white-title">Alb & Rosé</a>
+                <a href="wines-sparkling.html" class="nav-link nav-link--category" data-translate="wine-sparkling-type">Spumant</a>
+                <a href="index.html#services" class="nav-link" data-translate="nav-services">Servicii</a>
+                <a href="index.html#contact" class="nav-link" data-translate="nav-contact">Contact</a>
+              </nav>
+              <div class="nav-menu-footer">
+                <a href="https://www.facebook.com" class="nav-menu-social" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.instagram.com" class="nav-menu-social" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                <a href="https://www.tiktok.com" class="nav-menu-social" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+              </div>
+            </div>
+          </div>
           <div class="header-search">
-            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar">🔍</button>
-            <div class="header-search-bar" id="headerSearchBar" role="search" hidden>
-              <form action="wines-sparkling.html" method="get">
-                <input type="search" name="q" id="headerSearchInput" placeholder="Search wines…">
-                <button type="submit">🔍</button>
+            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}this.setAttribute('aria-expanded','true');if(i){setTimeout(function(){i.focus();},50);}return false;">
+              <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="butt" stroke-linejoin="miter" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg>
+            </button>
+            <div class="header-search-bar" id="headerSearchBar" role="search">
+              <form class="header-search-form" action="wines-sparkling.html" method="get">
+                <div class="header-search-input-wrap">
+                  <input type="search" name="q" id="headerSearchInput" class="header-search-input" placeholder="Search">
+                  <button type="submit" class="header-search-submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg></button>
+                </div>
               </form>
+              <button type="button" class="header-search-close" id="headerSearchClose" aria-label="Close search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');if(b){b.classList.remove('is-open');}if(h){h.classList.remove('search-expanded');}var btn=document.getElementById('headerSearchBtn');if(btn){btn.setAttribute('aria-expanded','false');}return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
             </div>
           </div>
         </div>
-        <a href="index.html" class="logo logo--center">Aiwine</a>
+        <div class="header-center">
+          <a href="index.html" class="logo logo--center">Aiwine</a>
+        </div>
         <nav class="header-nav header-nav--divus header-right">
           <div class="language-selector">
-            <button class="language-btn" id="languageBtn" type="button"><span id="currentLangDisplay">RO</span> ▼</button>
+            <button class="language-btn" id="languageBtn" type="button"><span id="currentLangDisplay">Română (România)</span> <span class="language-chevron" aria-hidden="true"><svg class="language-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
             <div class="language-dropdown" id="languageDropdown">
-              <button class="language-o
-              ption" data-lang="ro">RO</button>
-              <button class="language-option" data-lang="ru">RU</button>
-              <button class="language-option" data-lang="en">EN</button>
+              <button class="language-option" data-lang="ro">Română (România)</button>
+              <button class="language-option" data-lang="ru">Русский</button>
+              <button class="language-option" data-lang="en">English</button>
             </div>
           </div>
-          <div class="nav-menu nav-menu--primary" id="navMenu">
-            <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰ <span data-translate="nav-menu-label">Meniu</span></button>
-            <div class="nav-menu-dropdown" id="navMenuDropdown">
-              <span class="nav-menu-category-label" data-translate="nav-wines">Vinuri</span>
-              <a href="wines-red.html" class="nav-link nav-link--category" data-translate="wine-red-type">Roșu</a>
-              <a href="wines-white.html" class="nav-link nav-link--category" data-translate="wine-white-title">Alb & Rosé</a>
-              <a href="wines-sparkling.html" class="nav-link nav-link--category" data-translate="wine-sparkling-type">Spumant</a>
-              <span class="nav-menu-divider"></span>
-              <a href="index.html#services" class="nav-link" data-translate="nav-services">Servicii</a>
-              <a href="index.html#about" class="nav-link" data-translate="nav-about">Despre</a>
-              <a href="index.html#contact" class="nav-link" data-translate="nav-contact">Contact</a>
-              <span class="nav-menu-divider"></span>
-              <a href="cart.html" class="nav-link nav-link--cart">🛒 <span data-translate="nav-cart">Coș</span> <span class="header-cart-count" id="headerCartCount">0</span></a>
-            </div>
-          </div>
+          <a href="cart.html" class="header-cart-link" id="headerCartLink"><span class="header-cart-icon-wrap"><svg class="header-cart-icon icon icon-cart" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M20.5 6.5a4.75 4.75 0 00-4.75 4.75v.56h-3.16l-.77 11.6a5 5 0 004.99 5.34h7.38a5 5 0 004.99-5.33l-.77-11.6h-3.16v-.57A4.75 4.75 0 0020.5 6.5zm3.75 5.31v-.56a3.75 3.75 0 10-7.5 0v.56h7.5zm-7.5 1h7.5v.56a3.75 3.75 0 11-7.5 0v-.56zm-1 0v.56a4.75 4.75 0 109.5 0v-.56h2.22l.71 10.67a4 4 0 01-3.99 4.27h-7.38a4 4 0 01-4-4.27l.72-10.67h2.22z"></path></svg><span class="header-cart-count" id="headerCartCount">0</span></span></a>
         </nav>
       </div>
     </header>
@@ -67,7 +85,13 @@
       </div>
     </section>
   </main>
-  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#about" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><span class="footer-payment-label">Plăți:</span><div class="footer-payment-icons"><img src="assets/payment/maestro.svg" alt="Maestro" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/mastercard.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/paypal.svg" alt="PayPal" width="40" height="28" class="footer-payment-icon"><img src="assets/payment/victoriabank.svg" alt="Victoriabank" width="40" height="28" class="footer-payment-icon"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
+  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#about" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/373069135377" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <svg class="whatsapp-float-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
   <script src="translations.js"></script>
   <script src="cart.js"></script>
   <script src="header.js"></script>

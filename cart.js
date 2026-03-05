@@ -20,8 +20,17 @@
     if (i >= 0) cart[i].qty = (cart[i].qty || 1) + qty;
     else cart.push({ id: productId, qty: qty });
     setCart(cart);
+    if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
   };
   window.removeFromCart = function (productId) {
     setCart(getCart().filter(function (item) { return item.id !== productId; }));
+    if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
+  };
+  window.updateHeaderCartCount = function () {
+    var el = document.getElementById('headerCartCount');
+    if (!el || typeof window.getCartCount !== 'function') return;
+    var count = Math.max(0, parseInt(window.getCartCount(), 10) || 0);
+    el.textContent = count;
+    el.setAttribute('data-count', String(count));
   };
 })();

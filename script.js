@@ -31,15 +31,4 @@
     triggers.forEach(function (el) { observer.observe(el); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initScrollAnimations); else initScrollAnimations();
-  var searchBtn = document.getElementById('headerSearchBtn');
-  var searchBar = document.getElementById('headerSearchBar');
-  var searchInput = document.getElementById('headerSearchInput');
-  if (searchBtn && searchBar) {
-    searchBtn.addEventListener('click', function () {
-      var open = searchBar.hidden;
-      searchBar.hidden = !open;
-      searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open && searchInput) searchInput.focus();
-    });
-  }
 })();

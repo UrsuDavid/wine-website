@@ -20,7 +20,7 @@
     return function (p) {
       if (!isBottleOnly(p)) return false;
       if (!typeFilter(p)) return false;
-      if (filters.brands && filters.brands.length && filters.brands.indexOf(p.brand) === -1) return false;
+      if (filters.brandLabels && filters.brandLabels.length && filters.brandLabels.indexOf(prettyBrandLabel(p.brand)) === -1) return false;
       if (filters.priceMin != null && (p.price == null || p.price < filters.priceMin)) return false;
       if (filters.priceMax != null && (p.price == null || p.price > filters.priceMax)) return false;
       if (filters.ratingMin != null && (p.rating == null || p.rating < filters.ratingMin)) return false;
@@ -40,6 +40,33 @@
     for (var i = 0; i < f; i++) s += '<span class="wine-star wine-star--full">★</span>';
     if (h) s += '<span class="wine-star wine-star--half">★</span>';
     for (var j = 0; j < e; j++) s += '<span class="wine-star wine-star--empty">★</span>';
+    return s;
+  }
+  function prettyBrandLabel(brand) {
+    var s = (brand || '').trim();
+    if (!s) return '';
+    var lower = s.toLowerCase();
+    var canonical = {
+      carlevana: 'Carlevana',
+      basavin: 'Basavin',
+      bahu: 'Bahu',
+      aurelius: 'Aurelius',
+      'castel mimi': 'Castel Mimi',
+      'château vartely': 'Château Vartely',
+      'chateau vartely': 'Château Vartely',
+      'château purcari': 'Château Purcari',
+      'chateau purcari': 'Château Purcari'
+    };
+    for (var key in canonical) {
+      if (canonical.hasOwnProperty(key) && lower.indexOf(key) !== -1) return canonical[key];
+    }
+    var words = s.split(/\s+/);
+    if (words.length >= 2) {
+      var grapes = ['CABERNET', 'MERLOT', 'FETEASCA', 'FETEASCA', 'PINOT', 'SAUVIGNON', 'BLANC', 'ROSE', 'ROȘU', 'NOIR', 'NEAGRA', 'NEAGRĂ'];
+      if (grapes.indexOf(words[1].toUpperCase()) !== -1) {
+        return words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase();
+      }
+    }
     return s;
   }
   function createCard(doc, p) {
@@ -133,14 +160,14 @@
       } catch (e) {}
     })();
 
-    var state = { sort: '', brands: [], priceMin: null, priceMax: null, ratingMin: null, discountOnly: false };
+    var state = { sort: '', brandLabels: [], priceMin: null, priceMax: null, ratingMin: null, discountOnly: false };
     var products = window.WINE_PRODUCTS.filter(function (p) { return isBottleOnly(p) && typeFilter(p); });
     var priceBounds = { min: 0, max: 2000 };
     products.forEach(function (p) { if (p.price != null) { if (p.price < priceBounds.min) priceBounds.min = p.price; if (p.price > priceBounds.max) priceBounds.max = p.price; } });
     priceBounds.min = Math.floor(priceBounds.min / 10) * 10 || 0;
     priceBounds.max = Math.ceil(priceBounds.max / 10) * 10 || 2000;
     function updateGrid() {
-      var n = window.renderWineGrid(gridId, typeFilter, state.sort, { brands: state.brands.length ? state.brands : null, priceMin: state.priceMin, priceMax: state.priceMax, ratingMin: state.ratingMin, discountOnly: state.discountOnly });
+      var n = window.renderWineGrid(gridId, typeFilter, state.sort, { brandLabels: state.brandLabels.length ? state.brandLabels : null, priceMin: state.priceMin, priceMax: state.priceMax, ratingMin: state.ratingMin, discountOnly: state.discountOnly });
       window._winePageState.resultCountId = resultCountId;
       window._winePageState.lastCount = n;
       var countEl = resultCountId ? document.getElementById(resultCountId) : null;
@@ -148,11 +175,23 @@
     }
     var brandEl = filterBrandId ? document.getElementById(filterBrandId) : null;
     if (brandEl) {
-      var brands = [];
-      products.forEach(function (p) { if (brands.indexOf(p.brand) === -1) brands.push(p.brand); });
-      brands.sort();
-      brandEl.innerHTML = brands.map(function (b) { var ch = state.brands.length === 0 || state.brands.indexOf(b) !== -1; return '<label class="wine-filter-check"><input type="checkbox" data-brand="' + b + '" ' + (ch ? 'checked' : '') + '> ' + b + '</label>'; }).join('');
-      brandEl.querySelectorAll('input').forEach(function (cb) { cb.addEventListener('change', function () { state.brands = Array.from(brandEl.querySelectorAll('input:checked')).map(function (c) { return c.getAttribute('data-brand'); }); if (state.brands.length === brands.length) state.brands = []; updateGrid(); }); });
+      var labelSet = {};
+      products.forEach(function (p) {
+        var label = prettyBrandLabel(p.brand);
+        if (!label) return;
+        labelSet[label] = true;
+      });
+      var labels = Object.keys(labelSet).sort();
+      brandEl.innerHTML = labels.map(function (label) {
+        var ch = state.brandLabels.indexOf(label) !== -1; // default: all unchecked
+        return '<label class="wine-filter-check"><input type="checkbox" data-label="' + label.replace(/"/g, '&quot;') + '" ' + (ch ? 'checked' : '') + '> ' + label + '</label>';
+      }).join('');
+      brandEl.querySelectorAll('input').forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          state.brandLabels = Array.from(brandEl.querySelectorAll('input:checked')).map(function (c) { return c.getAttribute('data-label'); });
+          updateGrid(); // when none selected, all brands are shown
+        });
+      });
     }
     var priceMinEl = filterPriceMinId ? document.getElementById(filterPriceMinId) : null;
     var priceMaxEl = filterPriceMaxId ? document.getElementById(filterPriceMaxId) : null;

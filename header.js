@@ -1,9 +1,17 @@
 (function () {
   function initHeader() {
-    var labels = { ro: 'RO', ru: 'RU', en: 'EN' };
+    var labels = { ro: 'Română (România)', ru: 'Русский', en: 'English' };
     var lang = localStorage.getItem('aiwineLanguage') || 'ro';
     var display = document.getElementById('currentLangDisplay');
-    if (display) display.textContent = labels[lang] || 'RO';
+    function updateLanguageUI() {
+      var l = localStorage.getItem('aiwineLanguage') || 'ro';
+      if (display) display.textContent = labels[l] || labels.ro;
+      var dropdown = document.getElementById('languageDropdown');
+      if (dropdown) dropdown.querySelectorAll('.language-option').forEach(function (opt) {
+        opt.classList.toggle('active', opt.getAttribute('data-lang') === l);
+      });
+    }
+    updateLanguageUI();
 
     document.getElementById('languageBtn') && document.getElementById('languageBtn').addEventListener('click', function (e) {
       e.stopPropagation();
@@ -14,8 +22,7 @@
         var l = this.getAttribute('data-lang');
         localStorage.setItem('aiwineLanguage', l);
         if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(l);
-        var d = document.getElementById('currentLangDisplay');
-        if (d) d.textContent = labels[l] || l.toUpperCase();
+        updateLanguageUI();
         document.querySelector('.language-selector').classList.remove('active');
       });
     });
@@ -34,23 +41,32 @@
       if (navMenu && !navMenu.contains(e.target)) navMenu.classList.remove('open');
     });
 
-    var searchBtn = document.getElementById('headerSearchBtn');
     var searchBar = document.getElementById('headerSearchBar');
-    if (searchBtn && searchBar) {
-      searchBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var hidden = searchBar.hidden;
-        searchBar.hidden = !hidden;
-        searchBtn.setAttribute('aria-expanded', !hidden);
-        if (!hidden && document.getElementById('headerSearchInput')) document.getElementById('headerSearchInput').focus();
-      });
+    var searchBtn = document.getElementById('headerSearchBtn');
+    var siteHeader = document.querySelector('.site-header');
+    function closeSearch() {
+      if (searchBar) searchBar.classList.remove('is-open');
+      if (searchBtn) searchBtn.setAttribute('aria-expanded', 'false');
+      if (siteHeader) siteHeader.classList.remove('search-expanded');
+    }
+    if (searchBar && searchBtn) {
       document.addEventListener('click', function (e) {
-        if (searchBar && !searchBar.contains(e.target) && !searchBtn.contains(e.target)) searchBar.hidden = true;
+        if (!searchBar.classList.contains('is-open')) return;
+        if (searchBar.contains(e.target) || searchBtn.contains(e.target)) return;
+        closeSearch();
       });
+      var closeSearchOnScroll = function () {
+        if (searchBar && searchBar.classList.contains('is-open')) closeSearch();
+      };
+      var passive = { passive: true };
+      window.addEventListener('scroll', closeSearchOnScroll, passive);
+      window.addEventListener('wheel', closeSearchOnScroll, passive);
+      window.addEventListener('touchmove', closeSearchOnScroll, passive);
+      var scrollRoot = document.scrollingElement || document.documentElement || document.body;
+      if (scrollRoot && scrollRoot !== window) scrollRoot.addEventListener('scroll', closeSearchOnScroll, passive);
     }
 
-    var cartCount = document.getElementById('headerCartCount');
-    if (cartCount && typeof window.getCartCount === 'function') cartCount.textContent = window.getCartCount();
+    if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHeader);
   else initHeader();

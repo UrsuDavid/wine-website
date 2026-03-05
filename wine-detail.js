@@ -71,6 +71,5 @@
       if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
     }
   }
-  window.updateHeaderCartCount = function () { var el = document.getElementById('headerCartCount'); if (el && typeof window.getCartCount === 'function') el.textContent = window.getCartCount(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
