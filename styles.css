@@ -539,7 +539,7 @@ body.search-grid-open .page-grid-overlay {
 #wines .wine-card { border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 #wines .wine-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
 #wines .wine-card-body { padding: 1.5rem; display: flex; flex-direction: column; min-height: 0; }
-#wines .wine-card-desc { font-size: 0.95rem; line-height: 1.55; margin-top: 0.5rem; margin-bottom: 1rem; color: #5c524c; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+#wines .wine-card-desc { font-size: 0.95rem; line-height: 1.55; margin-top: 0.5rem; margin-bottom: 1rem; color: #5c524c; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 #wines .wine-card-body .wine-type { color: var(--gold); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
 #wines .wine-card-body h3 { color: var(--ink); margin-bottom: 0.35rem; font-size: 1.15rem; }
 #wines .wine-card-cta-link { margin-top: auto; font-size: 0.9rem; font-weight: 600; color: var(--wine); display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s, gap 0.2s; }
