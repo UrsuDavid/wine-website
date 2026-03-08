@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aiwine – Vinuri albe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,500;0,700;0,800;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,12 +21,12 @@
                 <button type="button" class="nav-menu-close" id="navMenuClose" aria-label="Close menu" onclick="var m=document.getElementById('navMenu');if(m)m.classList.remove('open');">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
-                <button type="button" class="nav-menu-search-btn" aria-label="Search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}document.getElementById('navMenu').classList.remove('open');if(i){setTimeout(function(){i.focus();},50);}">
+                <button type="button" class="nav-menu-search-btn" aria-label="Search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}document.body.classList.add('search-grid-open');document.getElementById('navMenu').classList.remove('open');if(i){setTimeout(function(){i.focus();},50);}">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg>
                 </button>
               </div>
               <nav class="nav-menu-links">
-                <a href="index.html#about" class="nav-link" data-translate="nav-about">Despre</a>
+                <a href="index.html#contact" class="nav-link" data-translate="nav-about">Despre</a>
                 <a href="wines-red.html" class="nav-link nav-link--category" data-translate="wine-red-type">Roșu</a>
                 <a href="wines-white.html" class="nav-link nav-link--category" data-translate="wine-white-title">Alb & Rosé</a>
                 <a href="wines-sparkling.html" class="nav-link nav-link--category" data-translate="wine-sparkling-type">Spumant</a>
@@ -38,7 +41,7 @@
             </div>
           </div>
           <div class="header-search">
-            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}this.setAttribute('aria-expanded','true');if(i){setTimeout(function(){i.focus();},50);}return false;">
+            <button type="button" class="header-search-btn" id="headerSearchBtn" aria-label="Search" aria-expanded="false" aria-controls="headerSearchBar" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');var i=document.getElementById('headerSearchInput');if(b){b.classList.add('is-open');}if(h){h.classList.add('search-expanded');}document.body.classList.add('search-grid-open');this.setAttribute('aria-expanded','true');if(i){setTimeout(function(){i.focus();},50);}return false;">
               <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg>
             </button>
             <div class="header-search-bar" id="headerSearchBar" role="search">
@@ -48,7 +51,7 @@
                   <button type="submit" class="header-search-submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="11" cy="11" r="7"/><path d="M15.95 15.95 L22 22"/></svg></button>
                 </div>
               </form>
-              <button type="button" class="header-search-close" id="headerSearchClose" aria-label="Close search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');if(b){b.classList.remove('is-open');}if(h){h.classList.remove('search-expanded');}var btn=document.getElementById('headerSearchBtn');if(btn){btn.setAttribute('aria-expanded','false');}return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+              <button type="button" class="header-search-close" id="headerSearchClose" aria-label="Close search" onclick="var b=document.getElementById('headerSearchBar');var h=document.querySelector('.site-header');if(b){b.classList.remove('is-open');}if(h){h.classList.remove('search-expanded');}document.body.classList.remove('search-grid-open');var btn=document.getElementById('headerSearchBtn');if(btn){btn.setAttribute('aria-expanded','false');}return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
             </div>
           </div>
         </div>
@@ -69,8 +72,9 @@
       </div>
     </header>
   </div>
+  <div class="page-grid-overlay"></div>
   <main class="main-offset">
-    <section class="section">
+    <section class="section section-light">
       <div class="container">
         <h1 class="section-title">Vinuri albe si rose</h1>
         <div class="wine-explorer">
@@ -85,7 +89,7 @@
       </div>
     </section>
   </main>
-  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#about" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
+  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#contact" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span> · <a href="https://github.com/UrsuDavid/wine-website" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a></p></div></footer>
   <!-- Floating WhatsApp button -->
   <a href="https://wa.me/373069135377" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
     <svg class="whatsapp-float-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

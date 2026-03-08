@@ -1,0 +1,169 @@
+/**
+ * HERO BANNER – Edit this file to change the hero section
+ * -----------------------------------------------
+ * Change the variables below to update:
+ * - Hero image (banner background)
+ * - Fallback background color (when image is loading or missing)
+ * - Overlay darkness and gradient
+ * - Banner height and text styling
+ */
+
+:root {
+  /* Banner image: use a path like 'assets/hero-banner.png' or a full URL */
+  --hero-banner-image: url('https://7iholv399c.ufs.sh/f/HaR9udCabRJA4HBlk5RTPg6OjtkKB2ryWqF5ZDRhAceCNJEV');
+  /* Fallback background color when no image – dark to match image edges (no red bands). */
+  --hero-bg-color: #0f0f0f;
+  /* Overlay gradient (top to bottom). Set to transparent for a clean photo look. */
+  --hero-overlay-start: transparent;
+  --hero-overlay-end: transparent;
+  /* Banner height: taller so hero feels like a full photo (e.g. 120vh–140vh) */
+  --hero-min-height: 130vh;
+  /* Parallax: fixed = image stays while content scrolls (scroll-animated). */
+  --hero-bg-attachment: fixed;
+  /* Position: image aligned to top so it extends under the header (no visible line). */
+  --hero-bg-position: center top;
+}
+
+/* ----- Do not edit below unless you need layout changes ----- */
+
+.banner {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.banner--hero {
+  min-height: var(--hero-min-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner--divus {
+  background-color: var(--hero-bg-color);
+  background-image: var(--hero-banner-image);
+  background-position: var(--hero-bg-position);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: var(--hero-bg-attachment);
+}
+
+/* Force hero background so it always applies (overrides cache/load order) */
+section#bannerHero.banner.banner--divus {
+  background-image: var(--hero-banner-image) !important;
+  background-position: var(--hero-bg-position) !important;
+}
+
+.banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--hero-overlay-start) 0%, var(--hero-overlay-end) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.banner__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.banner__content--center {
+  min-height: var(--hero-min-height);
+}
+
+.banner-tag {
+  font-family: var(--font-divus);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.banner-title {
+  font-family: var(--font-divus);
+  font-size: clamp(1.75rem, 5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.6rem;
+}
+
+.banner-sub {
+  font-family: var(--font-divus);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 500px;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
+}
+
+.banner-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.banner-cta-ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.banner-cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+body.has-banner-hero {
+  padding-top: 0;
+}
+
+@media (max-width: 768px) {
+  .banner--divus {
+    background-attachment: scroll;
+  }
+  section#bannerHero.banner.banner--divus {
+    background-attachment: scroll !important;
+    background-position: center center;
+  }
+  .banner--hero {
+    min-height: 100vh;
+  }
+  .banner__content--center {
+    min-height: 100vh;
+  }
+  .banner__content {
+    padding: 3rem 1.5rem;
+  }
+  .banner-title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  .banner-sub {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+}
+@media (max-width: 480px) {
+  .banner__content {
+    padding: 2.5rem 1rem;
+  }
+  .banner-tag {
+    font-size: 0.7rem;
+  }
+  .banner-title {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+}
