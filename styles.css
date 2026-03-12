@@ -621,10 +621,14 @@ body.search-grid-open .page-grid-overlay {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  grid-template-areas:
+    "filters toolbar"
+    "filters grid";
   align-items: flex-start;
   column-gap: 2rem;
 }
 .wine-filters {
+  grid-area: filters;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -633,6 +637,12 @@ body.search-grid-open .page-grid-overlay {
   top: 6.5rem;
   max-height: calc(100vh - 7rem);
   overflow-y: auto;
+}
+.wine-toolbar {
+  grid-area: toolbar;
+}
+.wine-grid {
+  grid-area: grid;
 }
 .wine-filter-group { background: #fff; border: 1px solid rgba(92,45,45,0.12); border-radius: 12px; padding: 1.25rem; margin: 0; }
 .wine-filter-group--brand { min-width: 0; }
@@ -807,7 +817,13 @@ body.search-grid-open .page-grid-overlay {
   .section-title { font-size: clamp(1.5rem, 5vw, 2rem); }
   .section-tag { font-size: 0.75rem; }
   /* Keep desktop/tablet two‑column layout; only tighten spacing */
-  .wine-explorer { margin-top: 0.75rem; }
+  .wine-explorer {
+    margin-top: 0.75rem;
+    grid-template-columns: minmax(240px, 1fr) minmax(0, 1.4fr);
+    grid-template-areas:
+      "filters toolbar"
+      "filters grid";
+  }
   .wine-filters { gap: 1rem; }
   .wine-filter-group { padding: 1rem; }
   .wine-grid { gap: 1rem; }
