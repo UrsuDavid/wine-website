@@ -64,6 +64,29 @@ a:hover { color: #e8d4b8; text-decoration: underline; }
 .nav-menu-dropdown .nav-link:hover { background: transparent; color: #fff; text-decoration: none; opacity: 1; }
 .nav-menu-dropdown .nav-link:active { transform: translateX(2px); }
 .nav-menu-dropdown .nav-link--category { font-weight: 500; }
+/* Language and currency in menu: visible only on mobile (see @media below), in one row */
+.nav-menu-lang-currency-row { display: none; }
+.nav-menu-language { display: none; flex-direction: column; align-items: stretch; gap: 0.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.nav-menu-language-label { display: none; font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.nav-menu-select-wrap { position: relative; }
+.nav-menu-select-trigger { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 0.5rem 1rem; font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.95); background: transparent; border: none; border-radius: 10px; cursor: pointer; transition: background 0.2s; -webkit-tap-highlight-color: transparent; text-align: left; font-family: inherit; }
+.nav-menu-select-trigger:hover { background: transparent; }
+.nav-menu-select-wrap.is-open .nav-menu-select-trigger { background: transparent; border-radius: 10px 10px 0 0; }
+.nav-menu-select-chevron { display: flex; align-items: center; transition: transform 0.2s ease; }
+.nav-menu-select-chevron svg { width: 1em; height: 1em; }
+.nav-menu-select-wrap.is-open .nav-menu-select-chevron { transform: rotate(180deg); }
+.nav-menu-select-list { display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: -1px; background: rgba(20,20,20,0.98); border: 1px solid rgba(255,255,255,0.25); border-top: none; border-radius: 0 0 10px 10px; box-shadow: 0 6px 16px rgba(0,0,0,0.4); z-index: 10; max-height: 200px; overflow-y: auto; }
+.nav-menu-select-wrap.is-open .nav-menu-select-list { display: block; }
+.nav-menu-language-option,
+.nav-menu-currency-option { display: block; width: 100%; min-height: 44px; padding: 0.5rem 1rem; font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.9); background: transparent; border: none; border-top: 1px solid rgba(255,255,255,0.08); cursor: pointer; text-align: left; font-family: inherit; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+.nav-menu-language-option:first-of-type,
+.nav-menu-currency-option:first-of-type { border-top: none; }
+.nav-menu-language-option:hover,
+.nav-menu-currency-option:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.nav-menu-language-option.active,
+.nav-menu-currency-option.active { background: rgba(255,255,255,0.12); color: #fff; }
+.nav-menu-currency { display: none; flex-direction: column; align-items: stretch; gap: 0.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.nav-menu-currency-label { display: none; font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
 .nav-menu-footer { padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 1rem; }
 .nav-menu-social { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: #fff; border-radius: 8px; transition: var(--header-btn-transition); opacity: 1; }
 .nav-menu-social:hover { color: #fff; background: transparent; opacity: 0.9; transform: translateY(-2px); }
@@ -76,9 +99,18 @@ a:hover { color: #e8d4b8; text-decoration: underline; }
 .header-search-btn:active { transform: translateY(0) scale(0.97); }
 .header-search-icon { width: 22px; height: 22px; display: block; }
 /* Default: dropdown under button */
-.header-search-bar { position: absolute; top: 100%; left: 0; margin-top: 0.5rem; display: none; align-items: center; gap: 0.5rem; background: var(--header-bg); border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; padding: 0.5rem 0.6rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 50; min-width: 280px; }
+.header-search-bar { position: absolute; top: 100%; left: 0; margin-top: 0.5rem; display: none; align-items: center; gap: 0.5rem; background: var(--header-bg); border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; padding: 0.5rem 0.6rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 50; min-width: 280px; flex-wrap: wrap; }
 .header-search-bar.is-open { display: flex; }
+.header-search-suggestions { display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: 0.25rem; background: var(--header-bg); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); max-height: 320px; overflow-y: auto; z-index: 60; width: 100%; min-width: 280px; }
+.header-search-suggestions.is-visible { display: block; }
+.header-search-suggestions-item, .header-search-suggestions-viewall { display: block; padding: 0.6rem 0.75rem; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.15s; }
+.header-search-suggestions-item:last-of-type { border-bottom: none; }
+.header-search-suggestions-item:hover, .header-search-suggestions-viewall:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.header-search-suggestions-viewall { font-weight: 600; text-align: center; border-bottom: none; border-top: 1px solid rgba(255,255,255,0.15); }
+.header-search-suggestions-empty { padding: 0.75rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
 /* When search expands: Divus-style – no logo, full-width bar, two thin white lines (top + bottom) */
+.site-header.search-expanded .header-search-bar .header-search-suggestions { left: 0; right: 0; width: 100%; max-height: 50vh; -webkit-overflow-scrolling: touch; }
+.site-header.search-expanded .header-search-bar .header-search-suggestions.is-visible { display: block; }
 /* Hide only the menu, logo, language and cart – keep the expanded search bar visible (it lives in header-left) */
 .site-header.search-expanded .header-left .nav-menu { visibility: hidden; pointer-events: none; }
 .site-header.search-expanded .header-center { visibility: hidden; pointer-events: none; }
@@ -104,6 +136,8 @@ a:hover { color: #e8d4b8; text-decoration: underline; }
 .header-search-input-wrap { display: flex; align-items: center; flex: 1; min-width: 0; background: var(--header-bg); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 0 0.5rem 0 0.75rem; }
 .header-search-input { flex: 1; min-width: 0; padding: 0.6rem 0.5rem; border: none; background: transparent; font-size: 0.95rem; color: #fff; outline: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; text-shadow: 0 1px 0 rgba(255,255,255,0.08); }
 .header-search-input::placeholder { color: rgba(255,255,255,0.55); font-weight: 600; text-shadow: 0 1px 0 rgba(255,255,255,0.08); }
+.header-search-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; height: 16px; width: 16px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") no-repeat center; background-size: 14px 14px; cursor: pointer; opacity: 0.9; }
+.header-search-input::-webkit-search-cancel-button:hover { opacity: 1; }
 .header-search-submit { display: flex; align-items: center; justify-content: center; padding: 0.35rem; border: none; background: transparent; cursor: pointer; color: rgba(255,255,255,0.85); flex-shrink: 0; transition: var(--header-btn-transition); }
 .header-search-submit svg { width: 18px; height: 18px; }
 .header-search-submit:hover { color: #fff; opacity: 1; }
@@ -136,6 +170,18 @@ body.search-grid-open .page-grid-overlay {
 .language-dropdown .language-option::before { content: ''; width: 1em; flex-shrink: 0; }
 .language-dropdown .language-option.active::before { content: '✓'; color: rgba(255,255,255,0.85); }
 .language-dropdown .language-option:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.currency-selector { position: relative; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+.currency-btn { background: transparent; border: none; padding: 0.5rem 0.85rem; border-radius: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 400; color: rgb(240, 240, 240); transition: var(--header-btn-transition); opacity: 1; font-family: inherit; display: inline-flex; align-items: center; gap: 0.35rem; }
+.currency-btn:hover { background: transparent; color: rgb(248, 248, 248); opacity: 0.95; transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.currency-btn .currency-chevron { display: inline-flex; align-items: center; transition: transform 0.2s ease; }
+.currency-btn .currency-chevron-icon { width: 0.6em; height: 0.6em; display: block; filter: drop-shadow(0 0 0.5px currentColor); }
+.currency-selector.active .currency-btn .currency-chevron { transform: rotate(180deg); }
+.currency-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 0.35rem; background: var(--header-bg); border: none; border-radius: 0; padding: 0; min-width: 120px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.12); }
+.currency-selector.active .currency-dropdown { display: block; }
+.currency-dropdown .currency-option { display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.6rem 1rem; text-align: left; border: none; background: none; cursor: pointer; font-size: 0.9rem; font-weight: 400; color: rgba(255,255,255,0.85); font-family: inherit; transition: background-color 0.15s ease, color 0.15s ease; }
+.currency-dropdown .currency-option::before { content: ''; width: 1em; flex-shrink: 0; }
+.currency-dropdown .currency-option.active::before { content: '✓'; color: rgba(255,255,255,0.85); }
+.currency-dropdown .currency-option:hover { background: rgba(255,255,255,0.08); color: #fff; }
 .header-cart-link { display: inline-flex; align-items: center; padding: 0.5rem 0.75rem; font-size: 0.9rem; color: #fff; text-decoration: none; border-radius: 8px; border: none; transition: var(--header-btn-transition); opacity: 1; }
 .header-cart-link:hover { background: transparent; color: #fff; text-decoration: none; opacity: 0.95; transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 .header-cart-link:active { transform: translateY(0) scale(0.97); }
@@ -149,7 +195,7 @@ body.search-grid-open .page-grid-overlay {
 
 /* Hero banner styles are in hero-banner.css – edit that file to change image, overlay, etc. */
 .main-offset { padding-top: 5.5rem; }
-.btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; transition: background 0.2s, color 0.2s; }
+.btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-family: var(--font-divus), sans-serif; transition: background 0.2s, color 0.2s; }
 .btn-primary { background: var(--wine); color: #fff; border: none; }
 .btn-primary:hover { background: var(--wine-deep); }
 .btn-ghost { background: transparent; color: var(--wine); border: 2px solid var(--wine); }
@@ -160,8 +206,10 @@ body.search-grid-open .page-grid-overlay {
 .section-light .section-title { color: var(--ink); }
 .section-light .wine-explorer,
 .section-light .container { background: #fff; }
-.section-light .wine-range-input::-webkit-slider-runnable-track { height: 8px; background: #e8e8e8; border-radius: 4px; }
-.section-light .wine-range-input::-moz-range-track { height: 8px; background: #e8e8e8; border-radius: 4px; }
+.section-light .wine-range-input::-webkit-slider-runnable-track { height: 8px; background: #c8c8c8; border-radius: 4px; }
+.section-light .wine-range-input::-moz-range-track { height: 8px; background: #c8c8c8; border-radius: 4px; }
+.section-light .wine-range-input--min::-webkit-slider-runnable-track { background: transparent; }
+.section-light .wine-range-input--min::-moz-range-track { background: transparent; }
 .section-dark { background: #fff; color: var(--ink); }
 .section-dark .section-title { color: var(--ink); }
 .container { max-width: 1100px; margin: 0 auto; }
@@ -207,7 +255,7 @@ body.search-grid-open .page-grid-overlay {
   transform: translateY(-50%);
   width: 50%;
   max-width: 420px;
-  padding: 0 2rem 0 3rem;
+  padding: 0 2rem 0 1.75rem;
   margin: 0;
   text-align: left;
   z-index: 2;
@@ -234,14 +282,14 @@ body.search-grid-open .page-grid-overlay {
 }
 @media (max-width: 768px) {
   .section-before-services { min-height: 85vh; }
-  .section-before-services-bg { background-size: contain; }
+  .section-before-services-bg { background-size: cover; background-position: center 45%; }
   .section-before-services-text-wrap {
     width: 88%;
     max-width: none;
-    padding: 0 1.5rem;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    padding: 0 1.5rem 0 max(1.25rem, env(safe-area-inset-left));
+    left: 0;
+    transform: translateY(-50%);
+    text-align: left;
   }
   .section-before-services-tagline { font-size: 0.6rem; letter-spacing: 0.2em; margin-bottom: 0.75rem; }
   .section-before-services-heading { font-size: clamp(1.5rem, 6vw, 2.25rem); }
@@ -428,6 +476,10 @@ body.search-grid-open .page-grid-overlay {
   .services-delivery-text-wrap {
     padding: 2rem 1.5rem;
   }
+  .services-curation-photo-wrap { order: -1; }
+  .services-curation-text-wrap { order: 0; }
+  .services-delivery-photo-wrap { order: -1; }
+  .services-delivery-text-wrap { order: 0; }
 }
 
 /* Options: 2x2 grid of cards */
@@ -528,10 +580,21 @@ body.search-grid-open .page-grid-overlay {
   .contact-cta { text-align: center; }
 }
 
-.wine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
-#wines .wine-grid { gap: 1.75rem; }
+.wine-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; align-items: stretch; }
+#wines .wine-grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
 @media (max-width: 900px) { .wine-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .wine-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .wine-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; } }
+
+.wine-pagination { grid-column: 2; grid-row: 4; display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.wine-pagination .btn { padding: 0.5rem 1rem; font-size: 0.9rem; font-weight: 600; font-family: var(--font-divus), sans-serif; color: #000; background: #fff; border: 1px solid rgba(0,0,0,0.25); border-radius: 8px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.wine-pagination .btn:hover:not(:disabled) { background: rgba(0,0,0,0.06); border-color: #000; color: #000; }
+.wine-pagination .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.wine-pagination-page { font-size: 0.95rem; font-weight: 600; font-family: var(--font-divus), sans-serif; color: var(--ink); display: inline-flex; align-items: center; flex-wrap: wrap; }
+.wine-pagination-page-input { width: 2.5rem; padding: 0.35rem 0.25rem; font-size: 0.9rem; font-weight: 600; font-family: var(--font-divus), sans-serif; text-align: center; color: var(--ink); background: #fff; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; -moz-appearance: textfield; appearance: textfield; }
+.wine-pagination-page-input::-webkit-outer-spin-button,
+.wine-pagination-page-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.wine-pagination-page-input:focus { outline: none; border-color: rgba(0,0,0,0.4); }
+
 .wine-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; color: inherit; border: 1px solid #fff; min-height: 0; outline: none; -webkit-tap-highlight-color: transparent; }
 .wine-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06), 0 0 0 1px #fff; text-decoration: none; background: #fff; border-color: #fff; }
 .wine-card:focus { outline: 2px solid #fff; outline-offset: 2px; background: #fff; border-color: #fff; }
@@ -638,14 +701,14 @@ body.search-grid-open .page-grid-overlay {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
   align-items: flex-start;
   column-gap: 2rem;
   overflow: visible;
 }
 .wine-catalog-title {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
   margin-top: 0;
   margin-bottom: 0.75rem;
 }
@@ -678,7 +741,7 @@ body.search-grid-open .page-grid-overlay {
 }
 .wine-toolbar {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
 }
 .wine-grid {
   grid-column: 2;
@@ -694,21 +757,26 @@ body.search-grid-open .page-grid-overlay {
 .wine-filter-check:hover { color: var(--wine); }
 .wine-filter-checkbox { width: 1.1rem; height: 1.1rem; accent-color: var(--wine); cursor: pointer; }
 .wine-filter-group--price { display: flex; flex-direction: column; gap: 0.75rem; }
-.wine-price-range-display { font-size: 1.05rem; font-weight: 600; color: var(--wine); margin: 0 0 0.5rem 0; }
+.wine-price-range-display { font-size: 1.05rem; font-weight: 600; font-family: var(--font-divus), sans-serif; color: #000; margin: 0 0 0.5rem 0; }
 .wine-price-range-sliders { position: relative; height: 32px; padding: 0 8px; }
 .wine-range-input { position: absolute; width: calc(100% - 16px); left: 8px; height: 8px; margin: 0; -webkit-appearance: none; appearance: none; background: transparent; border-radius: 4px; }
-.wine-range-input--min { z-index: 1; }
-.wine-range-input--max { z-index: 2; }
-.wine-range-input::-webkit-slider-runnable-track { height: 8px; background: var(--cream-dark); border-radius: 4px; }
-.wine-range-input::-moz-range-track { height: 8px; background: var(--cream-dark); border-radius: 4px; }
-.wine-range-input::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--wine); cursor: pointer; box-shadow: 0 2px 8px rgba(92,45,45,0.3); margin-top: -7px; }
-.wine-range-input::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--wine); cursor: pointer; border: none; box-shadow: 0 2px 8px rgba(92,45,45,0.3); }
+.wine-range-input--min { z-index: 2; }
+.wine-range-input--max { z-index: 1; }
+.wine-range-input::-webkit-slider-runnable-track { height: 8px; background: #c8c8c8; border-radius: 4px; }
+.wine-range-input::-moz-range-track { height: 8px; background: #c8c8c8; border-radius: 4px; }
+.wine-range-input--min::-webkit-slider-runnable-track { background: transparent; }
+.wine-range-input--min::-moz-range-track { background: transparent; }
+.wine-range-input::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #000; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.25); margin-top: -7px; }
+.wine-range-input::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #000; cursor: pointer; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
 .wine-filter-check--discount { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(0,0,0,0.06); }
 .wine-filter-group--rating { display: flex; flex-direction: column; }
 /* Filter and sort dropdowns: clean solid style, single chevron */
 .wine-filter-select { width: 100%; padding: 0.75rem 2.25rem 0.75rem 1rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em; color: var(--ink); background: #fff; border: 1px solid rgba(92,45,45,0.14); border-radius: 10px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a827a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 14px 14px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .wine-filter-select:hover { border-color: rgba(92,45,45,0.3); }
 .wine-filter-select:focus { outline: none; border-color: var(--wine); box-shadow: 0 0 0 2px rgba(92,45,45,0.15); }
+.wine-filters-toggle { display: none; }
+.wine-filters-close { display: none; }
+.wine-filters-backdrop { display: none; }
 .wine-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
 .wine-result-count { font-size: 0.95rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
 .wine-toolbar select { padding: 0.7rem 2.25rem 0.7rem 1rem; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); background: #fff; border: 1px solid rgba(92,45,45,0.14); border-radius: 10px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a827a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 14px 14px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
@@ -719,7 +787,7 @@ body.search-grid-open .page-grid-overlay {
 .section-dark .wine-filter-legend { color: var(--ink); }
 .section-dark .wine-filter-check { color: var(--ink); }
 .section-dark .wine-filter-check:hover { color: var(--wine); }
-.section-dark .wine-price-range-display { color: var(--wine); }
+.section-dark .wine-price-range-display { color: #000; }
 .section-dark .wine-filter-select { background: #fff; border: 1px solid rgba(0,0,0,0.08); color: var(--ink); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a827a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 14px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
 .section-dark .wine-filter-select:hover { background: #fff; border-color: rgba(0,0,0,0.15); }
 .section-dark .wine-filter-select option { background: #fff; color: var(--ink); }
@@ -729,10 +797,10 @@ body.search-grid-open .page-grid-overlay {
 .section-dark .wine-toolbar select option { background: #fff; color: var(--ink); }
 .section-dark .wine-toolbar label { color: var(--ink); }
 
-.back-to-catalog { display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem; padding: 0.5rem 0; font-size: 0.95rem; font-weight: 600; color: var(--wine); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s, gap 0.2s; }
-.back-to-catalog:hover { color: var(--ink); gap: 0.5rem; }
-.section-dark .back-to-catalog { color: var(--wine); }
-.section-dark .back-to-catalog:hover { color: var(--ink); }
+.back-to-catalog { display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem; padding: 0.5rem 0; font-size: 0.95rem; font-weight: 600; font-family: var(--font-divus), sans-serif; color: #000; text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s, gap 0.2s; }
+.back-to-catalog:hover { color: rgba(0,0,0,0.7); gap: 0.5rem; }
+.section-dark .back-to-catalog { color: #000; }
+.section-dark .back-to-catalog:hover { color: rgba(0,0,0,0.7); }
 
 .wine-detail-main { padding: 6rem 2rem 4rem; background: #fff; color: var(--ink); }
 .wine-detail-loading { text-align: center; color: var(--ink); padding: 2rem; }
@@ -752,9 +820,9 @@ body.search-grid-open .page-grid-overlay {
 .wine-detail-quantity { margin-bottom: 1rem; }
 .wine-detail-quantity label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--ink); }
 .wine-detail-qty-wrap { display: inline-flex; align-items: center; border: 1px solid rgba(92,45,45,0.2); border-radius: 8px; }
-.wine-detail-qty-wrap button { width: 2.5rem; height: 2.5rem; border: none; background: var(--cream-dark); cursor: pointer; font-size: 1.25rem; font-weight: 600; color: var(--ink); }
-.wine-detail-qty-wrap button:hover { background: rgba(92,45,45,0.08); }
-.wine-detail-qty-wrap input { width: 3rem; height: 2.5rem; border: none; text-align: center; font-size: 1rem; background: transparent; color: var(--ink); }
+.wine-detail-qty-wrap button { width: 2.5rem; height: 2.5rem; border: none; background: #fff; cursor: pointer; font-size: 1.25rem; font-weight: 600; font-family: var(--font-divus), sans-serif; color: #000; }
+.wine-detail-qty-wrap button:hover { background: #f5f5f5; }
+.wine-detail-qty-wrap input { width: 3rem; height: 2.5rem; border: none; text-align: center; font-size: 1rem; font-family: var(--font-divus), sans-serif; background: transparent; color: var(--ink); }
 .wine-detail-qty-wrap input::-webkit-outer-spin-button,
 .wine-detail-qty-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .wine-detail-qty-wrap input[type=number] { -moz-appearance: textfield; appearance: textfield; }
@@ -779,15 +847,15 @@ body.search-grid-open .page-grid-overlay {
 .wine-detail-vivino-link { font-size: 0.9rem; font-weight: 600; color: var(--wine, #722f37); margin-left: 0.5rem; }
 .wine-detail-vivino-link:hover { text-decoration: underline; }
 
-.cart-main { padding: 6rem 2rem 4rem; min-height: 50vh; background: var(--page-bg); color: var(--text-on-dark); }
-.cart-title { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; color: #fff; }
-.cart-empty { text-align: center; padding: 3rem; color: var(--text-muted-on-dark); }
+.cart-main { padding: 6rem 2rem 4rem; min-height: 50vh; background: #fff; color: var(--ink); font-family: var(--font-divus), sans-serif; }
+.cart-title { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--ink); font-family: var(--font-divus), sans-serif; }
+.cart-empty { text-align: center; padding: 3rem; color: rgba(0,0,0,0.7); font-family: var(--font-divus), sans-serif; }
 .cart-empty .btn { margin-top: 1rem; }
 .cart-list { margin-bottom: 1.5rem; }
-.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 0.5rem; border: 1px solid rgba(255,255,255,0.08); }
-.cart-item-remove { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--gold); }
-.cart-summary { padding: 1.5rem; background: rgba(255,255,255,0.06); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
-.cart-total { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #fff; }
+.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(0,0,0,0.04); border-radius: 8px; margin-bottom: 0.5rem; border: 1px solid rgba(0,0,0,0.1); }
+.cart-item-remove { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--wine); }
+.cart-summary { padding: 1.5rem; background: rgba(0,0,0,0.04); border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); }
+.cart-total { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: var(--ink); }
 
 /* Footer: matches header and hero palette */
 .footer { padding: 3rem 2rem 2rem; background: var(--header-bg); color: var(--text-muted-on-dark); }
@@ -856,49 +924,164 @@ body.search-grid-open .page-grid-overlay {
 /* Mobile: same look, scaled – prevent overflow and consistent spacing */
 @media (max-width: 768px) {
   .header,
-  .header--main { padding: 0.75rem 1rem; }
+  .header--main { padding: 0.75rem 1rem; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
   .header-inner { padding: 0 0.5rem; gap: 0.5rem; }
+  .header-right .language-selector { display: none !important; }
+  .header-right .currency-selector { display: none !important; }
+  .nav-menu-lang-currency-row { display: flex !important; flex-direction: row; align-items: stretch; gap: 0.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .nav-menu-lang-currency-row .nav-menu-language,
+  .nav-menu-lang-currency-row .nav-menu-currency { display: flex !important; flex: 1; min-width: 0; padding: 0; border-top: none; }
+  .nav-menu-language { display: flex !important; }
+  .nav-menu-currency { display: flex !important; }
   .logo--center { font-size: 1.35rem; letter-spacing: 0.08em; }
-  .container { padding-left: 1rem; padding-right: 1rem; }
-  .section { padding: 3rem 1rem; }
+  .site-header.search-expanded .header-search-bar { padding-left: max(1.5rem, env(safe-area-inset-left)); padding-right: max(1.5rem, env(safe-area-inset-right)); top: max(1.1rem, env(safe-area-inset-top)); }
+  .header-search-suggestions-item, .header-search-suggestions-viewall { min-height: 44px; display: flex; align-items: center; padding: 0 1rem; -webkit-tap-highlight-color: transparent; }
+  .header-search-suggestions-viewall { justify-content: center; }
+  .container { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+  .section { padding: 3rem 1rem; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
   .section-services { padding: 3rem 1rem; }
   .section-contact { padding: 3rem 1rem; }
   .section-title { font-size: clamp(1.5rem, 5vw, 2rem); }
   .section-tag { font-size: 0.75rem; }
-  .wine-explorer { margin-top: 0.75rem; }
-  .wine-filters {
-    top: calc(5.5rem + 3rem) !important;
-    left: 1rem !important;
-    max-width: min(260px, calc(100vw - 2rem));
-    gap: 1rem;
+  .wine-explorer { margin-top: 0.75rem; grid-template-columns: 1fr; }
+  #wines .wine-grid { grid-template-columns: 1fr; }
+  .wine-catalog-title, .wine-toolbar, .wine-grid, .wine-pagination { grid-column: 1; }
+  .wine-pagination { flex-wrap: nowrap; gap: 0.5rem; }
+  .wine-pagination-page { flex-wrap: nowrap; white-space: nowrap; min-width: 0; flex-shrink: 1; }
+  .wine-pagination .btn {
+    flex-shrink: 0;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    background: #fff;
+    color: #000;
+    font-size: 0.85rem;
   }
+  .wine-pagination .btn:disabled {
+    color: #9ca3af;
+    border-color: transparent;
+    background: #fff;
+  }
+  .wine-pagination .btn:not(:disabled) {
+    border-color: rgba(0,0,0,0.18);
+    color: #000;
+  }
+  .wine-pagination .btn:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: rgba(0,0,0,0.25);
+  }
+  .wine-pagination-prev::before { content: '\2039\00a0'; }
+  .wine-pagination-next::after { content: '\00a0\203a'; }
+  .wine-filters {
+    grid-column: unset;
+    grid-row: unset;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: min(300px, 85vw);
+    max-width: 300px;
+    margin: 0;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 201;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-right: 3rem;
+    padding-bottom: max(5rem, calc(4rem + env(safe-area-inset-bottom)));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    max-height: none;
+    gap: 1rem;
+    background: #fff;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+  }
+  body.wine-filters-open .wine-filters { transform: translateX(0); }
+  body.wine-filters-open .site-header { top: -100vh; }
+  html.wine-filters-open, body.wine-filters-open { overflow: hidden; height: 100%; }
+  .wine-filters-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+  }
+  body.wine-filters-open .wine-filters-backdrop { display: block; }
+  .wine-filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-divus), sans-serif;
+    color: #000;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wine-filters-toggle:hover { border-color: #000; color: #000; }
+  .wine-filters-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: max(0.5rem, env(safe-area-inset-top));
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    border-radius: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wine-filters-close:hover { background: rgba(0,0,0,0.06); }
+  .wine-filters-close svg { width: 22px; height: 22px; }
   .wine-filter-group { padding: 1rem; }
+  .wine-filter-checkbox { min-width: 22px; min-height: 22px; }
+  .wine-filter-select { min-height: 44px; padding: 0.65rem 2rem 0.65rem 1rem; }
+  .wine-toolbar { gap: 0.75rem; margin-bottom: 1rem; }
+  .wine-toolbar select { min-height: 44px; padding: 0.75rem 2.25rem 0.75rem 1rem; font-size: 1rem; }
   .wine-grid { gap: 1rem; }
-  .wine-card-body { padding: 1rem; }
+  .wine-card { min-height: 0; -webkit-tap-highlight-color: transparent; }
+  .wine-card--product { padding: 0; }
+  .wine-card-body { padding: 1rem; min-height: 0; }
+  .wine-card-cta { min-height: 48px; padding: 0.75rem 1rem; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
   .wine-card-img { height: 280px; }
   #wines .wine-card-img { height: 300px; }
-  .wine-detail-main { padding: 5rem 1rem 3rem; }
+  .back-to-catalog { display: inline-block; min-height: 44px; padding: 0.6rem 0; line-height: 1.4; }
+  .wine-detail-main { padding: 5rem 1rem 3rem; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
   .wine-detail-name { font-size: 1.5rem; }
   .wine-detail-image-wrap { padding: 1rem; min-height: 400px; }
   .main-offset { min-width: 0; }
-  .footer { padding: 2rem 1rem; }
+  .footer { padding: 2rem 1rem; padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+  .footer .footer-grid { display: none !important; }
 }
 @media (max-width: 480px) {
   .header,
-  .header--main { padding: 0.6rem 0.75rem; }
+  .header--main { padding: 0.6rem max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
   .logo--center { font-size: 1.2rem; letter-spacing: 0.06em; }
-  .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .container { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
   .section { padding: 2.5rem 0.75rem; }
   .section-title { font-size: 1.4rem; }
   .wine-card-img { height: 260px; }
   #wines .wine-card-img { height: 280px; }
-  .wine-detail-main { padding: 4.5rem 0.75rem 2.5rem; }
+  .wine-card-cta { min-height: 48px; }
+  .wine-detail-main { padding: 4.5rem max(0.75rem, env(safe-area-inset-right)) 2.5rem max(0.75rem, env(safe-area-inset-left)); }
   .wine-detail-name { font-size: 1.35rem; }
   .wine-detail-image-wrap { padding: 0.75rem; min-height: 360px; }
   .wine-detail-qty-wrap button { min-width: 44px; min-height: 44px; }
-  .wine-detail-actions .btn { min-height: 44px; padding: 0.75rem 1.25rem; }
+  .wine-detail-actions .btn { min-height: 48px; padding: 0.75rem 1.25rem; }
   .menu-btn { min-width: 44px; min-height: 44px; padding: 0.5rem; }
   .header-search-btn { min-width: 44px; min-height: 44px; }
-  .header-cart-link { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  .header-cart-link { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
   .language-btn { min-height: 44px; padding: 0.5rem 0.75rem; }
+  .nav-menu-dropdown .nav-link { padding: 1rem 0; min-height: 44px; display: flex; align-items: center; }
 }

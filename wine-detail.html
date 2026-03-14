@@ -33,6 +33,36 @@
                 <a href="index.html#services" class="nav-link" data-translate="nav-services">Servicii</a>
                 <a href="index.html#contact" class="nav-link" data-translate="nav-contact">Contact</a>
               </nav>
+              <div class="nav-menu-lang-currency-row">
+              <div class="nav-menu-language" aria-label="Language">
+                <span class="nav-menu-language-label" id="currentLangDisplayMenu" data-translate="nav-language">Limba</span>
+                <div class="nav-menu-select-wrap" id="menuLanguageWrap">
+                  <button type="button" class="nav-menu-select-trigger" id="menuLanguageTrigger" aria-expanded="false" aria-haspopup="listbox" aria-controls="menuLanguageList">
+                    <span id="menuLanguageTriggerText">Română</span>
+                    <span class="nav-menu-select-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+                  </button>
+                  <div class="nav-menu-select-list" id="menuLanguageList" role="listbox">
+                    <button type="button" class="nav-menu-language-option language-option" data-lang="ro" role="option">Română</button>
+                    <button type="button" class="nav-menu-language-option language-option" data-lang="ru" role="option">Русский</button>
+                    <button type="button" class="nav-menu-language-option language-option" data-lang="en" role="option">English</button>
+                  </div>
+                </div>
+              </div>
+              <div class="nav-menu-currency" aria-label="Currency">
+                <span class="nav-menu-currency-label" id="currentCurrencyDisplayMenu" data-translate="nav-currency">Monedă</span>
+                <div class="nav-menu-select-wrap" id="menuCurrencyWrap">
+                  <button type="button" class="nav-menu-select-trigger" id="menuCurrencyTrigger" aria-expanded="false" aria-haspopup="listbox" aria-controls="menuCurrencyList">
+                    <span id="menuCurrencyTriggerText">MDL</span>
+                    <span class="nav-menu-select-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+                  </button>
+                  <div class="nav-menu-select-list" id="menuCurrencyList" role="listbox">
+                    <button type="button" class="nav-menu-currency-option currency-option" data-currency="MDL" role="option">MDL</button>
+                    <button type="button" class="nav-menu-currency-option currency-option" data-currency="USD" role="option">USD</button>
+                    <button type="button" class="nav-menu-currency-option currency-option" data-currency="EUR" role="option">EUR</button>
+                  </div>
+                </div>
+              </div>
+              </div>
               <div class="nav-menu-footer">
                 <a href="https://www.facebook.com" class="nav-menu-social" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
                 <a href="https://www.instagram.com" class="nav-menu-social" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -67,6 +97,14 @@
               <button class="language-option" data-lang="en">English</button>
             </div>
           </div>
+          <div class="currency-selector">
+            <button class="currency-btn" id="currencyBtn" type="button" aria-label="Currency"><span id="currentCurrencyDisplay">MDL</span> <span class="currency-chevron" aria-hidden="true"><svg class="currency-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+            <div class="currency-dropdown" id="currencyDropdown">
+              <button class="currency-option" data-currency="MDL">MDL</button>
+              <button class="currency-option" data-currency="USD">USD</button>
+              <button class="currency-option" data-currency="EUR">EUR</button>
+            </div>
+          </div>
           <a href="cart.html" class="header-cart-link" id="headerCartLink"><span class="header-cart-icon-wrap"><svg class="header-cart-icon icon icon-cart" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M20.5 6.5a4.75 4.75 0 00-4.75 4.75v.56h-3.16l-.77 11.6a5 5 0 004.99 5.34h7.38a5 5 0 004.99-5.33l-.77-11.6h-3.16v-.57A4.75 4.75 0 0020.5 6.5zm3.75 5.31v-.56a3.75 3.75 0 10-7.5 0v.56h7.5zm-7.5 1h7.5v.56a3.75 3.75 0 11-7.5 0v-.56zm-1 0v.56a4.75 4.75 0 109.5 0v-.56h2.22l.71 10.67a4 4 0 01-3.99 4.27h-7.38a4 4 0 01-4-4.27l.72-10.67h2.22z"></path></svg><span class="header-cart-count" id="headerCartCount">0</span></span></a>
         </nav>
       </div>
@@ -75,12 +113,12 @@
   <div class="page-grid-overlay"></div>
   <main class="wine-detail-main main-offset">
     <div class="container" id="wineDetailContainer">
-      <a href="wines-red.html" class="back-to-catalog" data-translate="back-to-catalog" id="backToCatalogLink">← Înapoi la catalog</a>
+      <a href="wines-red.html" class="back-to-catalog" data-translate="back-to-catalog" id="backToCatalogLink">← Înapoi</a>
       <p class="wine-detail-loading" id="wineDetailLoading" data-translate="detail-loading">Se încarcă…</p>
       <div class="wine-detail-content" id="wineDetailContent" style="display:none;"></div>
     </div>
   </main>
-  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#contact" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span> · <a href="https://github.com/UrsuDavid/wine-website" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a></p></div></footer>
+  <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#contact" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
   <!-- Floating WhatsApp button -->
   <a href="https://wa.me/373069135377" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
     <svg class="whatsapp-float-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -88,6 +126,7 @@
     </svg>
   </a>
   <script src="translations.js"></script>
+  <script src="currency.js"></script>
   <script src="cart.js"></script>
   <script src="header.js"></script>
   <script src="wine-data.js"></script>

@@ -7,7 +7,7 @@
     var count = (typeof p.vivinoReviewCount === 'number' ? p.vivinoReviewCount : null) ?? p.reviewCount;
     var lab = count ? count + ' ' + tr('detail-reviews') : tr('detail-reviews');
     var vivinoUrl = p.vivinoUrl || getVivinoSearchUrl(p);
-    var priceText = p.price ? p.price + ' MDL' : tr('detail-price-request'), desc = (p.description || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+    var priceText = p.price ? (typeof window.formatPrice === 'function' ? window.formatPrice(p.price) : p.price + ' MDL') : tr('detail-price-request'), desc = (p.description || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
     var details = [];
     if (p.region) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-region">' + tr('detail-region') + '</span><span>' + (p.region || '').replace(/</g, '&lt;') + '</span></div>');
     if (p.grape) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-grape">' + tr('detail-grape') + '</span><span>' + (p.grape || '').replace(/</g, '&lt;') + '</span></div>');
@@ -30,7 +30,7 @@
     }
     var wrapClass = 'wine-detail-image-wrap' + (useJpgOnly[p.id] ? ' wine-detail-image-wrap--jpg' : '');
     return '<div class="wine-detail-grid"><div class="' + wrapClass + '"><img class="wine-detail-image" src="' + imgSrc.replace(/"/g, '&quot;') + '" alt="' + (p.name || '').replace(/"/g, '&quot;') + '" decoding="async" fetchpriority="high" data-fallback="' + firstFallback.replace(/"/g, '&quot;') + '" data-fallback2="' + fallback.replace(/"/g, '&quot;') + '" onerror="var t=this;var f=t.getAttribute(\'data-fallback\');var f2=t.getAttribute(\'data-fallback2\');if(f){t.onerror=function(){if(f2){t.onerror=null;t.src=f2;}};t.src=f;}"></div><div class="wine-detail-info">' +
-      '<p class="wine-detail-winery">' + (p.brand || '') + '</p><h1 class="wine-detail-name">' + (p.name || '').replace(/</g, '&lt;') + '</h1>' +
+      '<h1 class="wine-detail-name">' + (p.name || '').replace(/</g, '&lt;') + '</h1>' +
       '<div class="wine-detail-rating">' + starRating(r) + ' <strong class="wine-detail-rating-value">' + r.toFixed(1) + '</strong> <span class="wine-detail-rating-label">' + lab + '</span> <a class="wine-detail-vivino-link" href="' + vivinoUrl.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener" data-translate="detail-see-on-vivino">' + tr('detail-see-on-vivino') + '</a></div>' +
       '<div class="wine-detail-price-block"><p class="wine-detail-price-value">' + priceText + '</p><p class="wine-detail-tax-shipping" data-translate="detail-tax-shipping">' + tr('detail-tax-shipping') + '</p></div>' +
       '<div class="wine-detail-quantity"><label data-translate="detail-quantity">' + tr('detail-quantity') + '</label><div class="wine-detail-qty-wrap"><button type="button" class="wine-detail-qty-minus">−</button><input type="number" class="wine-detail-qty-input" value="1" min="1" max="99"><button type="button" class="wine-detail-qty-plus">+</button></div></div>' +
@@ -66,6 +66,10 @@
       content.style.display = 'block'; content.innerHTML = render(product);
       document.title = (product.name || '') + ' – ' + (product.brand || '') + ' | Aiwine';
       if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
+      window.addEventListener('currencychange', function updateDetailPrice() {
+        var el = content.querySelector('.wine-detail-price-value');
+        if (el && product) el.textContent = product.price ? (typeof window.formatPrice === 'function' ? window.formatPrice(product.price) : product.price + ' MDL') : tr('detail-price-request');
+      });
       var qtyInput = content.querySelector('.wine-detail-qty-input'), minus = content.querySelector('.wine-detail-qty-minus'), plus = content.querySelector('.wine-detail-qty-plus');
       if (minus) minus.addEventListener('click', function () { var v = parseInt(qtyInput.value, 10) || 1; if (v > 1) qtyInput.value = v - 1; });
       if (plus) plus.addEventListener('click', function () { var v = parseInt(qtyInput.value, 10) || 1; if (v < 99) qtyInput.value = v + 1; });

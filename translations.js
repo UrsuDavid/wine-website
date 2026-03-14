@@ -1,7 +1,7 @@
 /* Aiwine – Translations: Romanian (default), Russian, English */
 window.BESSA_TRANSLATIONS = {
   ro: {
-    'nav-wines': 'Vinuri', 'nav-services': 'Servicii', 'nav-regions': 'Regiuni', 'nav-about': 'Despre', 'nav-contact': 'Contact', 'nav-cart': 'Coș', 'nav-menu-label': 'Meniu', 'search-placeholder': 'Caută vinuri…', 'announcement-text': 'Livrare gratuită la comenzi de peste 300 lei.',
+    'nav-wines': 'Vinuri', 'nav-services': 'Servicii', 'nav-regions': 'Regiuni', 'nav-about': 'Despre', 'nav-contact': 'Contact', 'nav-cart': 'Coș', 'nav-menu-label': 'Meniu', 'nav-language': 'Limba', 'nav-currency': 'Monedă', 'search-placeholder': 'Caută vinuri…', 'announcement-text': 'Livrare gratuită la comenzi de peste 300 lei.',
     'hero-tag': 'Servicii vin și curatare', 'hero-title': 'Gusta<br>momentul.', 'hero-sub': 'Surse, curatare și livrare de vinuri excepționale.',
     'hero-cta1': 'Serviciile noastre', 'hero-cta2': 'Contactați-ne', 'hero-scroll': 'Derulați',
     'wines-tag': 'Selecție', 'wines-title': 'Vinuri alese', 'wines-lead': 'Din regiuni clasice și podgorii în ascensiune.', 'wines-hint-click': 'Faceți click pentru a vedea produsele', 'wines-card-cta': 'Vezi produsele',
@@ -19,10 +19,10 @@ window.BESSA_TRANSLATIONS = {
     'sort-label': 'Sortare:', 'sort-featured': 'Recomandate', 'sort-rating': 'Rating', 'sort-price-asc': 'Preț (crescător)', 'sort-price-desc': 'Preț (descrescător)', 'sort-name': 'Nume A–Z',
     'wines-count': 'vinuri', 'wines-count-one': 'vin', 'detail-loading': 'Se încarcă…', 'detail-not-found': 'Vinul nu a fost găsit.', 'detail-add-cart': 'Adaugă în coș', 'detail-buy-now': 'Cumpără acum', 'detail-tax-shipping': 'TVA inclus. Livrarea la finalizarea comenzii.', 'detail-quantity': 'Cantitate', 'card-view-details': 'Vezi detalii', 'card-add-to-cart': 'PUNE ÎN COȘ', 'detail-ratings': 'evaluări', 'detail-google-reviews': 'recenzii Vivino', 'detail-reviews': 'recenzii', 'detail-see-on-vivino': 'Vezi pe Vivino', 'detail-price-request': 'Preț la cerere', 'detail-region': 'Regiune', 'detail-grape': 'Struguri', 'detail-abv': 'Alcool', 'detail-vintage': 'An', 'detail-about': 'Despre vin', 'detail-details': 'Detalii',
     'cart-title': 'Coșul tău', 'cart-empty': 'Coșul tău este gol.', 'cart-browse': 'Vezi vinuri', 'cart-total': 'Total:', 'cart-proceed': 'Finalizează / Contact',
-    'back-to-catalog': '← Înapoi la catalog'
+    'back-to-catalog': '← Înapoi', 'filters-toggle': 'Filtre', 'filters-close': 'Închide', 'pagination-prev': 'Anterior', 'pagination-next': 'Următor', 'pagination-page': 'Pagina', 'pagination-of': 'din'
   },
   ru: {
-    'nav-wines': 'Вина', 'nav-services': 'Услуги', 'nav-regions': 'Регионы', 'nav-about': 'О нас', 'nav-contact': 'Контакты', 'nav-cart': 'Корзина', 'nav-menu-label': 'Меню', 'search-placeholder': 'Поиск вин…', 'announcement-text': 'Бесплатная доставка при заказе от 300 леев.',
+    'nav-wines': 'Вина', 'nav-services': 'Услуги', 'nav-regions': 'Регионы', 'nav-about': 'О нас', 'nav-contact': 'Контакты', 'nav-cart': 'Корзина', 'nav-menu-label': 'Меню', 'nav-language': 'Язык', 'nav-currency': 'Валюта', 'search-placeholder': 'Поиск вин…', 'announcement-text': 'Бесплатная доставка при заказе от 300 леев.',
     'hero-tag': 'Винный сервис', 'hero-title': 'Почувствуй<br>момент.', 'hero-sub': 'Подбор и доставка отборных вин.',
     'hero-cta1': 'Услуги', 'hero-cta2': 'Связаться', 'hero-scroll': 'Листайте',
     'wines-tag': 'Подбор', 'wines-title': 'Избранные вина', 'wines-lead': 'Из классических регионов и восходящих виноделен.', 'wines-hint-click': 'Нажмите, чтобы увидеть товары', 'wines-card-cta': 'Смотреть товары',
@@ -40,10 +40,10 @@ window.BESSA_TRANSLATIONS = {
     'sort-label': 'Сортировка:', 'sort-featured': 'Рекомендуемые', 'sort-rating': 'Рейтинг', 'sort-price-asc': 'Цена (возр.)', 'sort-price-desc': 'Цена (убыв.)', 'sort-name': 'Название А–Я',
     'wines-count': 'вин', 'wines-count-one': 'вино', 'detail-loading': 'Загрузка…', 'detail-not-found': 'Вино не найдено.', 'detail-add-cart': 'В корзину', 'detail-buy-now': 'Купить сейчас', 'detail-tax-shipping': 'НДС включён. Доставка при оформлении.', 'detail-quantity': 'Количество', 'card-view-details': 'Подробнее', 'card-add-to-cart': 'В КОРЗИНУ', 'detail-ratings': 'оценок', 'detail-google-reviews': 'отзывов Vivino', 'detail-reviews': 'отзывов', 'detail-see-on-vivino': 'Смотреть на Vivino', 'detail-price-request': 'Цена по запросу', 'detail-region': 'Регион', 'detail-grape': 'Сорта', 'detail-abv': 'Алкоголь', 'detail-vintage': 'Год', 'detail-about': 'О вине', 'detail-details': 'Детали',
     'cart-title': 'Корзина', 'cart-empty': 'Корзина пуста.', 'cart-browse': 'Смотреть вина', 'cart-total': 'Итого:', 'cart-proceed': 'Оформить / Контакты',
-    'back-to-catalog': '← В каталог'
+    'back-to-catalog': '← Назад', 'filters-toggle': 'Фильтры', 'filters-close': 'Закрыть', 'pagination-prev': 'Назад', 'pagination-next': 'Далее', 'pagination-page': 'Страница', 'pagination-of': 'из'
   },
   en: {
-    'nav-wines': 'Wines', 'nav-services': 'Services', 'nav-regions': 'Regions', 'nav-about': 'About', 'nav-contact': 'Contact', 'nav-cart': 'Cart', 'nav-menu-label': 'Menu', 'search-placeholder': 'Search wines…', 'announcement-text': 'Free delivery on orders over 300 lei.',
+    'nav-wines': 'Wines', 'nav-services': 'Services', 'nav-regions': 'Regions', 'nav-about': 'About', 'nav-contact': 'Contact', 'nav-cart': 'Cart', 'nav-menu-label': 'Menu', 'nav-language': 'Language', 'nav-currency': 'Currency', 'search-placeholder': 'Search wines…', 'announcement-text': 'Free delivery on orders over 300 lei.',
     'hero-tag': 'Wine service & curation', 'hero-title': 'Taste<br>the moment.', 'hero-sub': 'Sourcing, curation and delivery of exceptional wines.',
     'hero-cta1': 'Our services', 'hero-cta2': 'Get in touch', 'hero-scroll': 'Scroll',
     'wines-tag': 'Selection', 'wines-title': 'Curated wines', 'wines-lead': 'From classic regions and rising wineries.', 'wines-hint-click': 'Click to see the products', 'wines-card-cta': 'View products',
@@ -61,7 +61,7 @@ window.BESSA_TRANSLATIONS = {
     'sort-label': 'Sort:', 'sort-featured': 'Featured', 'sort-rating': 'Rating', 'sort-price-asc': 'Price (low to high)', 'sort-price-desc': 'Price (high to low)', 'sort-name': 'Name A–Z',
     'wines-count': 'wines', 'wines-count-one': 'wine', 'detail-loading': 'Loading…', 'detail-not-found': 'Wine not found.', 'detail-add-cart': 'Add to cart', 'detail-buy-now': 'Buy it now', 'detail-tax-shipping': 'Tax included. Shipping at checkout.', 'detail-quantity': 'Quantity', 'card-view-details': 'View details', 'card-add-to-cart': 'ADD TO CART', 'detail-ratings': 'ratings', 'detail-google-reviews': 'Vivino reviews', 'detail-reviews': 'reviews', 'detail-see-on-vivino': 'See on Vivino', 'detail-price-request': 'Price on request', 'detail-region': 'Region', 'detail-grape': 'Grapes', 'detail-abv': 'Alcohol', 'detail-vintage': 'Vintage', 'detail-about': 'About this wine', 'detail-details': 'Details',
     'cart-title': 'Your cart', 'cart-empty': 'Your cart is empty.', 'cart-browse': 'Browse wines', 'cart-total': 'Total:', 'cart-proceed': 'Proceed to contact',
-    'back-to-catalog': '← Back to catalog'
+    'back-to-catalog': '← Back', 'filters-toggle': 'Filters', 'filters-close': 'Close', 'pagination-prev': 'Previous', 'pagination-next': 'Next', 'pagination-page': 'Page', 'pagination-of': 'of'
   }
 };
 window.applyLanguageToWebsite = function (lang) {
