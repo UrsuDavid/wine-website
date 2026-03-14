@@ -23,13 +23,13 @@
       if (filters.brandLabels && filters.brandLabels.length && filters.brandLabels.indexOf(prettyBrandLabel(p.brand)) === -1) return false;
       if (filters.priceMin != null && (p.price == null || p.price < filters.priceMin)) return false;
       if (filters.priceMax != null && (p.price == null || p.price > filters.priceMax)) return false;
-      if (filters.ratingMin != null && (p.rating == null || p.rating < filters.ratingMin)) return false;
+      if (filters.ratingMin != null) { var pr = (typeof p.vivinoRating === 'number' ? p.vivinoRating : null) ?? p.rating; if (pr == null || pr < filters.ratingMin) return false; }
       if (filters.discountOnly && !p.discount) return false;
       return true;
     };
   }
   function getSortFn(sortKey) {
-    if (sortKey === 'rating') return function (a, b) { return (b.rating || 0) - (a.rating || 0); };
+    if (sortKey === 'rating') return function (a, b) { var ra = (typeof a.vivinoRating === 'number' ? a.vivinoRating : null) ?? a.rating; var rb = (typeof b.vivinoRating === 'number' ? b.vivinoRating : null) ?? b.rating; return (rb || 0) - (ra || 0); };
     if (sortKey === 'price_asc') return function (a, b) { return (a.price || 0) - (b.price || 0); };
     if (sortKey === 'price_desc') return function (a, b) { return (b.price || 0) - (a.price || 0); };
     if (sortKey === 'name') return function (a, b) { return (a.name || '').localeCompare(b.name || ''); };
@@ -41,6 +41,11 @@
     if (h) s += '<span class="wine-star wine-star--half">★</span>';
     for (var j = 0; j < e; j++) s += '<span class="wine-star wine-star--empty">★</span>';
     return s;
+  }
+  function getVivinoSearchUrl(p) {
+    var q = ((p.brand || '') + ' ' + (p.name || '')).trim();
+    if (!q) return 'https://www.vivino.com/search/wines';
+    return 'https://www.vivino.com/search/wines?q=' + encodeURIComponent(q);
   }
   function prettyBrandLabel(brand) {
     var s = (brand || '').trim();
@@ -111,12 +116,17 @@
     volumeVintage.className = 'wine-card-volume-vintage';
     volumeVintage.textContent = '0.75 l' + (p.vintage ? ' • ' + p.vintage + ' ' + (t('detail-vintage') || 'an') : '');
     body.appendChild(volumeVintage);
-    var r = typeof p.rating === 'number' ? p.rating : 4;
-    var reviewText = p.reviewCount ? p.reviewCount + ' ' + t('detail-reviews') : t('detail-reviews');
+    var r = (typeof p.vivinoRating === 'number' ? p.vivinoRating : null) ?? (typeof p.rating === 'number' ? p.rating : 4);
+    var count = (typeof p.vivinoReviewCount === 'number' ? p.vivinoReviewCount : null) ?? p.reviewCount;
+    var reviewText = count ? count + ' ' + t('detail-reviews') : t('detail-reviews');
+    var vivinoUrl = p.vivinoUrl || getVivinoSearchUrl(p);
     var rating = doc.createElement('div');
     rating.className = 'wine-card-rating';
-    rating.innerHTML = starRating(r) + ' <span class="wine-card-rating-value">' + r.toFixed(1) + '</span> <span class="wine-card-rating-label">' + reviewText + '</span>';
+    rating.innerHTML = starRating(r) + ' <span class="wine-card-rating-value">' + r.toFixed(1) + '</span> <span class="wine-card-rating-label">' + reviewText + '</span> <span class="wine-card-vivino-link" role="link" tabindex="0" data-vivino-url="' + vivinoUrl.replace(/"/g, '&quot;') + '" title="' + (t('detail-see-on-vivino') || 'Vivino').replace(/"/g, '&quot;') + '">Vivino</span>';
     body.appendChild(rating);
+    var vivinoEl = rating.querySelector('.wine-card-vivino-link');
+    if (vivinoEl) vivinoEl.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); window.open(vivinoEl.getAttribute('data-vivino-url') || 'https://www.vivino.com/search/wines', '_blank', 'noopener'); });
+    if (vivinoEl) vivinoEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); window.open(vivinoEl.getAttribute('data-vivino-url') || 'https://www.vivino.com/search/wines', '_blank', 'noopener'); } });
     var price = doc.createElement('div');
     price.className = 'wine-card-price';
     price.textContent = p.price ? p.price + ' MDL' : t('detail-price-request');

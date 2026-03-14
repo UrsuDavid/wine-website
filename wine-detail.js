@@ -1,8 +1,13 @@
 (function () {
   function tr(k) { var L = window.BESSA_TRANSLATIONS, l = localStorage.getItem('aiwineLanguage') || 'ro'; return (L && L[l] && L[l][k]) || (L && L.ro && L.ro[k]) || k; }
   function starRating(v) { var f = Math.floor(v), h = v - f >= 0.5 ? 1 : 0, e = 5 - f - h, s = ''; for (var i = 0; i < f; i++) s += '<span class="wine-star wine-star--full">★</span>'; if (h) s += '<span class="wine-star wine-star--half">★</span>'; for (var j = 0; j < e; j++) s += '<span class="wine-star wine-star--empty">★</span>'; return s; }
+  function getVivinoSearchUrl(p) { var q = ((p.brand || '') + ' ' + (p.name || '')).trim(); if (!q) return 'https://www.vivino.com/search/wines'; return 'https://www.vivino.com/search/wines?q=' + encodeURIComponent(q); }
   function render(p) {
-    var r = typeof p.rating === 'number' ? p.rating : 4, lab = p.reviewCount ? p.reviewCount + ' ' + tr('detail-reviews') : tr('detail-reviews'), priceText = p.price ? p.price + ' MDL' : tr('detail-price-request'), desc = (p.description || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+    var r = (typeof p.vivinoRating === 'number' ? p.vivinoRating : null) ?? (typeof p.rating === 'number' ? p.rating : 4);
+    var count = (typeof p.vivinoReviewCount === 'number' ? p.vivinoReviewCount : null) ?? p.reviewCount;
+    var lab = count ? count + ' ' + tr('detail-reviews') : tr('detail-reviews');
+    var vivinoUrl = p.vivinoUrl || getVivinoSearchUrl(p);
+    var priceText = p.price ? p.price + ' MDL' : tr('detail-price-request'), desc = (p.description || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
     var details = [];
     if (p.region) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-region">' + tr('detail-region') + '</span><span>' + (p.region || '').replace(/</g, '&lt;') + '</span></div>');
     if (p.grape) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-grape">' + tr('detail-grape') + '</span><span>' + (p.grape || '').replace(/</g, '&lt;') + '</span></div>');
@@ -26,7 +31,7 @@
     var wrapClass = 'wine-detail-image-wrap' + (useJpgOnly[p.id] ? ' wine-detail-image-wrap--jpg' : '');
     return '<div class="wine-detail-grid"><div class="' + wrapClass + '"><img class="wine-detail-image" src="' + imgSrc.replace(/"/g, '&quot;') + '" alt="' + (p.name || '').replace(/"/g, '&quot;') + '" decoding="async" fetchpriority="high" data-fallback="' + firstFallback.replace(/"/g, '&quot;') + '" data-fallback2="' + fallback.replace(/"/g, '&quot;') + '" onerror="var t=this;var f=t.getAttribute(\'data-fallback\');var f2=t.getAttribute(\'data-fallback2\');if(f){t.onerror=function(){if(f2){t.onerror=null;t.src=f2;}};t.src=f;}"></div><div class="wine-detail-info">' +
       '<p class="wine-detail-winery">' + (p.brand || '') + '</p><h1 class="wine-detail-name">' + (p.name || '').replace(/</g, '&lt;') + '</h1>' +
-      '<div class="wine-detail-rating">' + starRating(r) + ' <strong class="wine-detail-rating-value">' + r.toFixed(1) + '</strong> <span class="wine-detail-rating-label">' + lab + '</span></div>' +
+      '<div class="wine-detail-rating">' + starRating(r) + ' <strong class="wine-detail-rating-value">' + r.toFixed(1) + '</strong> <span class="wine-detail-rating-label">' + lab + '</span> <a class="wine-detail-vivino-link" href="' + vivinoUrl.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener" data-translate="detail-see-on-vivino">' + tr('detail-see-on-vivino') + '</a></div>' +
       '<div class="wine-detail-price-block"><p class="wine-detail-price-value">' + priceText + '</p><p class="wine-detail-tax-shipping" data-translate="detail-tax-shipping">' + tr('detail-tax-shipping') + '</p></div>' +
       '<div class="wine-detail-quantity"><label data-translate="detail-quantity">' + tr('detail-quantity') + '</label><div class="wine-detail-qty-wrap"><button type="button" class="wine-detail-qty-minus">−</button><input type="number" class="wine-detail-qty-input" value="1" min="1" max="99"><button type="button" class="wine-detail-qty-plus">+</button></div></div>' +
       '<div class="wine-detail-actions"><button type="button" class="btn btn-outline wine-detail-add-cart" data-id="' + (p.id || '').replace(/"/g, '&quot;') + '" data-translate="detail-add-cart">' + tr('detail-add-cart') + '</button><a href="cart.html" class="btn btn-primary wine-detail-buy-now" data-translate="detail-buy-now">' + tr('detail-buy-now') + '</a></div>' +
