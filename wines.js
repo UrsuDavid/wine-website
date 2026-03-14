@@ -93,18 +93,26 @@
     var fallbacks = { red: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=500&q=80', white: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=500&q=80', sparkling: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&q=80', rose: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=500&q=80' };
     var typeKey = p.type === 'red' ? 'red' : p.type === 'sparkling' ? 'sparkling' : p.type === 'rose' ? 'rose' : 'white';
     var safeUrl = (p.imageUrl && typeof p.imageUrl === 'string' && p.imageUrl.trim()) ? p.imageUrl : (fallbacks[typeKey] || fallbacks.red);
+    var smallUrl = (p.imageUrlSmall && p.imageUrlSmall.trim()) ? p.imageUrlSmall : ((p.imageUrl && p.imageUrl.indexOf('wine.md') !== -1 && p.imageUrl.indexOf('/small/') !== -1) ? p.imageUrl : null);
+    var isMobile = typeof window.matchMedia !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
     if (safeUrl.indexOf('wine.md') !== -1 && safeUrl.indexOf('/small/') !== -1) safeUrl = safeUrl.replace('/small/', '/');
-    var pngUrl = (!useJpgOnly[p.id] && safeUrl.indexOf('wine.md') !== -1 && /\.jpe?g$/i.test(safeUrl)) ? safeUrl.replace(/\.jpe?g$/i, '.png') : null;
-    img.src = pngUrl || safeUrl;
+    var skipPngForType = (p.type === 'white' || p.type === 'sparkling');
+    var pngUrl = (!isMobile && !useJpgOnly[p.id] && !skipPngForType && safeUrl.indexOf('wine.md') !== -1 && /\.jpe?g$/i.test(safeUrl)) ? safeUrl.replace(/\.jpe?g$/i, '.png') : null;
+    if (isMobile) {
+      img.src = (smallUrl && smallUrl !== safeUrl) ? smallUrl : safeUrl;
+    } else {
+      img.src = pngUrl || safeUrl;
+    }
+    if (safeUrl.indexOf('wine.md') !== -1) img.referrerPolicy = 'no-referrer';
     img.alt = p.name;
     img.loading = 'lazy';
     img.decoding = 'async';
     var fallbackUrl = fallbacks[typeKey] || fallbacks.red;
-    var smallUrl = (p.imageUrlSmall && p.imageUrlSmall.trim()) ? p.imageUrlSmall : ((p.imageUrl && p.imageUrl.indexOf('wine.md') !== -1 && p.imageUrl.indexOf('/small/') !== -1) ? p.imageUrl : null);
     img.onerror = function () {
       this.onerror = null;
       if (pngUrl && this.src === pngUrl) { this.src = safeUrl; return; }
-      if (smallUrl && this.src !== smallUrl) { this.src = smallUrl; return; }
+      if (smallUrl && this.src === smallUrl) { this.src = safeUrl; return; }
+      if (this.src === safeUrl) { this.src = fallbackUrl; return; }
       this.src = fallbackUrl;
     };
     wrap.appendChild(img);

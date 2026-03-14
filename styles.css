@@ -343,7 +343,7 @@ body.search-grid-open .page-grid-overlay {
 .services-delivery-block {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 380px;
+  grid-auto-rows: 420px;
   gap: 0;
   width: 100%;
   max-width: 1200px;
@@ -367,35 +367,35 @@ body.search-grid-open .page-grid-overlay {
   margin-bottom: 0;
   margin-left: 1rem;
 }
-/* Image blocks – same size & alignment as Divus “Our Philosophy”: 380px height, centered */
+/* Image blocks – match mobile preview: 420px height, same crop/framing as mobile */
 .services-sourcing-photo-wrap,
 .services-curation-photo-wrap,
 .services-events-photo-wrap,
 .services-delivery-photo-wrap {
   position: relative;
   width: 100%;
-  height: 700px;
-  min-height: 700px;
-  max-height: 700px;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
   background-color: #0a0a0a;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-origin: border-box;
+  background-attachment: scroll;
   display: block;
 }
-/* Show more of the curation image (less cropping) */
+/* Curation image: cover to fill container and avoid black borders */
 .services-curation-photo-wrap {
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
-  background-color: #050505;
 }
 .services-delivery-photo-wrap {
   background-image: url('./assets/delivery-photo-custom.png');
 }
 /* Events & tastings: center on bottle and glasses */
 .services-events-photo-wrap {
-  background-position: center 70%;
+  background-position: center 85%;
 }
 /* Outer corners only – photo on left (sourcing, events): left corners rounded */
 .services-sourcing-photo-wrap,
@@ -723,13 +723,13 @@ body.search-grid-open .page-grid-overlay {
   gap: 1.25rem;
   margin-bottom: 0;
   position: fixed !important;
-  /* Align with catalog content: main offset + section top padding */
   top: calc(5.5rem + 4rem) !important;
   left: 2rem;
   width: 320px;
   max-width: 280px;
   align-self: flex-start;
-  max-height: calc(100vh - 10rem);
+  /* Stop before footer: max height so panel never overlaps footer; still follows scroll */
+  max-height: calc(100vh - 10rem - 340px);
   overflow-y: auto;
   z-index: 100;
 }
@@ -978,9 +978,14 @@ body.search-grid-open .page-grid-overlay {
     position: fixed !important;
     left: 0 !important;
     top: 0 !important;
+    right: auto;
     bottom: 0 !important;
     width: min(300px, 85vw);
     max-width: 300px;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     transform: translateX(-100%);
     transition: transform 0.25s ease;

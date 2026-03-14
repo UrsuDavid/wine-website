@@ -24,7 +24,7 @@
       imgSrc = imgSrc.replace('/small/', '/');
     }
     var useJpgOnly = {};
-    if (!useJpgOnly[p.id] && imgSrc.indexOf('wine.md') !== -1 && /\.jpe?g$/i.test(imgSrc)) {
+    if (!useJpgOnly[p.id] && p.type !== 'white' && p.type !== 'sparkling' && imgSrc.indexOf('wine.md') !== -1 && /\.jpe?g$/i.test(imgSrc)) {
       firstFallback = imgSrc;
       imgSrc = imgSrc.replace(/\.jpe?g$/i, '.png');
     }
