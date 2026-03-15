@@ -98,11 +98,8 @@
     if (safeUrl.indexOf('wine.md') !== -1 && safeUrl.indexOf('/small/') !== -1) safeUrl = safeUrl.replace('/small/', '/');
     var skipPngForType = (p.type === 'white' || p.type === 'sparkling');
     var pngUrl = (!isMobile && !useJpgOnly[p.id] && !skipPngForType && safeUrl.indexOf('wine.md') !== -1 && /\.jpe?g$/i.test(safeUrl)) ? safeUrl.replace(/\.jpe?g$/i, '.png') : null;
-    if (isMobile) {
-      img.src = (smallUrl && smallUrl !== safeUrl) ? smallUrl : safeUrl;
-    } else {
-      img.src = pngUrl || safeUrl;
-    }
+    /* Catalog always uses full-quality URL (same as product page); smallUrl only for error fallback */
+    img.src = pngUrl || safeUrl;
     if (safeUrl.indexOf('wine.md') !== -1) img.referrerPolicy = 'no-referrer';
     img.alt = p.name;
     img.loading = 'lazy';
