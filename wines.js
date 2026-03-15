@@ -106,11 +106,13 @@
     img.decoding = 'async';
     var fallbackUrl = fallbacks[typeKey] || fallbacks.red;
     img.onerror = function () {
-      this.onerror = null;
       if (pngUrl && this.src === pngUrl) { this.src = safeUrl; return; }
-      if (smallUrl && this.src === smallUrl) { this.src = safeUrl; return; }
-      if (this.src === safeUrl) { this.src = fallbackUrl; return; }
-      this.src = fallbackUrl;
+      if (smallUrl && this.src === smallUrl) { this.src = fallbackUrl; this.onerror = null; return; }
+      if (this.src === safeUrl) {
+        if (smallUrl && smallUrl !== safeUrl) { this.src = smallUrl; return; }
+        this.src = fallbackUrl; this.onerror = null; return;
+      }
+      this.src = fallbackUrl; this.onerror = null;
     };
     wrap.appendChild(img);
     a.appendChild(wrap);
@@ -124,8 +126,9 @@
     volumeVintage.className = 'wine-card-volume-vintage';
     volumeVintage.textContent = '0.75 l' + (p.vintage ? ' • ' + p.vintage + ' ' + (t('detail-vintage') || 'an') : '');
     body.appendChild(volumeVintage);
-    var r = (typeof p.vivinoRating === 'number' ? p.vivinoRating : null) ?? (typeof p.rating === 'number' ? p.rating : 4);
-    var count = (typeof p.vivinoReviewCount === 'number' ? p.vivinoReviewCount : null) ?? p.reviewCount;
+    var useVivino = (typeof p.vivinoRating === 'number' && typeof p.vivinoReviewCount === 'number' && p.vivinoReviewCount >= 1);
+    var r = useVivino ? p.vivinoRating : (typeof p.rating === 'number' ? p.rating : 4);
+    var count = useVivino ? p.vivinoReviewCount : p.reviewCount;
     var reviewText = count ? count + ' ' + t('detail-reviews') : t('detail-reviews');
     var rating = doc.createElement('div');
     rating.className = 'wine-card-rating';
