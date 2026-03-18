@@ -124,7 +124,9 @@
     body.appendChild(productName);
     var volumeVintage = doc.createElement('p');
     volumeVintage.className = 'wine-card-volume-vintage';
-    volumeVintage.textContent = '0.75 l' + (p.vintage ? ' • ' + p.vintage + ' ' + (t('detail-vintage') || 'an') : '');
+    var volumeLiters = (p.volumeLiters && String(p.volumeLiters).trim()) ? String(p.volumeLiters).trim() : '0.75';
+    // Catalog cards: keep the "l" and show ONLY the year number (no "an"/extra words).
+    volumeVintage.textContent = volumeLiters + ' l' + (p.vintage ? ' • ' + p.vintage : '');
     body.appendChild(volumeVintage);
     var useVivino = (typeof p.vivinoRating === 'number' && typeof p.vivinoReviewCount === 'number' && p.vivinoReviewCount >= 1);
     var r = useVivino ? p.vivinoRating : (typeof p.rating === 'number' ? p.rating : 4);

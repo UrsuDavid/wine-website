@@ -195,6 +195,14 @@ body.search-grid-open .page-grid-overlay {
 
 /* Hero banner styles are in hero-banner.css – edit that file to change image, overlay, etc. */
 .main-offset { padding-top: 5.5rem; }
+/* Fixed header offset for mobile.
+   Without this, content can start slightly too high and you get a visible 1px "separator" line. */
+@media (max-width: 768px) {
+  .main-offset { padding-top: calc(4rem + env(safe-area-inset-top)); }
+}
+@media (max-width: 480px) {
+  .main-offset { padding-top: calc(3.6rem + env(safe-area-inset-top)); }
+}
 .btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-family: var(--font-divus), sans-serif; transition: background 0.2s, color 0.2s; }
 .btn-primary { background: var(--wine); color: #fff; border: none; }
 .btn-primary:hover { background: var(--wine-deep); }
@@ -1053,8 +1061,28 @@ body.search-grid-open .page-grid-overlay {
   .wine-filter-group { padding: 1rem; }
   .wine-filter-checkbox { min-width: 22px; min-height: 22px; }
   .wine-filter-select { min-height: 44px; padding: 0.65rem 2rem 0.65rem 1rem; }
-  .wine-toolbar { gap: 0.75rem; margin-bottom: 1rem; }
-  .wine-toolbar select { min-height: 44px; padding: 0.75rem 2.25rem 0.75rem 1rem; font-size: 1rem; }
+  /* Catalog toolbar (mobile): keep count centered, keep Featured inline */
+  .wine-toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "filters count select";
+    align-items: center;
+    row-gap: 0;
+    column-gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .wine-filters-toggle { grid-area: filters; justify-self: start; }
+  .wine-result-count { grid-area: count; justify-self: center; text-align: center; }
+  .wine-toolbar select {
+    grid-area: select;
+    justify-self: end;
+    min-height: 44px;
+    padding: 0.75rem 2.25rem 0.75rem 1rem;
+    font-size: 0.95rem;
+    width: min(160px, 38vw);
+    max-width: 190px;
+  }
   .wine-grid { gap: 1rem; }
   .wine-card { min-height: 0; -webkit-tap-highlight-color: transparent; }
   .wine-card--product { padding: 0; }
