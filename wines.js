@@ -14,6 +14,8 @@
     if (/vacu vin|vacuvin/.test(brand)) return false;
     if (/cognac|coniac|decanter|conus|lichior|vodka|whiskey|spirtoase/.test(name) || /cognac|coniac|decanter|conus|lichior|spirtoase/.test(id)) return false;
     if (/ciocolata|chocolate/.test(name) || /ciocolata|chocolate/.test(id)) return false;
+    if (/achitarea\s+transport|achitare\s+transport/i.test(name) || /achitarea\s+transport|achitare\s+transport/i.test(brand)) return false;
+    if (id === 'transport' && /achitare/i.test(brand + name)) return false;
     return true;
   }
   function getFilterFn(typeFilter, filters) {

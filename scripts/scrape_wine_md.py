@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """
 Scrape all wine products from wine.md catalog and generate wine-data.js.
-Uses only stdlib (urllib, re, json). Run: python3 scrape_wine_md.py
+Uses only stdlib (urllib, re). Run: python scripts/scrape_wine_md.py
+
+By default merges with ../wine-data.js: keeps existing lines (taste, awards, vivino, etc.)
+and appends only products missing by productPageUrl. Use --full-rebuild to replace the file.
+
+Env: VINTAGE_LIMIT (0=all), VINTAGE_DELAY (seconds between product fetches).
 """
+import argparse
 import urllib.request
 import urllib.error
 import re
-import json
 import time
 import os
 import ssl
 
 BASE = "https://wine.md/"
-CATALOG_URL = BASE + "catalog/"
-PER_PAGE = 21
-MAX_PAGES = 120  # 21*120 = 2520 > 1937
+# wine.md's full wine grid lives under /catalog/wine (paginated). The root /catalog/
+# only shows a small mixed slice, so most wines were missing from older scrapes.
+CATALOG_LIST_URL = BASE + "catalog/wine"
+MAX_PAGES = 120  # 21 * 120
 
 # Avoid SSL verify failure on some systems
 _ctx = ssl.create_default_context()
@@ -42,6 +48,11 @@ def extract_products(html):
             continue
         slug = path.split("/")[-1] if "/" in path else path
         name = title_m.group(1).strip() if title_m else slug.replace("-", " ").title()
+        low = name.lower()
+        if slug == "transport" and "achitare" in low:
+            continue
+        if "achitarea transport" in low or "achitare transport" in low:
+            continue
         image_path = img_m.group(1) if img_m else ""
         price = int(price_m.group(1)) if price_m else 0
         if not image_path or "woodbag-logo" in image_path:
@@ -83,6 +94,7 @@ def infer_brand(name):
         "Cricova", "Radacini", "Divus", "Purcari", "Equinox", "Mezalimpe", "Timbrus",
         "Tomai", "Aurelius", "Domeniile Cuza", "Vinum", "Barza Alba", "Corten",
         "Gitana", "Apriori", "Bardar", "Bostavan", "Academia", "Crama", "Vinaria",
+        "Gogu Instinct", "Carpe Diem", "Basavin Optimist", "Basavin Trei", "Radacini",
     ]
     for brand in known:
         if name.startswith(brand):
@@ -102,30 +114,109 @@ def extract_volume_liters_and_vintage_year(html):
     Returns (volumeLiters, vintageYear) as strings or (None, None).
     """
     # Strip tags to make regex matching more resilient.
-    plain = re.sub(r"<(script|style)[^>]*>.*?</\\1>", " ", html, flags=re.I | re.S)
+    plain = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
     plain = re.sub(r"<[^>]+>", " ", plain)
-    plain = re.sub(r"&nbsp;|\\u00a0", " ", plain)
+    plain = re.sub(r"&nbsp;|\u00a0", " ", plain)
 
-    vol_m = re.search(r"Volumul\\s*:\\s*([0-9]+(?:\\.[0-9]+)?)\\s*l\\b", plain, flags=re.I)
+    vol_m = re.search(r"Volumul\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*l\b", plain, flags=re.I)
 
     # Prefer the bullet-style "- An: 2025" match.
     vint_m = re.search(
-        r"(?:^|\\n)\\s*-\\s*An\\s*:\\s*(\\d{4})\\b",
+        r"(?:^|\n)\s*-\s*An\s*:\s*(\d{4})\b",
         plain,
         flags=re.I | re.M,
     )
     if not vint_m:
-        vint_m = re.search(r"\\bAn\\s*:\\s*(\\d{4})\\b", plain, flags=re.I)
+        vint_m = re.search(r"\bAn\s*:\s*(\d{4})\b", plain, flags=re.I)
 
     volume_liters = vol_m.group(1).strip() if vol_m else None
     vintage_year = vint_m.group(1).strip() if vint_m else None
     return volume_liters, vintage_year
 
-def main():
-    seen = {}
+
+def norm_product_url(url):
+    if not url:
+        return ""
+    return url.strip().rstrip("/").lower()
+
+
+def load_existing_wine_data_js(path):
+    """
+    Parse wine-data.js into header lines, product lines (full text per row), footer lines,
+    and a set of normalized productPageUrls.
+    """
+    with open(path, encoding="utf-8") as f:
+        lines = f.read().splitlines()
+    header_end = None
+    for i, line in enumerate(lines):
+        if "window.WINE_PRODUCTS" in line:
+            header_end = i
+            break
+    if header_end is None:
+        return None
+    header = lines[: header_end + 1]
+    j = header_end + 1
+    product_lines = []
+    while j < len(lines):
+        stripped = lines[j].strip()
+        if stripped == "];" or stripped.startswith("];"):
+            break
+        if lines[j].lstrip().startswith("{"):
+            product_lines.append(lines[j])
+        j += 1
+    footer = lines[j:]
+    urls = set()
+    for pl in product_lines:
+        m = re.search(r"productPageUrl:\s*'([^']*)'", pl)
+        if m:
+            urls.add(norm_product_url(m.group(1)))
+    return {"header": header, "products": product_lines, "footer": footer, "urls": urls}
+
+
+def js_escape_single(s):
+    return (s or "").replace("\\", "\\\\").replace("'", "\\'")
+
+
+def format_product_js_line(p, rating, review_count):
+    """Single-line object matching existing wine-data.js shape (optional taste/awards omitted)."""
+    desc_esc = (p.get("description") or "").replace("\\", "\\\\").replace("'", "\\'").replace("\n", " ")
+    region = p.get("region") or "Moldova"
+    grape = p.get("grape") or "Blend"
+    abv = p.get("abv") or 12
+    volume_liters = p.get("volumeLiters") or "0.75"
+    vintage = p.get("vintage") or ""
+    img_full = js_escape_single(p["imageUrl"])
+    img_small = js_escape_single(p.get("imageUrlSmall", p["imageUrl"]))
+    desc = desc_esc[:200] if desc_esc else js_escape_single("Vin " + p["type"] + " – " + p["name"])[:200]
+    return (
+        "  { id: '%s', brand: '%s', name: '%s', type: '%s', imageUrl: '%s', imageUrlSmall: '%s', price: %d, rating: %.1f, reviewCount: %d, volumeLiters: '%s', vintage: '%s', region: '%s', grape: '%s', abv: %s, description: '%s', productPageUrl: '%s' }"
+        % (
+            js_escape_single(p["id"]),
+            js_escape_single(p["brand"]),
+            js_escape_single(p["name"]),
+            p["type"],
+            img_full,
+            img_small,
+            p["price"],
+            rating,
+            review_count,
+            js_escape_single(volume_liters),
+            js_escape_single(vintage),
+            js_escape_single(region),
+            js_escape_single(grape),
+            str(abv) if isinstance(abv, (int, float)) else abv,
+            desc,
+            js_escape_single(p["productPageUrl"]),
+        )
+    )
+
+
+def crawl_wine_md_products():
+    """Paginate catalog/wine and return product dicts (deduped by productPageUrl)."""
+    seen_urls = {}
     all_products = []
     for page in range(1, MAX_PAGES + 1):
-        url = CATALOG_URL + ("?page=%d" % page) if page > 1 else CATALOG_URL
+        url = CATALOG_LIST_URL + ("?page=%d" % page if page > 1 else "")
         print("Fetching page %d: %s" % (page, url), flush=True)
         try:
             html = fetch(url)
@@ -136,26 +227,27 @@ def main():
         if not products:
             print("No products on page %d, stopping." % page, flush=True)
             break
+        added = 0
         for p in products:
-            if p["slug"] in seen:
-                continue
-            seen[p["slug"]] = True
             p["type"] = path_to_type(p["path"])
             p["brand"] = infer_brand(p["name"])
             p["id"] = re.sub(r"[,/]", "-", p["slug"]).replace(" ", "-")
-            p["productPageUrl"] = BASE + p["link"].lstrip("/")
+            p["productPageUrl"] = BASE.rstrip("/") + "/" + p["link"].lstrip("/")
+            nu = norm_product_url(p["productPageUrl"])
+            if nu in seen_urls:
+                continue
+            seen_urls[nu] = True
             all_products.append(p)
-        if len(products) == 0:
+            added += 1
+        if added == 0:
+            print("No new products on page %d, stopping pagination." % page, flush=True)
             break
         time.sleep(0.35)
-    print("Total products: %d" % len(all_products), flush=True)
+    return all_products
 
-    vintage_limit = int(os.environ.get("VINTAGE_LIMIT", "0") or "0")
-    vintage_delay = float(os.environ.get("VINTAGE_DELAY", "0.35") or "0.35")
 
-    # Enrich products with vintage year / volume from each product page.
-    # This is required so the UI can display "0.75 l • YEAR an".
-    for i, p in enumerate(all_products):
+def enrich_vintage_volume(products, vintage_limit, vintage_delay):
+    for i, p in enumerate(products):
         if vintage_limit and i >= vintage_limit:
             break
         url = p.get("productPageUrl")
@@ -169,59 +261,84 @@ def main():
             if vintage_year:
                 p["vintage"] = vintage_year
         except Exception as e:
-            # Keep going; missing vintage will simply not render.
             print("Warning: vintage parse failed for:", url, "error:", e, flush=True)
         time.sleep(vintage_delay)
 
-    # Build wine-data.js format
-    lines = [
-        "// Full catalog from wine.md – all brands and products with images from wine.md. Generated by scripts/scrape_wine_md.py",
-        "window.WINE_PRODUCTS = [",
-    ]
-    for i, p in enumerate(all_products):
-        # JS object: id, brand, name, type, imageUrl, price, rating, reviewCount, volumeLiters, vintage, region, grape, abv, description, productPageUrl
-        desc_esc = (p.get("description") or "").replace("\\", "\\\\").replace("'", "\\'").replace("\n", " ")
-        region = p.get("region") or "Moldova"
-        grape = p.get("grape") or "Blend"
-        abv = p.get("abv") or 12
-        volume_liters = p.get("volumeLiters") or "0.75"
-        vintage = p.get("vintage") or ""
-        rating = 4.0 + (i % 5) * 0.1
-        review_count = 10 + (i % 50)
-        img_full = p["imageUrl"].replace("'", "\\'")
-        img_small = p.get("imageUrlSmall", p["imageUrl"]).replace("'", "\\'")
-        obj = (
-            "  { id: '%s', brand: '%s', name: '%s', type: '%s', imageUrl: '%s', imageUrlSmall: '%s', price: %d, rating: %.1f, reviewCount: %d, volumeLiters: '%s', vintage: '%s', region: '%s', grape: '%s', abv: %s, description: '%s', productPageUrl: '%s' }"
-            % (
-                p["id"].replace("'", "\\'"),
-                p["brand"].replace("'", "\\'"),
-                p["name"].replace("'", "\\'"),
-                p["type"],
-                img_full,
-                img_small,
-                p["price"],
-                rating,
-                review_count,
-                volume_liters.replace("'", "\\'"),
-                vintage,
-                region.replace("'", "\\'"),
-                grape.replace("'", "\\'"),
-                str(abv) if isinstance(abv, (int, float)) else abv,
-                desc_esc[:200] if desc_esc else ("Vin " + p["type"] + " – " + p["name"]).replace("'", "\\'")[:200],
-                p["productPageUrl"].replace("'", "\\'"),
-            )
-        )
-        lines.append(obj + ("," if i < len(all_products) - 1 else ""))
-    lines.append("];")
 
-    # Remove IIFE that overwrites imageUrl (we want to keep all wine.md images)
-    lines.append("")
-    lines.append("// wine.md image URLs are kept; no brokenHosts replacement for wine.md.")
+def main():
+    parser = argparse.ArgumentParser(description="Scrape wine.md catalog into wine-data.js")
+    parser.add_argument(
+        "--full-rebuild",
+        action="store_true",
+        help="Regenerate the entire WINE_PRODUCTS array (drops manual enrichments in wine-data.js).",
+    )
+    args = parser.parse_args()
 
     out_path = os.path.join(os.path.dirname(__file__), "..", "wine-data.js")
+    merge = not args.full_rebuild and os.path.isfile(out_path)
+    existing = load_existing_wine_data_js(out_path) if merge else None
+    if merge and not existing:
+        merge = False
+
+    all_products = crawl_wine_md_products()
+    print("Total scraped from wine.md: %d" % len(all_products), flush=True)
+
+    vintage_limit = int(os.environ.get("VINTAGE_LIMIT", "0") or "0")
+    vintage_delay = float(os.environ.get("VINTAGE_DELAY", "0.35") or "0.35")
+
+    if merge and existing:
+        existing_urls = existing["urls"]
+        new_products = [
+            p for p in all_products if norm_product_url(p["productPageUrl"]) not in existing_urls
+        ]
+        print("Existing in wine-data.js: %d URLs; new to add: %d" % (len(existing_urls), len(new_products)), flush=True)
+        enrich_vintage_volume(new_products, vintage_limit, vintage_delay)
+        product_lines = list(existing["products"])
+        base_idx = len(product_lines)
+        new_lines = []
+        for i, p in enumerate(new_products):
+            rating = 4.0 + ((base_idx + i) % 5) * 0.1
+            review_count = 10 + ((base_idx + i) % 50)
+            new_lines.append(format_product_js_line(p, rating, review_count))
+        if new_lines:
+            if product_lines:
+                last = product_lines[-1].rstrip()
+                if not last.endswith(","):
+                    product_lines[-1] = last + ","
+            for k, line in enumerate(new_lines):
+                is_last = k == len(new_lines) - 1
+                s = line.rstrip().rstrip(",")
+                product_lines.append(s + ("" if is_last else ","))
+        lines = existing["header"] + product_lines + existing["footer"]
+        total_count = len(product_lines)
+    else:
+        enrich_vintage_volume(all_products, vintage_limit, vintage_delay)
+        lines = [
+            "// Full catalog from wine.md – all brands and products with images from wine.md. Generated by scripts/scrape_wine_md.py",
+            "window.WINE_PRODUCTS = [",
+        ]
+        for i, p in enumerate(all_products):
+            rating = 4.0 + (i % 5) * 0.1
+            review_count = 10 + (i % 50)
+            obj = format_product_js_line(p, rating, review_count)
+            lines.append(obj + ("," if i < len(all_products) - 1 else ""))
+        lines.append("];")
+        lines.append("")
+        lines.append("// wine.md image URLs are kept; no brokenHosts replacement for wine.md.")
+        total_count = len(all_products)
+
+    if merge and existing:
+        # Preserve original footer comment block if missing
+        if not any("// wine.md image" in x for x in existing["footer"]):
+            lines.append("")
+            lines.append("// wine.md image URLs are kept; no brokenHosts replacement for wine.md.")
+
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
-    print("Wrote %s with %d products." % (out_path, len(all_products)), flush=True)
+        if not lines[-1].endswith("\n"):
+            f.write("\n")
+    print("Wrote %s with %d product rows." % (out_path, total_count), flush=True)
+
 
 if __name__ == "__main__":
     main()
