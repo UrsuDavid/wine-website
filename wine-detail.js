@@ -14,8 +14,13 @@
     var volumeVintageText = volumeLiters + ' l' + (p.vintage ? ' • ' + p.vintage + ' ' + vintageLabel : '');
     var details = [];
     if (p.region) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-region">' + tr('detail-region') + '</span><span>' + (p.region || '').replace(/</g, '&lt;') + '</span></div>');
+    if (p.taste) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-taste">' + tr('detail-taste') + '</span><span>' + (p.taste || '').replace(/</g, '&lt;') + '</span></div>');
     if (p.grape) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-grape">' + tr('detail-grape') + '</span><span>' + (p.grape || '').replace(/</g, '&lt;') + '</span></div>');
     if (p.abv) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-abv">' + tr('detail-abv') + '</span><span>' + (p.abv || '') + '%</span></div>');
+    if (p.awards && ((Array.isArray(p.awards) && p.awards.length) || (!Array.isArray(p.awards) && String(p.awards).trim()))) {
+      var awardsText = Array.isArray(p.awards) ? p.awards.join(', ') : String(p.awards);
+      details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-awards">' + tr('detail-awards') + '</span><span>' + awardsText.replace(/</g, '&lt;') + '</span></div>');
+    }
     if (p.vintage) details.push('<div class="wine-detail-meta-item"><span class="wine-detail-meta-label" data-translate="detail-vintage">' + tr('detail-vintage') + '</span><span>' + (p.vintage || '').replace(/</g, '&lt;') + '</span></div>');
     var detailsBlock = details.length ? '<div class="wine-detail-meta"><h3 class="wine-detail-meta-title" data-translate="detail-details">' + tr('detail-details') + '</h3><div class="wine-detail-meta-grid">' + details.join('') + '</div></div>' : '';
     var typeFallbacks = { red: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400', white: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400', sparkling: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400', rose: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400' };
