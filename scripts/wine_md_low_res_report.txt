@@ -1,0 +1,874 @@
+wine.md — bottle catalog only (/catalog/wine/, /catalog/vinuri-spumante/)
+Criterion: longest image side < 800 px, or image fetch failed
+
+=== Low-resolution (product page URL) ===
+https://wine.md/catalog/vinuri-spumante/vinum-spumant-viu-muscat-blanc
+https://wine.md/catalog/vinuri-spumante/vinum-spumant-viu-sauvignon-blanc
+https://wine.md/catalog/wine/vinuri-albe/feteasca-regala/crama-mircesti-bardul-din-mircesti-feteasca-regala
+https://wine.md/catalog/wine/vinuri-albe/vera-winery-white-bland-1
+https://wine.md/catalog/wine/vinuri-rosii/vera-winery-red-blend-1
+https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/vera-winery-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-rosii/merlot/vera-winery-merlot
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vera-winery-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-rosii/pinot-noir/vera-winery-pinot-noir
+https://wine.md/catalog/wine/vinuri-albe/muscat/vera-winery-moscato
+https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/vera-winery-sauvignon-blanc
+https://wine.md/catalog/vinuri-spumante/radacini-contarini-trevizo-doc
+https://wine.md/catalog/vinuri-spumante/radacini-„contarini-valdobbiadene”-vin-prosecco-superiore-docg-alb-brut
+https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/bahu-sauvignon-blanc
+https://wine.md/catalog/wine/vinuri-albe/chateau-cojusna-autentic-chardonnay-and-sauvignon-blanc
+https://wine.md/catalog/wine/vinuri-albe/floricica/chateau-cojusna-autentic-sauvignon-blanc-and-floricica
+https://wine.md/catalog/wine/vinuri-albe/chardonnay/chateau-cojusna-autentic-chardonnay-and-feteasca-alba
+https://wine.md/catalog/vinuri-spumante/wine-crime-spumant-pinot-noir-and-chardonnay
+https://wine.md/catalog/wine/vinuri-rosii/chateau-cristi-family-rezerve-saperavi
+https://wine.md/catalog/wine/vinuri-rosii/chateau-cristi-family-rezerve-cabernet-franc
+https://wine.md/catalog/wine/vinuri-albe/purcari-sapiens-fume-sauvignon-blanc
+https://wine.md/catalog/vinuri-spumante/radacini
+https://wine.md/catalog/vinuri-spumante/radacini-metier-spumant-brut-roz-in-cutie
+https://wine.md/catalog/vinuri-spumante/radacini-metier-brut-natur-in-cutie
+https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu-chardonnay
+https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu
+https://wine.md/catalog/wine/vinuri-albe/vinaria-din-vale-7-coline-viorica-and-bianca
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/crama-mircesti-feteasca-neagra
+https://wine.md/catalog/vinuri-spumante/victoria-vin-spumant-brut-alb
+https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/expat-sauvignon-blanc
+https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/expat-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-albe/minis-terrios-alba-imparateasa
+https://wine.md/catalog/wine/vinuri-rosii/divus-merlot-wine
+https://wine.md/catalog/wine/vinuri-albe/feteasca-regala/crama-tataru-fetesca-regala
+https://wine.md/catalog/wine/vinuri-rosii/bardul-din-mercesti-saperavi
+https://wine.md/catalog/vinuri-spumante/cuvee-de-purcari-adamant
+https://wine.md/catalog/wine/vinuri-albe/alianta-vin-chardonnay-barique
+https://wine.md/catalog/wine/vinuri-rosii/alianta-vin-merlot
+https://wine.md/catalog/vinuri-spumante/im-winery-spumant
+https://wine.md/catalog/wine/vinuri-rosii/im-winery-primul-vis
+https://wine.md/catalog/wine/vinuri-rosii/im-winery-rara-neagra
+https://wine.md/catalog/wine/vinuri-albe/im-winery-feteasca-alba
+https://wine.md/catalog/wine/vinuri-rosii/divus-malbec
+https://wine.md/catalog/wine/vinuri-albe/mihai-sava-floricica
+https://wine.md/catalog/wine/vinuri-albe/mihai-sava-bianca
+https://wine.md/catalog/wine/vinuri-rosii/javgur-scena-merlot
+https://wine.md/catalog/wine/vinuri-rosii/minis-terrios-merlot
+https://wine.md/catalog/wine/vinuri-rosii/minis-terrios-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-albe/bravoure-sauvignon-blanc-and-pinot-grigio
+https://wine.md/catalog/wine/vinuri-albe/corten-chardonnay
+https://wine.md/catalog/wine/vinuri-albe/corten-riesling
+https://wine.md/catalog/wine/vinuri-albe/corten-traminer
+https://wine.md/catalog/wine/vinuri-dulci/aurelius-sparkling-ice-wine
+https://wine.md/catalog/wine/vinuri-rosii/selection-vladlen-uzhakov-saperavi-2019
+https://wine.md/catalog/wine/vinuri-dulci/cricova-tatius-licoros
+https://wine.md/catalog/wine/vinuri-albe/cricova-wild-feteasca-regala
+https://wine.md/catalog/vinuri-spumante/cricova-elogiu-brut-natur
+https://wine.md/catalog/wine/vinuri-albe/cricova-elogiu-chardonnay
+https://wine.md/catalog/wine/vinuri-roze/chateau-cristi-bravoure-malbec-rose
+https://wine.md/catalog/wine/vinuri-albe/bahu-sauvignon-blanc-barique
+https://wine.md/catalog/wine/vinuri-rosii/bahu-cabernet-franc
+https://wine.md/catalog/wine/vinuri-rosii/divus-ornis
+https://wine.md/catalog/vinuri-spumante/vinum-brut-rose-estate
+https://wine.md/catalog/vinuri-spumante/vinum-estate-brut-natur
+https://wine.md/catalog/wine/vinuri-albe/crama-mircesti-orange-feteasca-regala
+https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/asconi-rara-neagra
+https://wine.md/catalog/wine/vinuri-albe/atu-trei-fete
+https://wine.md/catalog/wine/vinuri-albe/et-cetera-naughty-girls
+https://wine.md/catalog/wine/vinuri-rosii/divus-winery-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-rosii/divus-winery-saperavi
+https://wine.md/catalog/wine/vinuri-rosii/divus-winery-endemic-blend
+https://wine.md/catalog/wine/vinuri-rosii/vinum-selection-vladlen-uzhakov-pinot-noir
+https://wine.md/catalog/wine/vinuri-rosii/pelican-negru-pinot-noir
+https://wine.md/catalog/wine/vinuri-albe/vinum-estate-sauvignon-blanc-2020
+https://wine.md/catalog/wine/vinuri-albe/vinum-estate-chardonnay-2020
+https://wine.md/catalog/wine/vinuri-rosii/gitana-winery-lupi-magnum
+https://wine.md/catalog/wine/vinuri-rosii/et-cetera-nanghty-boys
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vinum-selection-vladlen-feteasca-neagra-light-barrique
+https://wine.md/catalog/wine/vinuri-albe/chardonnay/vinum-section-vladlen-chardonnay-light-bartique
+https://wine.md/catalog/wine/vinuri-rosii/merlot/vinaria-din-vale-motive-/-merlot
+https://wine.md/catalog/wine/vinuri-rosii/saperavi/salcuta-reserva-eno-2015
+https://wine.md/catalog/wine/vinuri-albe/traminer/salcuta-riesling-and-traminer
+https://wine.md/catalog/wine/vinuri-roze/pinot-noir/tamaioasa-de-salcuta
+https://wine.md/catalog/wine/vinuri-dulci/cabernet-sauvignon/ciornii-doctor
+https://wine.md/catalog/wine/vinuri-dulci/ice-wine/purcari-ice-wine
+https://wine.md/catalog/wine/vinuri-albe/viorica/gogu-viorica
+https://wine.md/catalog/wine/vinuri-albe/riesling-de-rhein/gogu-riesling-de-rhein
+https://wine.md/catalog/wine/vinuri-albe/feteasca-alba/gogu-metafora
+https://wine.md/catalog/wine/vinuri-albe/pinot-gris/fautor-aur-pinot-grigio
+https://wine.md/catalog/wine/vinuri-albe/viorica/carlevana-viorica
+https://wine.md/catalog/wine/vinuri-dulci/ice-wine/asconi-ice-wine-riesling
+
+=== Broken / missing image (product page URL) ===
+https://wine.md/catalog/wine/vinuri-roze/pinot-noir/vera-winery-pinot-noir-rose
+https://wine.md/catalog/wine/vinuri-roze/domeniile-cuza-motiv-rose-merlot-and-saperavi
+https://wine.md/catalog/wine/vinuri-roze/asconi-casa-felina-cabernet-sauvignon-and-merlot
+https://wine.md/catalog/wine/vinuri-roze/pinot-noir/aurelius-rose-pinot-noir
+https://wine.md/catalog/wine/vinuri-roze/rara-neagra/cricova
+https://wine.md/catalog/wine/vinuri-roze/salcuta-epizod-rose
+https://wine.md/catalog/wine/vinuri-roze/chateau-cojusna-autentic-cabernet-sauvignon-and-pinot-noir
+https://wine.md/catalog/wine/vinuri-roze/crama-mircești-rose
+https://wine.md/catalog/wine/vinuri-rosii/castel-mimi-governors-blend
+https://wine.md/catalog/wine/vinuri-roze/gogu-feteasca-neagra-and-cabernet-sauvignon-rose
+https://wine.md/catalog/wine/vinuri-roze/maestro-cuvee-rose-brut
+https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-pinot-grigio
+https://wine.md/catalog/vinuri-spumante/radacini-spumant-rose-dulce
+https://wine.md/catalog/vinuri-spumante/radacini-rezerve
+https://wine.md/catalog/wine/vinuri-roze/domeniile-vorniceni-pielea-cucoanei
+https://wine.md/catalog/wine/vinuri-roze/crama-tataru-cabernet-merlot-rose
+https://wine.md/catalog/wine/vinuri-roze/im-winery-rose
+https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-roze
+https://wine.md/catalog/wine/vinuri-roze/wine-crime-flirty-sparkling-rose
+https://wine.md/catalog/wine/vinuri-roze/cricova-wild-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-roze/merlot/kazayak-merlot-rose
+https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-sorginte
+https://wine.md/catalog/wine/vinuri-albe/castel-mimi-the-governor’s-chardonnay-and-riesling-2018
+https://wine.md/catalog/wine/vinuri-roze/rara-neagra/castel-mimi-rose-rara-neagra
+https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/castel-mimi-rose-de-bulboaca
+https://wine.md/catalog/wine/vinuri-roze/timbrus-rose
+https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/vinaria-din-vale-7-coline-rose
+https://wine.md/catalog/wine/vinuri-roze/merlot/mihai-sava-rose-merlot
+https://wine.md/catalog/wine/vinuri-roze/montepulciano/purcari-vinohora-roze
+https://wine.md/catalog/wine/vinuri-roze/shiraz/fautor-vivienne-cuvee
+https://wine.md/catalog/wine/vinuri-roze/merlot/chateau-vartely-individo-cabernet-sauvignon/merlot
+https://wine.md/catalog/vinuri-spumante/radacini-vero-di-moscato-dulce
+https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/radacini-fiori-rara-neagra
+https://wine.md/catalog/wine/vinuri-albe/radacini-vero-di-moscato-dolce-alb
+https://wine.md/catalog/wine/vinuri-roze/radacini-vero-di-moscato-dolce-rose
+https://wine.md/catalog/vinuri-spumante/pinot-noir/vera-winery-spumant-rose-brut
+https://wine.md/catalog/wine/vinuri-rosii/tomai-regina-de-tomai-negru-sec
+https://wine.md/catalog/wine/vinuri-roze/tomai-regina-de-tomai-rose-sec
+https://wine.md/catalog/wine/vinuri-albe/tomai-regina-de-tomai-alb-sec
+https://wine.md/catalog/wine/vinuri-rosii/tomai-cabernet-sauvignon-and-saperavi-and-merlot
+https://wine.md/catalog/wine/vinuri-rosii/merlot/tomai-merlot
+https://wine.md/catalog/wine/vinuri-rosii/saperavi/tomaisaperavi
+https://wine.md/catalog/wine/vinuri-rosii/tomai-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-roze/pinot-noir/tomai-rose-pinot-noir
+https://wine.md/catalog/wine/vinuri-roze/tomai-rose-cabernet-sauvignon-and-pinot-noir-and-merlot
+https://wine.md/catalog/wine/vinuri-albe/tomai-chardonnay-and-riesling-and-viorica
+https://wine.md/catalog/wine/vinuri-albe/chardonnay/tomai-chardonnay
+https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/tomai-sauvignon-blanc
+https://wine.md/catalog/wine/vinuri-albe/viorica/tomai-viorica
+https://wine.md/catalog/wine/vinuri-rosii/saperavi/radacini
+https://wine.md/catalog/wine/vinuri-albe/maestro-virtuoso-feteasca-regala
+https://wine.md/catalog/wine/vinuri-rosii/maestro-virtuoso-feteasca-neagra-and-rara-neagra
+https://wine.md/catalog/wine/vinuri-rosii/apriori-imperial-maestro-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu-sauvignon-blanc-and-chardonnay
+https://wine.md/catalog/wine/vinuri-rosii/ungheni-vin-rosu-licuros-suvenir-vioara-garling-postoral
+https://wine.md/catalog/wine/vinuri-rosii/crama-mircesti-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/atu-calibru-feteasca-neagra-merlot-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-rosii/domeniile-davidescu-rara-neagra-/saperavi
+https://wine.md/catalog/wine/vinuri-rosii/carpe-diem-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/crama-mircesti-feteasca-neagra/saperavi
+https://wine.md/catalog/wine/vinuri-albe/chardonnay/timbrus-chardonnay
+https://wine.md/catalog/wine/vinuri-rosii/saperavi/castel-mimi-/-saperavi
+https://wine.md/catalog/wine/vinuri-rosii/malbec/rosu-de-purcari-/-0.375-ml
+https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vinaria-din-vale-motive-/-feteasca-neagra
+https://wine.md/catalog/wine/vinuri-albe/feteasca-alba/radacini-fiori
+https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/fautor-aurore-syrah/cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/asconi-sol-negru-cabernet-sauvignon
+https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/carpe-diem-cuvee-19/11-,rara-neagra,pinot-noir
+
+=== Details: low-res ===
+Vinum Spumant Viu Muscat Blanc | 249x663
+  https://wine.md/catalog/vinuri-spumante/vinum-spumant-viu-muscat-blanc
+  https://wine.md/assets/images/products/3208/vinumspumantviumuscatbianca11.png
+
+Vinum Spumant Viu Sauvignon Blanc | 243x661
+  https://wine.md/catalog/vinuri-spumante/vinum-spumant-viu-sauvignon-blanc
+  https://wine.md/assets/images/products/3207/vinumspumantviusauvignonblanc11.png
+
+Crama Mircesti Bardul din Mircesti Feteasca Regala | 188x619
+  https://wine.md/catalog/wine/vinuri-albe/feteasca-regala/crama-mircesti-bardul-din-mircesti-feteasca-regala
+  https://wine.md/assets/images/products/3205/barduldinmircestifeteascaregala202411.png
+
+Vera Winery White Bland 1 | 169x465
+  https://wine.md/catalog/wine/vinuri-albe/vera-winery-white-bland-1
+  https://wine.md/assets/images/products/3201/verawineryblend2.png
+
+Vera Winery Red Blend 1 | 173x471
+  https://wine.md/catalog/wine/vinuri-rosii/vera-winery-red-blend-1
+  https://wine.md/assets/images/products/3200/verawineryblend11.png
+
+Vera Winery Cabernet Sauvignon | 169x460
+  https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/vera-winery-cabernet-sauvignon
+  https://wine.md/assets/images/products/3199/verawinerycabernetsauvignon1.png
+
+Vera Winery Merlot | 145x473
+  https://wine.md/catalog/wine/vinuri-rosii/merlot/vera-winery-merlot
+  https://wine.md/assets/images/products/3198/verawinerymerlot1.png
+
+Vera Winery Feteasca Neagra | 172x472
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vera-winery-feteasca-neagra
+  https://wine.md/assets/images/products/3197/verawineryfeteascaneagra1.png
+
+Vera Winery Pinot Noir | 166x471
+  https://wine.md/catalog/wine/vinuri-rosii/pinot-noir/vera-winery-pinot-noir
+  https://wine.md/assets/images/products/3196/verawinerypinotnoier1.png
+
+Vera Winery Moscato | 165x454
+  https://wine.md/catalog/wine/vinuri-albe/muscat/vera-winery-moscato
+  https://wine.md/assets/images/products/3194/verawinerymoscato1.png
+
+Vera Winery Sauvignon Blanc | 168x462
+  https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/vera-winery-sauvignon-blanc
+  https://wine.md/assets/images/products/3193/verawinerysauvignonblanc1.png
+
+Radacini „CONTARINI Trevizo”  Vin Prosecco DOC | 223x564
+  https://wine.md/catalog/vinuri-spumante/radacini-contarini-trevizo-doc
+  https://wine.md/assets/images/products/3016/radacinicontariniproseccoextradryy.png
+
+Radacini „CONTARINI VALDOBBIADENE” Vin Prosecco Superiore DOCG alb brut | 246x598
+  https://wine.md/catalog/vinuri-spumante/radacini-„contarini-valdobbiadene”-vin-prosecco-superiore-docg-alb-brut
+  https://wine.md/assets/images/products/3015/radacinicontarinialbbrutproseccoo.png
+
+Bahu Sauvignon Blanc | 192x529
+  https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/bahu-sauvignon-blanc
+  https://wine.md/assets/images/products/3011/bahu-sauvignon-blanc1.png
+
+Chateau Cojusna Autentic Chardonnay & Sauvignon Blanc | 222x626
+  https://wine.md/catalog/wine/vinuri-albe/chateau-cojusna-autentic-chardonnay-and-sauvignon-blanc
+  https://wine.md/assets/images/products/2956/cojusna-autentic-chardonnay-sauvignon-blanc-12.png
+
+Chateau Cojusna Autentic Sauvignon Blanc & Floricica | 209x629
+  https://wine.md/catalog/wine/vinuri-albe/floricica/chateau-cojusna-autentic-sauvignon-blanc-and-floricica
+  https://wine.md/assets/images/products/2955/cojusna-sauvignon-blanc-floricica-autentic-1.png
+
+Chateau Cojusna Autentic Chardonnay & Fetească Alba | 190x614
+  https://wine.md/catalog/wine/vinuri-albe/chardonnay/chateau-cojusna-autentic-chardonnay-and-feteasca-alba
+  https://wine.md/assets/images/products/2953/cojusna-autentic-chardonnay-fetesca-alba.png
+
+Wine Crime Spumant Pinot Noir & Chardonnay | 291x585
+  https://wine.md/catalog/vinuri-spumante/wine-crime-spumant-pinot-noir-and-chardonnay
+  https://wine.md/assets/images/products/2914/wine-crame-rose-brut.png
+
+Chateau Cristi Family Rezerve Saperavi | 191x549
+  https://wine.md/catalog/wine/vinuri-rosii/chateau-cristi-family-rezerve-saperavi
+  https://wine.md/assets/images/products/2875/chateau-cristi-family-reserve-saperavi-2.png
+
+Chateau Cristi Family Rezerve Cabernet Franc | 211x536
+  https://wine.md/catalog/wine/vinuri-rosii/chateau-cristi-family-rezerve-cabernet-franc
+  https://wine.md/assets/images/products/2874/chateau-cristi-family-reserve-cabernet-franc-2.png
+
+Purcari Sapiens Fumé Sauvignon Blanc | 242x500
+  https://wine.md/catalog/wine/vinuri-albe/purcari-sapiens-fume-sauvignon-blanc
+  https://wine.md/assets/images/products/2837/sapiens-fume-1.jpeg
+
+Radacini Métier Spumant Brut Alb in cutie | 422x625
+  https://wine.md/catalog/vinuri-spumante/radacini
+  https://wine.md/assets/images/products/2814/metier-radacini-cutie.png
+
+Radacini Métier Spumant Brut Roz in cutie | 411x658
+  https://wine.md/catalog/vinuri-spumante/radacini-metier-spumant-brut-roz-in-cutie
+  https://wine.md/assets/images/products/2813/metier-cutie-radacini.png
+
+Radacini Métier Brut Natur in cutie | 396x649
+  https://wine.md/catalog/vinuri-spumante/radacini-metier-brut-natur-in-cutie
+  https://wine.md/assets/images/products/2812/metier-box-brut-natur.png
+
+Domeniile Davidescu Chardonnay | 147x462
+  https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu-chardonnay
+  https://wine.md/assets/images/products/2771/domeniile-davidescu-chardonnay-2023-alb-sec-1.png
+
+Domeniile Davidescu Sauvignon Blanc & Chardonnay | 148x461
+  https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu
+  https://wine.md/assets/images/products/2769/domeniile-davidescu-sauvignon-blanc-chardonnay-2023-alb-sec-1.png
+
+Vinaria din Vale 7 Coline Viorica & Bianca | 207x657
+  https://wine.md/catalog/wine/vinuri-albe/vinaria-din-vale-7-coline-viorica-and-bianca
+  https://wine.md/assets/images/products/2768/15821.970-removebg-preview-1.png
+
+CRAMA MIRCESTI Elegance FETEASCA NEAGRA | 199x530
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/crama-mircesti-feteasca-neagra
+  https://wine.md/assets/images/products/2717/crama-mircesti-fetesca-neagra.png
+
+Vinăria Hîncești Victoria Vin Spumant Brut Alb | 211x600
+  https://wine.md/catalog/vinuri-spumante/victoria-vin-spumant-brut-alb
+  https://wine.md/assets/images/products/2712/victoria-brut-hancesti-1.png
+
+Vinăria Hîncești Expat Sauvignon Blanc | 220x600
+  https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/expat-sauvignon-blanc
+  https://wine.md/assets/images/products/2710/02expat-sauvignon-hancesti-1.png
+
+Vinăria Hîncești Expat Cabernet Sauvignon | 210x600
+  https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/expat-cabernet-sauvignon
+  https://wine.md/assets/images/products/2707/04expat-cabernet-hancesti-wine-1.png
+
+Minis Terrios Albă Împărăteasă | 220x588
+  https://wine.md/catalog/wine/vinuri-albe/minis-terrios-alba-imparateasa
+  https://wine.md/assets/images/products/2702/ministeriusimparateasa-removebg.png
+
+Divus Merlot | 268x541
+  https://wine.md/catalog/wine/vinuri-rosii/divus-merlot-wine
+  https://wine.md/assets/images/products/2665/screenshot-1.png
+
+Crama Tataru Fetesca Regala | 131x385
+  https://wine.md/catalog/wine/vinuri-albe/feteasca-regala/crama-tataru-fetesca-regala
+  https://wine.md/assets/images/products/2473/crama-tataru-fetesca-regala-1-removebg-preview.png
+
+Crama Mircesti Bardul din Mircesti Saperavi | 301x782
+  https://wine.md/catalog/wine/vinuri-rosii/bardul-din-mercesti-saperavi
+  https://wine.md/assets/images/products/2426/bardul-din-mircesti-saperavi-1.jpg
+
+Cuvee de Purcari Adamant | 420x768
+  https://wine.md/catalog/vinuri-spumante/cuvee-de-purcari-adamant
+  https://wine.md/assets/images/products/2412/purcari-adamant.jpg
+
+Alianta Vin Chardonnay Barique | 236x580
+  https://wine.md/catalog/wine/vinuri-albe/alianta-vin-chardonnay-barique
+  https://wine.md/assets/images/products/2392/alianta-chardonnay-barique.jpg
+
+Alianta Vin Merlot | 213x580
+  https://wine.md/catalog/wine/vinuri-rosii/alianta-vin-merlot
+  https://wine.md/assets/images/products/2391/alianta-vin-merlot.jpg
+
+I\ | 184x700
+  https://wine.md/catalog/vinuri-spumante/im-winery-spumant
+  https://wine.md/assets/images/products/2366/im-winery-feteasca-alba-spumant.png
+
+I\ | 183x699
+  https://wine.md/catalog/wine/vinuri-rosii/im-winery-primul-vis
+  https://wine.md/assets/images/products/2364/primul-vis-csrnfnsh.png
+
+I\ | 183x700
+  https://wine.md/catalog/wine/vinuri-rosii/im-winery-rara-neagra
+  https://wine.md/assets/images/products/2362/rara-neagra.png
+
+I\ | 178x700
+  https://wine.md/catalog/wine/vinuri-albe/im-winery-feteasca-alba
+  https://wine.md/assets/images/products/2360/feteasca-alba.png
+
+Divus Malbec | 356x780
+  https://wine.md/catalog/wine/vinuri-rosii/divus-malbec
+  https://wine.md/assets/images/products/2351/divus-malbec-1.jpg
+
+Mihai Sava Floricica | 269x677
+  https://wine.md/catalog/wine/vinuri-albe/mihai-sava-floricica
+  https://wine.md/assets/images/products/2344/mihai-saca-floricica.png
+
+Mihai Sava Bianca | 336x742
+  https://wine.md/catalog/wine/vinuri-albe/mihai-sava-bianca
+  https://wine.md/assets/images/products/2343/mihai-sava-bianca-1.png
+
+Javgur Scena Merlot | 136x364
+  https://wine.md/catalog/wine/vinuri-rosii/javgur-scena-merlot
+  https://wine.md/assets/images/products/2321/javgur-scena-merlot-1.png
+
+Minis Terrios Merlot | 225x616
+  https://wine.md/catalog/wine/vinuri-rosii/minis-terrios-merlot
+  https://wine.md/assets/images/products/2302/minis-terrios-merlot-1.jpg
+
+Minis Terrios Cabernet Sauvignon | 214x624
+  https://wine.md/catalog/wine/vinuri-rosii/minis-terrios-cabernet-sauvignon
+  https://wine.md/assets/images/products/2301/minis-terrios-cabernet-1.jpg
+
+Bravoure Sauvignon Blanc & Pinot Grigio | 195x506
+  https://wine.md/catalog/wine/vinuri-albe/bravoure-sauvignon-blanc-and-pinot-grigio
+  https://wine.md/assets/images/products/2297/chateau-cristi-bravoure-sauvignon-blanc-si-pinot-grigio.png
+
+Corten Chardonnay | 173x544
+  https://wine.md/catalog/wine/vinuri-albe/corten-chardonnay
+  https://wine.md/assets/images/products/2295/corten-chardonney.png
+
+Corten Riesling | 188x539
+  https://wine.md/catalog/wine/vinuri-albe/corten-riesling
+  https://wine.md/assets/images/products/2294/corten-riesling.png
+
+Corten Traminer | 178x530
+  https://wine.md/catalog/wine/vinuri-albe/corten-traminer
+  https://wine.md/assets/images/products/2293/corten-traminer.png
+
+Aurelius Sparkling Ice Wine | 148x477
+  https://wine.md/catalog/wine/vinuri-dulci/aurelius-sparkling-ice-wine
+  https://wine.md/assets/images/products/2276/aurelius-ice-wine-1.jpg
+
+Vinum SELECTION Vladlen Uzhakov Saperavi | 280x686
+  https://wine.md/catalog/wine/vinuri-rosii/selection-vladlen-uzhakov-saperavi-2019
+  https://wine.md/assets/images/products/2210/seelctionsaperavi.jpg
+
+Cricova TATIUS licoros | 480x640
+  https://wine.md/catalog/wine/vinuri-dulci/cricova-tatius-licoros
+  https://wine.md/assets/images/products/2152/tatius.png
+
+Cricova WILD Fetească Regală | 480x640
+  https://wine.md/catalog/wine/vinuri-albe/cricova-wild-feteasca-regala
+  https://wine.md/assets/images/products/2150/wild-feteasca-regala.png
+
+Cricova ELOGIU brut natur | 480x661
+  https://wine.md/catalog/vinuri-spumante/cricova-elogiu-brut-natur
+  https://wine.md/assets/images/products/2149/elogiu-vin-spumant-de-calitate-alb.png
+
+Cricova ELOGIU Chardonnay | 480x640
+  https://wine.md/catalog/wine/vinuri-albe/cricova-elogiu-chardonnay
+  https://wine.md/assets/images/products/2148/elogiu-vin-sec-alb.png
+
+CHATEAU CRISTI BRAVOURE MALBEC ROSÉ | 240x360
+  https://wine.md/catalog/wine/vinuri-roze/chateau-cristi-bravoure-malbec-rose
+  https://wine.md/assets/images/products/2079/chateaucristi-bravoure-malbec1.jpg
+
+Bahu Sauvignon Blanc Barique | 166x482
+  https://wine.md/catalog/wine/vinuri-albe/bahu-sauvignon-blanc-barique
+  https://wine.md/assets/images/products/2077/bahu-sauvignon-barique-1.png
+
+Bahu Cabernet Franc Barrique | 191x558
+  https://wine.md/catalog/wine/vinuri-rosii/bahu-cabernet-franc
+  https://wine.md/assets/images/products/2075/bahu-cabernet-franc-barrique-1.png
+
+Divus Ornis | 259x720
+  https://wine.md/catalog/wine/vinuri-rosii/divus-ornis
+  https://wine.md/assets/images/products/2060/divus-ornis-5.jpg
+
+Vinum BRUT ROSE Estate | 284x670
+  https://wine.md/catalog/vinuri-spumante/vinum-brut-rose-estate
+  https://wine.md/assets/images/products/1914/spumant-clasic-brut-rose1.jpg
+
+Vinum Estate BRUT NATUR | 306x658
+  https://wine.md/catalog/vinuri-spumante/vinum-estate-brut-natur
+  https://wine.md/assets/images/products/1916/spumant-clasic-brut-natur1.jpg
+
+Crama Mircesti Orange Rkatsiteli | 199x531
+  https://wine.md/catalog/wine/vinuri-albe/crama-mircesti-orange-feteasca-regala
+  https://wine.md/assets/images/products/1892/crama-mircesti-bardul-din-mircesti-orange.png
+
+Asconi Sol Negru Rara Neagra | 191x726
+  https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/asconi-rara-neagra
+  https://wine.md/assets/images/products/1544/rara-neagra-sol-negru-wine.md.jpg
+
+Atu Trei Fete | 270x577
+  https://wine.md/catalog/wine/vinuri-albe/atu-trei-fete
+  https://wine.md/assets/images/products/1830/atu-trei-fete-gewurztraminer.jpg
+
+Et Cetera Naughty Girls | 286x768
+  https://wine.md/catalog/wine/vinuri-albe/et-cetera-naughty-girls
+  https://wine.md/assets/images/products/1822/etceteranaughtygirlss.png
+
+Divus Winery Feteasca Neagră | 220x663
+  https://wine.md/catalog/wine/vinuri-rosii/divus-winery-feteasca-neagra
+  https://wine.md/assets/images/products/1821/divus-winery-feteasca-neagra-1.png
+
+Divus Winery Saperavi | 233x681
+  https://wine.md/catalog/wine/vinuri-rosii/divus-winery-saperavi
+  https://wine.md/assets/images/products/1820/divus-winery-saperavi-1.png
+
+Divus Winery Endemic Blend | 222x669
+  https://wine.md/catalog/wine/vinuri-rosii/divus-winery-endemic-blend
+  https://wine.md/assets/images/products/1819/divus-winery-endemic-blend-1.jpg
+
+Vinum SELECTION Vladlen Uzhakov Pinot Noir | 303x665
+  https://wine.md/catalog/wine/vinuri-rosii/vinum-selection-vladlen-uzhakov-pinot-noir
+  https://wine.md/assets/images/products/1909/selection-pinot-noir-1.jpg
+
+PELICAN NEGRU - PINOT NOIR | 208x500
+  https://wine.md/catalog/wine/vinuri-rosii/pelican-negru-pinot-noir
+  https://wine.md/assets/images/products/1734/pelican-negru-wine.md-pinot-noir-1.png
+
+VINUM Estate Sauvignon Blanc | 182x678
+  https://wine.md/catalog/wine/vinuri-albe/vinum-estate-sauvignon-blanc-2020
+  https://wine.md/assets/images/products/1701/vinum-sauvignon-blanc.png
+
+VINUM Estate Chardonnay | 251x686
+  https://wine.md/catalog/wine/vinuri-albe/vinum-estate-chardonnay-2020
+  https://wine.md/assets/images/products/1699/vinum-chardonnay-(2).png
+
+Gitana Winery Lupi Magnum | 273x746
+  https://wine.md/catalog/wine/vinuri-rosii/gitana-winery-lupi-magnum
+  https://wine.md/assets/images/products/1507/lupi-magnum-1.jpg
+
+Et Cetera NAUGHTY BOYS | 260x778
+  https://wine.md/catalog/wine/vinuri-rosii/et-cetera-nanghty-boys
+  https://wine.md/assets/images/products/1489/pinot-noir-2017-naughty-boys.png
+
+Vinum SELECTION Vladlen Uzhakov Feteasca Neagra | 256x700
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vinum-selection-vladlen-feteasca-neagra-light-barrique
+  https://wine.md/assets/images/products/1179/selectionfeteascaneagra1.jpg
+
+Vinum SELECTION Vladlen Chardonnay | 295x675
+  https://wine.md/catalog/wine/vinuri-albe/chardonnay/vinum-section-vladlen-chardonnay-light-bartique
+  https://wine.md/assets/images/products/1178/selection-chardonnay1.jpg
+
+Vinaria din Vale 7 Coline Cabernet Sauvignon & Merlot | 205x787
+  https://wine.md/catalog/wine/vinuri-rosii/merlot/vinaria-din-vale-motive-/-merlot
+  https://wine.md/assets/images/products/1070/cabernet-sauvignon-merlot.png
+
+Salcuta Reserva ENO | 169x630
+  https://wine.md/catalog/wine/vinuri-rosii/saperavi/salcuta-reserva-eno-2015
+  https://wine.md/assets/images/products/835/353114374.webp
+
+Salcuta Riesling & Traminer | 171x630
+  https://wine.md/catalog/wine/vinuri-albe/traminer/salcuta-riesling-and-traminer
+  https://wine.md/assets/images/products/831/353152899.webp
+
+Salcuta Eno Rose Noble | 171x630
+  https://wine.md/catalog/wine/vinuri-roze/pinot-noir/tamaioasa-de-salcuta
+  https://wine.md/assets/images/products/829/353133787.webp
+
+Black Doktor  Bostavan | 200x668
+  https://wine.md/catalog/wine/vinuri-dulci/cabernet-sauvignon/ciornii-doctor
+  https://wine.md/assets/images/products/808/black-doktor-bostovan-ciornii-doctor.png
+
+Purcari Ice Wine | 264x588
+  https://wine.md/catalog/wine/vinuri-dulci/ice-wine/purcari-ice-wine
+  https://wine.md/assets/images/products/712/purcari-ice-wine.jpg
+
+Gogu Viorica | 353x707
+  https://wine.md/catalog/wine/vinuri-albe/viorica/gogu-viorica
+  https://wine.md/assets/images/products/674/gogu-viorica-2024-1-removebg-preview.png
+
+Gogu Riesling de Rhein | 346x722
+  https://wine.md/catalog/wine/vinuri-albe/riesling-de-rhein/gogu-riesling-de-rhein
+  https://wine.md/assets/images/products/673/gogu-riesling-de-rhein-2024-1-removebg-preview.png
+
+Gogu Metafora Alb | 408x612
+  https://wine.md/catalog/wine/vinuri-albe/feteasca-alba/gogu-metafora
+  https://wine.md/assets/images/products/668/gogu-metafora-white-2019.png
+
+Fautor Aurore Pinot Grigio | 183x463
+  https://wine.md/catalog/wine/vinuri-albe/pinot-gris/fautor-aur-pinot-grigio
+  https://wine.md/assets/images/products/656/fautor-aurore-pinot-grigio.jpg
+
+Carlevana Raritet Viorica | 200x600
+  https://wine.md/catalog/wine/vinuri-albe/viorica/carlevana-viorica
+  https://wine.md/assets/images/products/631/raritetviorica1.webp
+
+Asconi Ice Wine Riesling | 480x720
+  https://wine.md/catalog/wine/vinuri-dulci/ice-wine/asconi-ice-wine-riesling
+  https://wine.md/assets/images/products/556/asconi-icewine-riesling-new.png
+
+=== Details: broken ===
+
+Vera Winery Pinot Noir Rose
+  https://wine.md/catalog/wine/vinuri-roze/pinot-noir/vera-winery-pinot-noir-rose
+  https://wine.md/assets/images/products/3195/verawineryrose1.jpg
+  HTTP Error 404: Not Found
+
+Domeniile Cuza Motiv Rose Merlot & Saperavi
+  https://wine.md/catalog/wine/vinuri-roze/domeniile-cuza-motiv-rose-merlot-and-saperavi
+  https://wine.md/assets/images/products/3132/domeniilecuzamotivrose.jpg
+  HTTP Error 404: Not Found
+
+Asconi Casa Felina Cabernet Sauvignon & Merlot
+  https://wine.md/catalog/wine/vinuri-roze/asconi-casa-felina-cabernet-sauvignon-and-merlot
+  https://wine.md/assets/images/products/3089/casafelinaasconirose.jpg
+  HTTP Error 404: Not Found
+
+Aurelius Rose Pinot Noir
+  https://wine.md/catalog/wine/vinuri-roze/pinot-noir/aurelius-rose-pinot-noir
+  https://wine.md/assets/images/products/3067/aureliusrose1.jpg
+  HTTP Error 404: Not Found
+
+Cricova Limited Edition Rose Rara Neagra
+  https://wine.md/catalog/wine/vinuri-roze/rara-neagra/cricova
+  https://wine.md/assets/images/products/3055/cricovararaneagralimitededition.jpg
+  HTTP Error 404: Not Found
+
+Salcuta Epizod Rose
+  https://wine.md/catalog/wine/vinuri-roze/salcuta-epizod-rose
+  https://wine.md/assets/images/products/3023/epizotsalcuta.jpg
+  HTTP Error 404: Not Found
+
+Chateau Cojusna Autentic Cabernet Sauvignon & Pinot Noir
+  https://wine.md/catalog/wine/vinuri-roze/chateau-cojusna-autentic-cabernet-sauvignon-and-pinot-noir
+  https://wine.md/assets/images/products/2954/cojusna-autentic-cabernet-sauvignon-pinot-noir.jpg
+  HTTP Error 404: Not Found
+
+Crama Mircești - Rose
+  https://wine.md/catalog/wine/vinuri-roze/crama-mircești-rose
+  https://wine.md/assets/images/products/1615/crama-mircesti-rose.jpg
+  HTTP Error 404: Not Found
+
+Castel Mimi The Governor\
+  https://wine.md/catalog/wine/vinuri-rosii/castel-mimi-governors-blend
+  https://wine.md/assets/images/products/2350/mimi-blend-1.png
+  HTTP Error 404: Not Found
+
+Gogu Feteasca Neagra & Cabernet Sauvignon Rose Eco
+  https://wine.md/catalog/wine/vinuri-roze/gogu-feteasca-neagra-and-cabernet-sauvignon-rose
+  https://wine.md/assets/images/products/2838/gogu-feteasca-neagra-cabernet-sauvignon-rose-2024-1-removebg-preview.jpg
+  HTTP Error 404: Not Found
+
+Maestro Cuvee Rose Brut
+  https://wine.md/catalog/wine/vinuri-roze/maestro-cuvee-rose-brut
+  https://wine.md/assets/images/products/2789/maestro-sparkling-wine-cuvee-rose-brut-limited-edition-075l.jpg
+  HTTP Error 404: Not Found
+
+Domeniile  Davidescu Generatii Pinot Grigio Rose
+  https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-pinot-grigio
+  https://wine.md/assets/images/products/2773/izobrazhenie-2024-09-20-184738006.jpg
+  HTTP Error 404: Not Found
+
+Radacini Spumant Rose Dulce
+  https://wine.md/catalog/vinuri-spumante/radacini-spumant-rose-dulce
+  https://wine.md/assets/images/products/2753/radacini-rose-dulce-spumant-2.png
+  HTTP Error 404: Not Found
+
+Radacini Reserve Brut Spumant in cutie
+  https://wine.md/catalog/vinuri-spumante/radacini-rezerve
+  https://wine.md/assets/images/products/2718/radacini-reserve-brut-spumant-wine.md-removebg-preview.png
+  HTTP Error 404: Not Found
+
+Domeniile Vorniceni Pielea Cucoanei Rose
+  https://wine.md/catalog/wine/vinuri-roze/domeniile-vorniceni-pielea-cucoanei
+  https://wine.md/assets/images/products/2663/divus-pielea-cucuoane.jpg
+  HTTP Error 404: Not Found
+
+Crama  Tataru Cabernet Merlot Rose
+  https://wine.md/catalog/wine/vinuri-roze/crama-tataru-cabernet-merlot-rose
+  https://wine.md/assets/images/products/2475/crama-tataru-rose-cabernet.merlot-1.jpg
+  HTTP Error 404: Not Found
+
+I\
+  https://wine.md/catalog/wine/vinuri-roze/im-winery-rose
+  https://wine.md/assets/images/products/2361/rose.jpg
+  HTTP Error 404: Not Found
+
+Domeniile Davidescu Rose
+  https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-roze
+  https://wine.md/assets/images/products/2277/vin-rose-rara-neagra-domeniile-davidescu-1.jpg
+  HTTP Error 404: Not Found
+
+Wine Crime Flirty Sparkling Rose
+  https://wine.md/catalog/wine/vinuri-roze/wine-crime-flirty-sparkling-rose
+  https://wine.md/assets/images/products/2180/wine-crime-sp-rose.jpg
+  HTTP Error 404: Not Found
+
+Cricova WILD Fetească Neagră Rose
+  https://wine.md/catalog/wine/vinuri-roze/cricova-wild-feteasca-neagra
+  https://wine.md/assets/images/products/2151/wild-feteasca-neagra.jpg
+  HTTP Error 404: Not Found
+
+Kazayak Merlot Rose
+  https://wine.md/catalog/wine/vinuri-roze/merlot/kazayak-merlot-rose
+  https://wine.md/assets/images/products/1602/merlot-rose-merlot-rose-new.jpg
+  HTTP Error 404: Not Found
+
+Domeniile Davidescu - Sorginte Rose
+  https://wine.md/catalog/wine/vinuri-roze/domeniile-davidescu-sorginte
+  https://wine.md/assets/images/products/1520/rose-davidescu.jpg
+  HTTP Error 404: Not Found
+
+CASTEL MIMI The Governor’s Chardonnay & Riesling
+  https://wine.md/catalog/wine/vinuri-albe/castel-mimi-the-governor’s-chardonnay-and-riesling-2018
+  https://wine.md/assets/images/products/1503/mimi-governor-alb.jpg
+  HTTP Error 404: Not Found
+
+Castel Mimi Rose Rara Neagra
+  https://wine.md/catalog/wine/vinuri-roze/rara-neagra/castel-mimi-rose-rara-neagra
+  https://wine.md/assets/images/products/1223/rara-neagra-rose-1.jpg
+  HTTP Error 404: Not Found
+
+Castel Mimi Rose de Bulboaca
+  https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/castel-mimi-rose-de-bulboaca
+  https://wine.md/assets/images/products/1172/rose-de-bulboaca.jpg
+  HTTP Error 404: Not Found
+
+Carlevana Raritet Merlotage
+  https://wine.md/catalog/wine/vinuri-roze/timbrus-rose
+  https://wine.md/assets/images/products/208/merlotage.jpg
+  HTTP Error 404: Not Found
+
+Vinaria Din vale 7 Coline Rose
+  https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/vinaria-din-vale-7-coline-rose
+  https://wine.md/assets/images/products/899/7coline-rose-075l.jpg
+  HTTP Error 404: Not Found
+
+Mihai Sava Rose Merlot
+  https://wine.md/catalog/wine/vinuri-roze/merlot/mihai-sava-rose-merlot
+  https://wine.md/assets/images/products/802/mihai-sava-rose.jpg
+  HTTP Error 404: Not Found
+
+Purcari Vinohora roze
+  https://wine.md/catalog/wine/vinuri-roze/montepulciano/purcari-vinohora-roze
+  https://wine.md/assets/images/products/709/purcari-vinohora-rose-vinaria-purcari.jpg
+  HTTP Error 404: Not Found
+
+Fautor Vivienne Cuvee Rose
+  https://wine.md/catalog/wine/vinuri-roze/shiraz/fautor-vivienne-cuvee
+  https://wine.md/assets/images/products/666/summed-vivienne-fw.jpg
+  HTTP Error 404: Not Found
+
+Chateau Vartely Individo Malbec & Shiraz Rose
+  https://wine.md/catalog/wine/vinuri-roze/merlot/chateau-vartely-individo-cabernet-sauvignon/merlot
+  https://wine.md/assets/images/products/582/cabernet-merlot.jpg
+  HTTP Error 404: Not Found
+
+Radacini Vero di Moscato dulce
+  https://wine.md/catalog/vinuri-spumante/radacini-vero-di-moscato-dulce
+  https://wine.md/assets/images/products/3259/radaciniverodimosctoalbdulcee.jpg
+  HTTP Error 404: Not Found
+
+Radacini Fiori Rara Neagra
+  https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/radacini-fiori-rara-neagra
+  https://wine.md/assets/images/products/3258/radacinifioriraraneagra.jpg
+  HTTP Error 404: Not Found
+
+Radacini Vero di Moscato Dolce Alb
+  https://wine.md/catalog/wine/vinuri-albe/radacini-vero-di-moscato-dolce-alb
+  https://wine.md/assets/images/products/3256/radacinivinverodimoscatoalb.jpg
+  HTTP Error 404: Not Found
+
+Radacini Vero di Moscato Dolce Rose
+  https://wine.md/catalog/wine/vinuri-roze/radacini-vero-di-moscato-dolce-rose
+  https://wine.md/assets/images/products/3255/radacinivinverodimoscatorose.jpg
+  HTTP Error 404: Not Found
+
+Vera Winery Spumant Rose Brut
+  https://wine.md/catalog/vinuri-spumante/pinot-noir/vera-winery-spumant-rose-brut
+  https://wine.md/assets/images/products/3253/verawineryspumantrosebrutt.jpg
+  HTTP Error 404: Not Found
+
+Tomai Regina de Tomai Negru Sec
+  https://wine.md/catalog/wine/vinuri-rosii/tomai-regina-de-tomai-negru-sec
+  https://wine.md/assets/images/products/3083/tomaireginarosu.jpg
+  HTTP Error 404: Not Found
+
+Tomai Regina de Tomai Rose Sec
+  https://wine.md/catalog/wine/vinuri-roze/tomai-regina-de-tomai-rose-sec
+  https://wine.md/assets/images/products/3082/tomaireginarose.jpg
+  HTTP Error 404: Not Found
+
+Tomai Regina de Tomai Alb Sec
+  https://wine.md/catalog/wine/vinuri-albe/tomai-regina-de-tomai-alb-sec
+  https://wine.md/assets/images/products/3081/tomaireginaalb.jpg
+  HTTP Error 404: Not Found
+
+Tomai Cabernet Sauvignon & Saperavi & Merlot
+  https://wine.md/catalog/wine/vinuri-rosii/tomai-cabernet-sauvignon-and-saperavi-and-merlot
+  https://wine.md/assets/images/products/3077/negrudetomaicabernetsaperavimerlot.jpg
+  HTTP Error 404: Not Found
+
+Tomai Merlot
+  https://wine.md/catalog/wine/vinuri-rosii/merlot/tomai-merlot
+  https://wine.md/assets/images/products/3076/rosudetomaimerlot.jpg
+  HTTP Error 404: Not Found
+
+Tomai Saperavi
+  https://wine.md/catalog/wine/vinuri-rosii/saperavi/tomaisaperavi
+  https://wine.md/assets/images/products/3075/rosudetomaisaperavi.jpg
+  HTTP Error 404: Not Found
+
+Tomai Cabernet Sauvignon
+  https://wine.md/catalog/wine/vinuri-rosii/tomai-cabernet-sauvignon
+  https://wine.md/assets/images/products/3074/rosudetomaicabernetsauvignon.jpg
+  HTTP Error 404: Not Found
+
+Tomai Rose Pinot Noir
+  https://wine.md/catalog/wine/vinuri-roze/pinot-noir/tomai-rose-pinot-noir
+  https://wine.md/assets/images/products/3073/rosedetomaipinotnoir.jpg
+  HTTP Error 404: Not Found
+
+Tomai Rose Cabernet Sauvignon & Pinot Noir & Merlot
+  https://wine.md/catalog/wine/vinuri-roze/tomai-rose-cabernet-sauvignon-and-pinot-noir-and-merlot
+  https://wine.md/assets/images/products/3072/tomaiblendrose.jpg
+  HTTP Error 404: Not Found
+
+Tomai Chardonnay & Riesling & Viorica
+  https://wine.md/catalog/wine/vinuri-albe/tomai-chardonnay-and-riesling-and-viorica
+  https://wine.md/assets/images/products/3071/albdetomaichardonnayrieslingviorica.jpg
+  HTTP Error 404: Not Found
+
+Tomai Chardonnay
+  https://wine.md/catalog/wine/vinuri-albe/chardonnay/tomai-chardonnay
+  https://wine.md/assets/images/products/3070/albdetomaichardonnay1.jpg
+  HTTP Error 404: Not Found
+
+Tomai Sauvignon Blanc
+  https://wine.md/catalog/wine/vinuri-albe/sauvignon-blanc/tomai-sauvignon-blanc
+  https://wine.md/assets/images/products/3069/albdetomai-sauvignonblanc.jpg
+  HTTP Error 404: Not Found
+
+Tomai Viorica
+  https://wine.md/catalog/wine/vinuri-albe/viorica/tomai-viorica
+  https://wine.md/assets/images/products/3068/albdetomaiviorica.jpg
+  HTTP Error 404: Not Found
+
+Radacini Reserve Saperavi
+  https://wine.md/catalog/wine/vinuri-rosii/saperavi/radacini
+  https://wine.md/assets/images/products/307/radacinirezervesaperaviwine.jpg
+  HTTP Error 404: Not Found
+
+Maestro Virtuoso Feteasca Regala
+  https://wine.md/catalog/wine/vinuri-albe/maestro-virtuoso-feteasca-regala
+  https://wine.md/assets/images/products/2803/maestro-virtuoso-feteasca-regala-2023.jpg
+  HTTP Error 404: Not Found
+
+Maestro Virtuoso Feteasca Neagra & Rara Neagra
+  https://wine.md/catalog/wine/vinuri-rosii/maestro-virtuoso-feteasca-neagra-and-rara-neagra
+  https://wine.md/assets/images/products/2801/maestro-virtuoso-feteasca-neagra-rara-neagra-2023.jpg
+  HTTP Error 404: Not Found
+
+Maestro Cabernet Sauvignon Barrique Rezerve
+  https://wine.md/catalog/wine/vinuri-rosii/apriori-imperial-maestro-cabernet-sauvignon
+  https://wine.md/assets/images/products/2796/maestro-cabernet-sauvignon-mic.jpg
+  HTTP Error 404: Not Found
+
+Domeniile Davidescu Cabernet Sauvignon & Feteasca Neagră
+  https://wine.md/catalog/wine/vinuri-albe/domeniile-davidescu-sauvignon-blanc-and-chardonnay
+  https://wine.md/assets/images/products/2767/266690-800-auto.jpg
+  HTTP Error 404: Not Found
+
+Ungheni vin rosu licuros Suvenir-Vioara-Garling-Postoral
+  https://wine.md/catalog/wine/vinuri-rosii/ungheni-vin-rosu-licuros-suvenir-vioara-garling-postoral
+  https://wine.md/assets/images/products/2504/ungheni-vin-rosu-licuros-suvenir-vioara-garling-postoral.jpg
+  HTTP Error 404: Not Found
+
+Crama Mircesti Bardul din Mircesti Feteasca Neagra
+  https://wine.md/catalog/wine/vinuri-rosii/crama-mircesti-feteasca-neagra
+  https://wine.md/assets/images/products/2273/bardul-din-mircesti-feteasca-neagra-2020.jpg
+  HTTP Error 404: Not Found
+
+Atu Calibru
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/atu-calibru-feteasca-neagra-merlot-cabernet-sauvignon
+  https://wine.md/assets/images/products/568/calibru.jpg
+  HTTP Error 404: Not Found
+
+Domeniile Davidescu Rara Neagră /Saperavi
+  https://wine.md/catalog/wine/vinuri-rosii/domeniile-davidescu-rara-neagra-/saperavi
+  https://wine.md/assets/images/products/1522/rara-neagra-saperavi.jpg
+  HTTP Error 404: Not Found
+
+Carpe Diem Feteasca Neagră
+  https://wine.md/catalog/wine/vinuri-rosii/carpe-diem-feteasca-neagra
+  https://wine.md/assets/images/products/1512/feteasca-neagra-2017-1.jpg
+  HTTP Error 404: Not Found
+
+Crama Mircesti Feteasca Neagra/Saperavi
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/crama-mircesti-feteasca-neagra/saperavi
+  https://wine.md/assets/images/products/1403/crama-mircesti-feteasca-neagra-saperavi-1.jpg
+  HTTP Error 404: Not Found
+
+Timbrus Chardonnay
+  https://wine.md/catalog/wine/vinuri-albe/chardonnay/timbrus-chardonnay
+  https://wine.md/assets/images/products/1284/timbruschardonnay.jpg
+  HTTP Error 404: Not Found
+
+Castel Mimi  Saperavi
+  https://wine.md/catalog/wine/vinuri-rosii/saperavi/castel-mimi-/-saperavi
+  https://wine.md/assets/images/products/1133/saperavi-1.jpg
+  HTTP Error 404: Not Found
+
+Rosu de Purcari
+  https://wine.md/catalog/wine/vinuri-rosii/malbec/rosu-de-purcari-/-0.375-ml
+  https://wine.md/assets/images/products/1128/rosu-2015.jpg
+  HTTP Error 404: Not Found
+
+Vinaria Din Vale Motive Feteasca Neagra
+  https://wine.md/catalog/wine/vinuri-rosii/feteasca-neagra/vinaria-din-vale-motive-/-feteasca-neagra
+  https://wine.md/assets/images/products/1069/vinariadinvalemotivefeteascaneagraa.jpg
+  HTTP Error 404: Not Found
+
+Radacini Fiori Feteasca Alba
+  https://wine.md/catalog/wine/vinuri-albe/feteasca-alba/radacini-fiori
+  https://wine.md/assets/images/products/714/radacinifiorifeteascaalba.jpg
+  HTTP Error 404: Not Found
+
+Fautor Aurore Syrah/Cabernet Sauvignon
+  https://wine.md/catalog/wine/vinuri-rosii/cabernet-sauvignon/fautor-aurore-syrah/cabernet-sauvignon
+  https://wine.md/assets/images/products/660/au-syrah-cabernet-sauvignon-2017.jpg
+  HTTP Error 404: Not Found
+
+Asconi Sol Negru Cabernet-Sauvignon Rose
+  https://wine.md/catalog/wine/vinuri-roze/cabernet-sauvignon/asconi-sol-negru-cabernet-sauvignon
+  https://wine.md/assets/images/products/557/cabernet-sauvignon-rose-(wh).jpg
+  HTTP Error 404: Not Found
+
+Carpe Diem Cuvee 19/11 Rara Neagra & Pinot Noir
+  https://wine.md/catalog/wine/vinuri-rosii/rara-neagra/carpe-diem-cuvee-19/11-,rara-neagra,pinot-noir
+  https://wine.md/assets/images/products/551/carpe-diem-cuvee-1911-rara-neagra-pinot-noir.jpg
+  HTTP Error 404: Not Found
+
+Summary: low-res 91, broken 68, checked 639
