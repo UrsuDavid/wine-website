@@ -114,10 +114,9 @@
     return s;
   }
   function createCard(doc, p) {
-    var a = doc.createElement('a');
-    a.className = 'wine-card wine-card--product';
-    a.href = 'wine-detail.html?id=' + encodeURIComponent(p.id || p.name);
-    if (p.id) a.setAttribute('data-product-id', p.id);
+    var card = doc.createElement('article');
+    card.className = 'wine-card wine-card--product';
+    if (p.id) card.setAttribute('data-product-id', p.id);
     var useJpgOnly = {};
     var wrap = doc.createElement('div');
     wrap.className = 'wine-card-img wine-card-img--' + (p.type === 'red' ? 'red' : p.type === 'sparkling' ? 'sparkling' : p.type === 'rose' ? 'rose' : 'white') + (useJpgOnly[p.id] ? ' wine-card-img--jpg' : '');
@@ -147,7 +146,19 @@
       this.src = fallbackUrl; this.onerror = null;
     };
     wrap.appendChild(img);
-    a.appendChild(wrap);
+    var detailHref = 'wine-detail.html?id=' + encodeURIComponent(p.id || p.name);
+    var link = doc.createElement('a');
+    link.className = 'wine-card-link';
+    link.href = detailHref;
+    if (p.id) link.setAttribute('data-product-id', p.id);
+    link.appendChild(wrap);
+    if (typeof window.isWineProductNew === 'function' && window.isWineProductNew(p)) {
+      var nb = doc.createElement('span');
+      nb.className = 'wine-card-new-badge';
+      nb.setAttribute('data-translate', 'card-new');
+      nb.textContent = t('card-new');
+      link.appendChild(nb);
+    }
     var body = doc.createElement('div');
     body.className = 'wine-card-body';
     var productName = doc.createElement('h3');
@@ -176,8 +187,9 @@
     cta.className = 'wine-card-cta btn btn-primary';
     cta.textContent = t('card-add-to-cart') || t('card-view-details');
     body.appendChild(cta);
-    a.appendChild(body);
-    return a;
+    link.appendChild(body);
+    card.appendChild(link);
+    return card;
   }
   var PAGE_SIZE = 24;
   window.renderWineGrid = function (containerId, typeFilter, sortKey, filters, pagination) {
@@ -508,8 +520,20 @@
         filterBtn.type = 'button';
         filterBtn.className = 'wine-filters-toggle';
         filterBtn.setAttribute('aria-label', t('filters-toggle'));
-        filterBtn.setAttribute('data-translate', 'filters-toggle');
-        filterBtn.textContent = t('filters-toggle');
+        filterBtn.innerHTML =
+          '<svg class="wine-filters-toggle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<line x1="21" x2="14" y1="4" y2="4"/>' +
+          '<line x1="10" x2="3" y1="4" y2="4"/>' +
+          '<line x1="21" x2="12" y1="12" y2="12"/>' +
+          '<line x1="8" x2="3" y1="12" y2="12"/>' +
+          '<line x1="21" x2="16" y1="20" y2="20"/>' +
+          '<line x1="12" x2="3" y1="20" y2="20"/>' +
+          '<line x1="14" x2="14" y1="4" y2="8"/>' +
+          '<line x1="6" x2="6" y1="12" y2="16"/>' +
+          '<line x1="18" x2="18" y1="16" y2="20"/>' +
+          '</svg><span class="wine-filters-toggle-label" data-translate="filters-toggle">' +
+          t('filters-toggle') +
+          '</span>';
         filterBtn.addEventListener('click', openFilters);
         toolbarEl.insertBefore(filterBtn, toolbarEl.firstChild);
       }
@@ -528,6 +552,8 @@
       var s = window._winePageState;
       if (s && s.resultCountId) { var el = document.getElementById(s.resultCountId); if (el) el.textContent = s.lastCount + ' ' + (s.lastCount === 1 ? t('wines-count-one') : t('wines-count')); }
       document.querySelectorAll('.wine-filters-close').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-close')); });
+      document.querySelectorAll('.wine-filters-toggle').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-toggle')); });
+      document.querySelectorAll('.wine-filters-toggle-label').forEach(function (el) { el.textContent = t('filters-toggle'); });
       var paginationEl = document.querySelector('.wine-pagination');
       if (paginationEl && paginationEl.style.display !== 'none') {
         var prev = paginationEl.querySelector('.wine-pagination-prev');

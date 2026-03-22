@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aiwine – Coș</title>
+  <title>Aiwine – Știri</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://wineofmoldova.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,500;0,700;0,800;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -102,21 +103,15 @@
     </header>
   </div>
   <div class="page-grid-overlay"></div>
-  <main class="cart-main main-offset">
+  <main class="news-main main-offset section section-light">
     <div class="container">
-      <a href="wines-red.html" class="back-to-catalog" data-translate="back-to-catalog">← Înapoi</a>
-      <h1 class="cart-title" data-translate="cart-title">Coșul tău</h1>
-      <div id="cartEmpty" class="cart-empty">
-        <p data-translate="cart-empty">Coșul tău este gol.</p>
-        <a href="index.html#wines" class="btn btn-primary" data-translate="cart-browse">Vezi vinuri</a>
-      </div>
-      <div id="cartContent" style="display:none;">
-        <div class="cart-list" id="cartList"></div>
-        <div class="cart-summary">
-          <p class="cart-total"><strong data-translate="cart-total">Total:</strong> <span id="cartTotalValue">0 MDL</span></p>
-          <a href="index.html#contact" class="btn btn-primary" data-translate="cart-proceed">Finalizează</a>
-        </div>
-      </div>
+      <a href="index.html" class="back-to-catalog" data-translate="news-back-home">← Acasă</a>
+      <h1 class="section-title" data-translate="news-title">Știri</h1>
+      <p class="news-wom-cta-wrap">
+        <a href="https://wineofmoldova.com/ro/toate-stirile/stirile-vinariilor/" class="news-wom-all-link btn btn-primary" target="_blank" rel="noopener noreferrer" data-translate="news-wom-all">Toate știrile vinăriilor pe Wine of Moldova</a>
+      </p>
+      <p class="news-wom-status" id="newsWomStatus" data-translate="news-wom-loading">Se încarcă știrile…</p>
+      <ul class="news-wom-list" id="newsWomList" lang="ro" aria-live="polite"></ul>
     </div>
   </main>
   <footer class="footer footer--vivino"><div class="footer-inner"><div class="footer-grid"><div class="footer-col"><h4 class="footer-heading" data-translate="nav-wines">Vinuri</h4><a href="wines-red.html" class="footer-link">Roșu</a><a href="wines-white.html" class="footer-link">Alb & Rosé</a><a href="wines-sparkling.html" class="footer-link">Spumant</a></div><div class="footer-col"><h4 class="footer-heading" data-translate="nav-services">Servicii</h4><a href="index.html#services" class="footer-link">Livrare</a><a href="index.html#contact" class="footer-link" data-translate="nav-contact">Contact</a></div><div class="footer-col"><h4 class="footer-heading">Aiwine</h4><a href="index.html#contact" class="footer-link" data-translate="nav-about">Despre</a></div></div><div class="footer-payment"><div class="footer-payment-icons"><img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width="40" height="28" class="footer-payment-icon" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/credit-card-logos@1.0.5/img/card-logo-visa.svg" alt="Visa" width="40" height="28" class="footer-payment-icon" loading="lazy"></div></div><p class="footer-copy">© <span id="year"></span> Aiwine. <span data-translate="footer-copy">Servicii vin și curatare.</span></p></div></footer>
@@ -131,51 +126,10 @@
   <script src="cart.js"></script>
   <script src="header.js"></script>
   <script src="wine-data.js"></script>
-  <script src="wine-vivino-ratings.js"></script>
+  <script src="news-wom.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
-    var cart = window.getCart && window.getCart();
-    var empty = document.getElementById('cartEmpty');
-    var content = document.getElementById('cartContent');
-    var list = document.getElementById('cartList');
-    var totalEl = document.getElementById('cartTotalValue');
-    if (!cart || cart.length === 0) {
-      if (empty) empty.style.display = 'block';
-      if (content) content.style.display = 'none';
-    } else {
-      if (empty) empty.style.display = 'none';
-      if (content) content.style.display = 'block';
-      var total = 0;
-      var formatPrice = typeof window.formatPrice === 'function' ? window.formatPrice : function(m) { return m + ' MDL'; };
-      cart.forEach(function (item) {
-        var p = window.WINE_PRODUCTS && window.WINE_PRODUCTS.find(function (x) { return x.id === item.id; });
-        if (p) {
-          var lineMdl = (p.price || 0) * (item.qty || 1);
-          total += lineMdl;
-          var li = document.createElement('div');
-          li.className = 'cart-item';
-          li.innerHTML = '<span>' + (p.name || item.id) + ' × ' + (item.qty || 1) + '</span> <span class="cart-item-price" data-mdl="' + lineMdl + '">' + formatPrice(lineMdl) + '</span> <button type="button" class="cart-item-remove" data-id="' + item.id + '">×</button>';
-          if (list) list.appendChild(li);
-        }
-      });
-      if (totalEl) totalEl.textContent = formatPrice(total);
-      window._cartTotalMdl = total;
-      if (list) list.querySelectorAll('.cart-item-remove').forEach(function (btn) {
-        btn.addEventListener('click', function() {
-          window.removeFromCart && window.removeFromCart(this.getAttribute('data-id'));
-          location.reload();
-        });
-      });
-      window.addEventListener('currencychange', function() {
-        var fp = typeof window.formatPrice === 'function' ? window.formatPrice : function(m) { return m + ' MDL'; };
-        list.querySelectorAll('.cart-item-price').forEach(function (span) {
-          var mdl = parseFloat(span.getAttribute('data-mdl'), 10);
-          if (!isNaN(mdl)) span.textContent = fp(mdl);
-        });
-        if (totalEl && window._cartTotalMdl != null) totalEl.textContent = fp(window._cartTotalMdl);
-      });
-    }
     var y = document.getElementById('year');
     if (y) y.textContent = new Date().getFullYear();
   });

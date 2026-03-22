@@ -6,6 +6,8 @@
     var displayMenu = document.getElementById('currentLangDisplayMenu');
     var menuLangTriggerText = document.getElementById('menuLanguageTriggerText');
     var menuCurrencyTriggerText = document.getElementById('menuCurrencyTriggerText');
+    var currencyDisplay = document.getElementById('currentCurrencyDisplay');
+    var currencyDisplayMenu = document.getElementById('currentCurrencyDisplayMenu');
     function updateLanguageUI() {
       var l = localStorage.getItem('aiwineLanguage') || 'ro';
       var text = labels[l] || labels.ro;
@@ -59,8 +61,6 @@
       if (s && !s.contains(e.target)) s.classList.remove('active');
     });
 
-    var currencyDisplay = document.getElementById('currentCurrencyDisplay');
-    var currencyDisplayMenu = document.getElementById('currentCurrencyDisplayMenu');
     function updateCurrencyUI() {
       var c = (typeof window.getCurrency === 'function') ? window.getCurrency() : 'MDL';
       if (currencyDisplay) currencyDisplay.textContent = c;
@@ -72,19 +72,11 @@
     if (typeof window.getCurrency === 'function') updateCurrencyUI();
     window.addEventListener('currencychange', updateCurrencyUI);
 
-    document.getElementById('currencyBtn') && document.getElementById('currencyBtn').addEventListener('click', function (e) {
-      e.stopPropagation();
-      document.querySelector('.currency-selector').classList.toggle('active');
-    });
     function onCurrencyChoose(code) {
       if (typeof window.setCurrency === 'function') window.setCurrency(code);
       updateCurrencyUI();
-      document.querySelectorAll('.currency-selector').forEach(function (s) { s.classList.remove('active'); });
       if (navMenu && navMenu.classList.contains('open')) closeMenu();
     }
-    document.getElementById('currencyDropdown') && document.getElementById('currencyDropdown').querySelectorAll('.currency-option').forEach(function (opt) {
-      opt.addEventListener('click', function () { onCurrencyChoose(this.getAttribute('data-currency')); });
-    });
     document.querySelectorAll('.nav-menu-currency-option.currency-option').forEach(function (opt) {
       opt.addEventListener('click', function () {
         onCurrencyChoose(this.getAttribute('data-currency'));
@@ -112,11 +104,6 @@
         if (ct) ct.setAttribute('aria-expanded', 'false');
       }
     });
-    document.addEventListener('click', function (e) {
-      var s = document.querySelector('.currency-selector');
-      if (s && !s.contains(e.target)) s.classList.remove('active');
-    });
-
     var menuBtn = document.getElementById('menuBtn');
     var navMenu = document.getElementById('navMenu');
     function setMenuOpen(open) {

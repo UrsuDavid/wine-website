@@ -1,0 +1,41 @@
+# Merges new products from wine.md into wine-data.js (see scripts/scrape_wine_md.py).
+# New rows are enriched from wine.md product pages (volume, vintage, taste, grape),
+# get firstSeenAt for the 14-day NEW badge, and behave like existing products on the site.
+name: Sync wine catalog from wine.md
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wine-catalog
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scrape and merge catalog
+        run: python scripts/scrape_wine_md.py
+
+      - name: Commit wine-data.js if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add wine-data.js
+          if git diff --staged --quiet; then
+            echo "No catalog changes."
+          else
+            git commit -m "chore: sync wine catalog from wine.md"
+            git push
+          fi

@@ -16,12 +16,12 @@
   /* Overlay gradient (top to bottom). Set to transparent for a clean photo look. */
   --hero-overlay-start: transparent;
   --hero-overlay-end: transparent;
-  /* Banner height: taller so hero feels like a full photo (e.g. 120vh–140vh) */
-  --hero-min-height: 130vh;
-  /* Parallax: fixed = image stays while content scrolls (scroll-animated). */
-  --hero-bg-attachment: fixed;
-  /* Position: image aligned to top so it extends under the header (no visible line). */
-  --hero-bg-position: center top;
+  /* Hero block height (viewport-relative). */
+  --hero-min-height: 95vh;
+  /* scroll avoids repaint jank from fixed backgrounds while scrolling. */
+  --hero-bg-attachment: scroll;
+  /* Vertical %: lower = head sits higher in the viewport. */
+  --hero-bg-position: center 38%;
 }
 
 /* ----- Do not edit below unless you need layout changes ----- */
@@ -72,7 +72,9 @@ section#bannerHero.banner.banner--divus {
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  will-change: transform, opacity;
+  transform-origin: 50% 45%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .banner__content--center {
@@ -138,13 +140,13 @@ body.has-banner-hero {
   }
   section#bannerHero.banner.banner--divus {
     background-attachment: scroll !important;
-    background-position: center center;
+    background-position: center 42%;
   }
   .banner--hero {
-    min-height: 100vh;
+    min-height: 95vh;
   }
   .banner__content--center {
-    min-height: 100vh;
+    min-height: 95vh;
   }
   .banner__content {
     padding: 3rem 1.5rem;

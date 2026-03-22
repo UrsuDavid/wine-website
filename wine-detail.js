@@ -1,6 +1,5 @@
 (function () {
   function tr(k) { var L = window.BESSA_TRANSLATIONS, l = localStorage.getItem('aiwineLanguage') || 'ro'; return (L && L[l] && L[l][k]) || (L && L.ro && L.ro[k]) || k; }
-  function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
   function starRating(v) { var f = Math.floor(v), h = v - f >= 0.5 ? 1 : 0, e = 5 - f - h, s = ''; for (var i = 0; i < f; i++) s += '<span class="wine-star wine-star--full">★</span>'; if (h) s += '<span class="wine-star wine-star--half">★</span>'; for (var j = 0; j < e; j++) s += '<span class="wine-star wine-star--empty">★</span>'; return s; }
   function render(p) {
     var useVivino = (typeof p.vivinoRating === 'number' && typeof p.vivinoReviewCount === 'number' && p.vivinoReviewCount >= 1);
@@ -40,9 +39,10 @@
     }
     var typeClass = (p.type === 'red' || p.type === 'white' || p.type === 'rose' || p.type === 'sparkling') ? p.type : 'red';
     var wrapClass = 'wine-detail-image-wrap wine-detail-image-wrap--' + typeClass + (useJpgOnly[p.id] ? ' wine-detail-image-wrap--jpg' : '');
-    var imgOpenLabel = escAttr(tr('detail-open-image'));
-    var imgHref = escAttr(imgSrc);
-    return '<div class="wine-detail-grid"><div class="' + wrapClass + '"><a class="wine-detail-image-link" href="' + imgHref + '" target="_blank" rel="noopener noreferrer" aria-label="' + imgOpenLabel + '"><img class="wine-detail-image" src="' + imgSrc.replace(/"/g, '&quot;') + '" alt="' + (p.name || '').replace(/"/g, '&quot;') + '" decoding="async" fetchpriority="high" data-fallback="' + firstFallback.replace(/"/g, '&quot;') + '" data-fallback2="' + fallback.replace(/"/g, '&quot;') + '" onerror="var t=this;var f=t.getAttribute(\'data-fallback\');var f2=t.getAttribute(\'data-fallback2\');if(f){t.onerror=function(){if(f2){t.onerror=null;t.src=f2;}};t.src=f;}"></a></div><div class="wine-detail-info">' +
+    var newBadge = (typeof window.isWineProductNew === 'function' && window.isWineProductNew(p))
+      ? '<span class="wine-detail-new-badge" data-translate="card-new">' + tr('card-new') + '</span>'
+      : '';
+    return '<div class="wine-detail-grid"><div class="wine-detail-image-col"><div class="' + wrapClass + '"><img class="wine-detail-image" src="' + imgSrc.replace(/"/g, '&quot;') + '" alt="' + (p.name || '').replace(/"/g, '&quot;') + '" decoding="async" fetchpriority="high" data-fallback="' + firstFallback.replace(/"/g, '&quot;') + '" data-fallback2="' + fallback.replace(/"/g, '&quot;') + '" onerror="var t=this;var f=t.getAttribute(\'data-fallback\');var f2=t.getAttribute(\'data-fallback2\');if(f){t.onerror=function(){if(f2){t.onerror=null;t.src=f2;}};t.src=f;}"></div>' + newBadge + '</div><div class="wine-detail-info">' +
       '<h1 class="wine-detail-name">' + (p.name || '').replace(/</g, '&lt;') + '</h1>' +
       '<p class="wine-card-volume-vintage wine-detail-volume-vintage">' + volumeVintageText.replace(/</g, '&lt;') + '</p>' +
       '<div class="wine-detail-rating">' + starRating(r) + ' <strong class="wine-detail-rating-value">' + r.toFixed(1) + '</strong> <span class="wine-detail-rating-label">' + lab + '</span></div>' +

@@ -4,22 +4,31 @@ Scrape all wine products from wine.md catalog and generate wine-data.js.
 Uses only stdlib (urllib, re). Run: python scripts/scrape_wine_md.py
 
 By default merges with ../wine-data.js: keeps existing lines (taste, awards, vivino, etc.)
-and appends only products missing by productPageUrl. Use --full-rebuild to replace the file.
+and appends only products missing by productPageUrl. New rows are enriched from each
+wine.md product page (volume, vintage, taste, grape) like the rest of the catalog, get
+firstSeenAt: 'YYYY-MM-DD' for the 14-day "NEW" badge, and then follow the same site rules
+(filters, cards, cart, descriptions.js) as existing products.
+Use --full-rebuild to replace the file (does not add firstSeenAt to every product).
 
 Env: VINTAGE_LIMIT (0=all), VINTAGE_DELAY (seconds between product fetches).
 """
 import argparse
 import urllib.request
 import urllib.error
+import urllib.parse
 import re
 import time
 import os
 import ssl
+from datetime import date
 
 BASE = "https://wine.md/"
-# wine.md's full wine grid lives under /catalog/wine (paginated). The root /catalog/
-# only shows a small mixed slice, so most wines were missing from older scrapes.
-CATALOG_LIST_URL = BASE + "catalog/wine"
+# Master list (all wines) + sparkling category: many spumante/champagne SKUs appear only on
+# vinuri-spumante ("Produse găsite: 164") and are absent from catalog/wine pagination.
+CATALOG_LIST_URLS = (
+    BASE + "catalog/wine",
+    BASE + "catalog/vinuri-spumante",
+)
 MAX_PAGES = 120  # 21 * 120
 
 # Avoid SSL verify failure on some systems
@@ -28,9 +37,31 @@ _ctx.check_hostname = False
 _ctx.verify_mode = ssl.CERT_NONE
 
 def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; WineCatalog/1.0)"})
+    """Request wine.md with a safe ASCII URL (paths may contain „ " etc.)."""
+    parts = urllib.parse.urlsplit(url)
+    path = urllib.parse.quote(urllib.parse.unquote(parts.path), safe="/%:@&=+$,;?#[]!'()*")
+    safe = urllib.parse.urlunsplit((parts.scheme, parts.netloc, path, parts.query, parts.fragment))
+    req = urllib.request.Request(safe, headers={"User-Agent": "Mozilla/5.0 (compatible; WineCatalog/1.0)"})
     with urllib.request.urlopen(req, timeout=25, context=_ctx) as r:
         return r.read().decode("utf-8", errors="replace")
+
+
+def normalize_catalog_path(path):
+    """Collapse wine.md's occasional catalog/catalog/... paths to catalog/...."""
+    p = (path or "").strip().replace("\\", "/").lstrip("/")
+    while p.lower().startswith("catalog/catalog/"):
+        p = "catalog/" + p[len("catalog/catalog/") :]
+    return p
+
+
+def norm_product_url(url):
+    if not url:
+        return ""
+    u = url.strip().rstrip("/").lower()
+    while "/catalog/catalog/" in u:
+        u = u.replace("/catalog/catalog/", "/catalog/")
+    return u
+
 
 def extract_products(html):
     products = []
@@ -43,7 +74,7 @@ def extract_products(html):
         price_m = re.search(r'name="price"\s+value="(\d+)"', block)
         if not link_m:
             continue
-        path = link_m.group(1).strip()
+        path = normalize_catalog_path(link_m.group(1).strip())
         if path.endswith("/") or "/brand/" in path or "collections" in path:
             continue
         slug = path.split("/")[-1] if "/" in path else path
@@ -134,10 +165,49 @@ def extract_volume_liters_and_vintage_year(html):
     return volume_liters, vintage_year
 
 
-def norm_product_url(url):
-    if not url:
-        return ""
-    return url.strip().rstrip("/").lower()
+def _product_page_plain_text(html):
+    plain = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
+    plain = re.sub(r"<[^>]+>", " ", plain)
+    plain = re.sub(r"&nbsp;|\u00a0", " ", plain)
+    return " ".join(plain.split())
+
+
+def extract_taste_from_product_html(html):
+    """Same rules as scripts/fetch_wine_md_taste.py (wine.md 'Gust:' field)."""
+    plain = _product_page_plain_text(html)
+    m = re.search(
+        r"Gust\s*:\s*(.+?)(?:\s+(?:Culoare|An|Alcoolul|Volumul|Țara|Struguri|Servind|Compatibilitate)\s*:|\s+Servind\b|\s+Compatibilitate\b|$)",
+        plain,
+        flags=re.I,
+    )
+    if not m:
+        return None
+    val = " ".join(m.group(1).split()).strip(" -;,.")
+    if not val or len(val) > 60:
+        return None
+    return val
+
+
+def extract_grapes_from_product_html(html):
+    """Same rules as scripts/fetch_wine_md_grapes.py (wine.md 'Struguri:' field)."""
+    plain = _product_page_plain_text(html)
+    m = re.search(
+        r"Struguri\s*:\s*(.+?)(?:\s+(?:Gust|Culoare|An|Alcoolul|Volumul|Țara|Servind|Compatibilitate)\s*:|\s+Servind\b|\s+Compatibilitate\b|$)",
+        plain,
+        flags=re.I,
+    )
+    if not m:
+        m = re.search(
+            r"Soi(?:ul)?\s+strugurilor?\s*:\s*(.+?)(?:\s+(?:Gust|Culoare|An|Alcoolul|Volumul|Țara)\s*:|$)",
+            plain,
+            flags=re.I,
+        )
+    if not m:
+        return None
+    val = " ".join(m.group(1).split()).strip(" -;,.")
+    if not val or len(val) > 120:
+        return None
+    return val
 
 
 def load_existing_wine_data_js(path):
@@ -177,8 +247,8 @@ def js_escape_single(s):
     return (s or "").replace("\\", "\\\\").replace("'", "\\'")
 
 
-def format_product_js_line(p, rating, review_count):
-    """Single-line object matching existing wine-data.js shape (optional taste/awards omitted)."""
+def format_product_js_line(p, rating, review_count, first_seen_iso=None):
+    """Single-line object matching existing wine-data.js shape (taste when parsed; awards optional)."""
     desc_esc = (p.get("description") or "").replace("\\", "\\\\").replace("'", "\\'").replace("\n", " ")
     region = p.get("region") or "Moldova"
     grape = p.get("grape") or "Blend"
@@ -188,8 +258,14 @@ def format_product_js_line(p, rating, review_count):
     img_full = js_escape_single(p["imageUrl"])
     img_small = js_escape_single(p.get("imageUrlSmall", p["imageUrl"]))
     desc = desc_esc[:200] if desc_esc else js_escape_single("Vin " + p["type"] + " – " + p["name"])[:200]
+    taste_part = ""
+    if p.get("taste"):
+        taste_part = " taste: '%s'," % js_escape_single(str(p["taste"]).strip())
+    seen_tail = ""
+    if first_seen_iso:
+        seen_tail = ", firstSeenAt: '%s'" % js_escape_single(first_seen_iso)
     return (
-        "  { id: '%s', brand: '%s', name: '%s', type: '%s', imageUrl: '%s', imageUrlSmall: '%s', price: %d, rating: %.1f, reviewCount: %d, volumeLiters: '%s', vintage: '%s', region: '%s', grape: '%s', abv: %s, description: '%s', productPageUrl: '%s' }"
+        "  { id: '%s', brand: '%s', name: '%s', type: '%s', imageUrl: '%s', imageUrlSmall: '%s', price: %d, rating: %.1f, reviewCount: %d, volumeLiters: '%s', vintage: '%s', region: '%s', grape: '%s',%s abv: %s, description: '%s', productPageUrl: '%s'%s }"
         % (
             js_escape_single(p["id"]),
             js_escape_single(p["brand"]),
@@ -204,45 +280,47 @@ def format_product_js_line(p, rating, review_count):
             js_escape_single(vintage),
             js_escape_single(region),
             js_escape_single(grape),
+            taste_part,
             str(abv) if isinstance(abv, (int, float)) else abv,
             desc,
             js_escape_single(p["productPageUrl"]),
+            seen_tail,
         )
     )
 
 
 def crawl_wine_md_products():
-    """Paginate catalog/wine and return product dicts (deduped by productPageUrl)."""
+    """Paginate all catalog feeds and return product dicts (deduped by productPageUrl)."""
     seen_urls = {}
     all_products = []
-    for page in range(1, MAX_PAGES + 1):
-        url = CATALOG_LIST_URL + ("?page=%d" % page if page > 1 else "")
-        print("Fetching page %d: %s" % (page, url), flush=True)
-        try:
-            html = fetch(url)
-        except Exception as e:
-            print("Error:", e, flush=True)
-            break
-        products = extract_products(html)
-        if not products:
-            print("No products on page %d, stopping." % page, flush=True)
-            break
-        added = 0
-        for p in products:
-            p["type"] = path_to_type(p["path"])
-            p["brand"] = infer_brand(p["name"])
-            p["id"] = re.sub(r"[,/]", "-", p["slug"]).replace(" ", "-")
-            p["productPageUrl"] = BASE.rstrip("/") + "/" + p["link"].lstrip("/")
-            nu = norm_product_url(p["productPageUrl"])
-            if nu in seen_urls:
-                continue
-            seen_urls[nu] = True
-            all_products.append(p)
-            added += 1
-        if added == 0:
-            print("No new products on page %d, stopping pagination." % page, flush=True)
-            break
-        time.sleep(0.35)
+    for list_base in CATALOG_LIST_URLS:
+        print("Listing feed: %s" % list_base, flush=True)
+        for page in range(1, MAX_PAGES + 1):
+            url = list_base + ("?page=%d" % page if page > 1 else "")
+            print("  Page %d: %s" % (page, url), flush=True)
+            try:
+                html = fetch(url)
+            except Exception as e:
+                print("Error:", e, flush=True)
+                break
+            products = extract_products(html)
+            if not products:
+                print("  No products on page %d, next feed." % page, flush=True)
+                break
+            for p in products:
+                p["type"] = path_to_type(p["path"])
+                p["brand"] = infer_brand(p["name"])
+                p["id"] = re.sub(r"[,/]", "-", p["slug"]).replace(" ", "-")
+                raw_url = BASE.rstrip("/") + "/" + p["link"].lstrip("/")
+                while "/catalog/catalog/" in raw_url:
+                    raw_url = raw_url.replace("/catalog/catalog/", "/catalog/")
+                p["productPageUrl"] = raw_url
+                nu = norm_product_url(raw_url)
+                if nu in seen_urls:
+                    continue
+                seen_urls[nu] = True
+                all_products.append(p)
+            time.sleep(0.35)
     return all_products
 
 
@@ -260,6 +338,12 @@ def enrich_vintage_volume(products, vintage_limit, vintage_delay):
                 p["volumeLiters"] = volume_liters
             if vintage_year:
                 p["vintage"] = vintage_year
+            taste = extract_taste_from_product_html(html)
+            if taste:
+                p["taste"] = taste
+            grapes = extract_grapes_from_product_html(html)
+            if grapes:
+                p["grape"] = grapes
         except Exception as e:
             print("Warning: vintage parse failed for:", url, "error:", e, flush=True)
         time.sleep(vintage_delay)
@@ -296,10 +380,11 @@ def main():
         product_lines = list(existing["products"])
         base_idx = len(product_lines)
         new_lines = []
+        merge_date_iso = date.today().isoformat()
         for i, p in enumerate(new_products):
             rating = 4.0 + ((base_idx + i) % 5) * 0.1
             review_count = 10 + ((base_idx + i) % 50)
-            new_lines.append(format_product_js_line(p, rating, review_count))
+            new_lines.append(format_product_js_line(p, rating, review_count, merge_date_iso))
         if new_lines:
             if product_lines:
                 last = product_lines[-1].rstrip()
