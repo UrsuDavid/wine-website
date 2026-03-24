@@ -4,6 +4,31 @@ body { font-family: 'Montserrat', sans-serif; font-weight: 500; font-style: norm
 a { color: #d4b896; text-decoration: none; }
 a:hover { color: #e8d4b8; text-decoration: underline; }
 
+/* Scroll / paint: defer work off-screen; isolate large lists (Chrome, Edge, Safari 15.4+) */
+.section.section-dark,
+.section.section-before-services,
+.section.section-services,
+.section.section-contact,
+.footer.footer--vivino {
+  content-visibility: auto;
+  /* Approximate block size limits scrollbar jump when skipping off-screen layout */
+  contain-intrinsic-size: auto 720px;
+}
+.news-main.main-offset {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+.wine-explorer .wine-grid,
+#wines .wine-grid {
+  contain: layout;
+}
+.wine-card.wine-card--product {
+  contain: layout style;
+}
+.site-header {
+  contain: layout style;
+}
+
 :root {
   /* Match header and hero: dark base palette */
   --header-bg: #141414;
@@ -1172,7 +1197,7 @@ body.search-grid-open .page-grid-overlay {
   }
   .wine-detail-image-wrap img.wine-detail-image {
     outline: none;
-    -webkit-tap-highlight-color: transparent;
+   -webkit-tap-highlight-color: transparent;
   }
 }
 .wine-detail-winery { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; color: var(--gold); margin-bottom: 0.5rem; }

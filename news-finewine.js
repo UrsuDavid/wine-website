@@ -1,10 +1,14 @@
 /**
- * Loads “Știrile Vinăriilor” from Wine of Moldova (WordPress REST API, category id 8).
- * List matches the source site: new posts appear and removed posts disappear on each visit.
+ * Loads news from Fine Wine (finewine.md) WordPress REST API — category “Important” (id 59).
+ * List is always built from a live request (no HTTP cache): new posts show and removed posts
+ * disappear on the next load or when the tab becomes visible again (throttled).
  */
 (function () {
-  var WOM_CATEGORY_ID = 8;
-  var API_BASE = 'https://wineofmoldova.com/wp-json/wp/v2/posts';
+  var FINEWINE_CATEGORY_ID = 59;
+  var API_BASE = 'https://finewine.md/wp-json/wp/v2/posts';
+  var PER_PAGE = 100;
+  var lastFetchTime = 0;
+  var BACKGROUND_REFRESH_MIN_MS = 45000;
 
   function htmlToPlainText(html) {
     var d = document.createElement('div');
@@ -15,7 +19,7 @@
   function featuredImageUrl(post) {
     var emb = post._embedded || {};
     var media = (emb['wp:featuredmedia'] || [])[0];
-    if (!media) return '';
+    if (!media || media.code) return '';
     return media.source_url || '';
   }
 
@@ -78,34 +82,28 @@
     return li;
   }
 
-  function fetchAllPostsSafe() {
-    var all = [];
-    function nextPage(page) {
-      return fetchPage(page).then(function (res) {
-        if (!res.ok) throw new Error('wom_http_' + res.status);
-        var totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1', 10) || 1;
-        return res.json().then(function (chunk) {
-          all = all.concat(chunk);
-          if (page >= totalPages) return all;
-          return nextPage(page + 1);
-        });
-      });
-    }
-    return nextPage(1);
-  }
-
-  function fetchPage(page) {
+  function fetchLatestPosts() {
     var url =
       API_BASE +
       '?categories=' +
-      WOM_CATEGORY_ID +
-      '&per_page=100&page=' +
-      page +
-      '&orderby=date&order=desc&_embed=1';
+      FINEWINE_CATEGORY_ID +
+      '&per_page=' +
+      PER_PAGE +
+      '&page=1&orderby=date&order=desc&_embed=1';
     return fetch(url, {
+      cache: 'no-store',
       credentials: 'omit',
       headers: { Accept: 'application/json' },
+    }).then(function (res) {
+      if (!res.ok) throw new Error('finewine_http_' + res.status);
+      return res.json();
     });
+  }
+
+  function applyLang() {
+    if (typeof window.applyLanguageToWebsite === 'function') {
+      window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
+    }
   }
 
   function setStatus(el, mode) {
@@ -124,38 +122,60 @@
     } else if (mode === 'empty') {
       el.setAttribute('data-translate', 'news-wom-empty');
     }
-    if (typeof window.applyLanguageToWebsite === 'function') {
-      window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
+    applyLang();
+  }
+
+  function mountPosts(list, status, posts, silent) {
+    lastFetchTime = Date.now();
+    if (!posts || !posts.length) {
+      setStatus(status, 'empty');
+      list.innerHTML = '';
+      applyLang();
+      return;
     }
+    setStatus(status, 'hide');
+    list.innerHTML = '';
+    var frag = document.createDocumentFragment();
+    posts.forEach(function (p) {
+      frag.appendChild(buildItem(p));
+    });
+    list.appendChild(frag);
+    applyLang();
+  }
+
+  /**
+   * @param {boolean} silent If true, keep existing list on network error; do not show loading state.
+   */
+  function loadNews(silent) {
+    var list = document.getElementById('newsWomList');
+    var status = document.getElementById('newsWomStatus');
+    if (!list || !status) return Promise.resolve();
+
+    if (!silent) {
+      setStatus(status, 'loading');
+      list.innerHTML = '';
+    }
+
+    return fetchLatestPosts()
+      .then(function (posts) {
+        mountPosts(list, status, posts, silent);
+      })
+      .catch(function () {
+        if (!silent) {
+          setStatus(status, 'error');
+        }
+      });
+  }
+
+  function maybeRefreshFromFinewine() {
+    if (document.hidden) return;
+    var now = Date.now();
+    if (now - lastFetchTime < BACKGROUND_REFRESH_MIN_MS) return;
+    loadNews(true);
   }
 
   function run() {
-    var list = document.getElementById('newsWomList');
-    var status = document.getElementById('newsWomStatus');
-    if (!list) return;
-
-    setStatus(status, 'loading');
-    list.innerHTML = '';
-
-    fetchAllPostsSafe()
-      .then(function (posts) {
-        if (!posts || !posts.length) {
-          setStatus(status, 'empty');
-          return;
-        }
-        setStatus(status, 'hide');
-        var frag = document.createDocumentFragment();
-        posts.forEach(function (p) {
-          frag.appendChild(buildItem(p));
-        });
-        list.appendChild(frag);
-        if (typeof window.applyLanguageToWebsite === 'function') {
-          window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro');
-        }
-      })
-      .catch(function () {
-        setStatus(status, 'error');
-      });
+    loadNews(false);
   }
 
   if (document.readyState === 'loading') {
@@ -163,4 +183,16 @@
   } else {
     run();
   }
+
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      loadNews(true);
+    }
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+      maybeRefreshFromFinewine();
+    }
+  });
 })();

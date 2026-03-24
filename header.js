@@ -141,15 +141,19 @@
         if (searchBar.contains(e.target) || searchBtn.contains(e.target)) return;
         closeSearch();
       });
-      var closeSearchOnScroll = function () {
-        if (searchBar && searchBar.classList.contains('is-open')) closeSearch();
-      };
+      var closeSearchScrollRaf = 0;
+      function closeSearchOnScroll() {
+        if (!searchBar || !searchBar.classList.contains('is-open')) return;
+        if (closeSearchScrollRaf) return;
+        closeSearchScrollRaf = requestAnimationFrame(function () {
+          closeSearchScrollRaf = 0;
+          if (searchBar && searchBar.classList.contains('is-open')) closeSearch();
+        });
+      }
       var passive = { passive: true };
       window.addEventListener('scroll', closeSearchOnScroll, passive);
       window.addEventListener('wheel', closeSearchOnScroll, passive);
       window.addEventListener('touchmove', closeSearchOnScroll, passive);
-      var scrollRoot = document.scrollingElement || document.documentElement || document.body;
-      if (scrollRoot && scrollRoot !== window) scrollRoot.addEventListener('scroll', closeSearchOnScroll, passive);
     }
 
     if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
