@@ -26,7 +26,7 @@ a:hover { color: #e8d4b8; text-decoration: underline; }
   contain: layout style;
 }
 .site-header {
-  contain: layout style;
+  contain: style;
 }
 
 :root {

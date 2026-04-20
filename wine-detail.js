@@ -1,12 +1,16 @@
 (function () {
   function tr(k) { var L = window.BESSA_TRANSLATIONS, l = localStorage.getItem('aiwineLanguage') || 'ro'; return (L && L[l] && L[l][k]) || (L && L.ro && L.ro[k]) || k; }
+  var currentProduct = null;
   function starRating(v) { var f = Math.floor(v), h = v - f >= 0.5 ? 1 : 0, e = 5 - f - h, s = ''; for (var i = 0; i < f; i++) s += '<span class="wine-star wine-star--full">★</span>'; if (h) s += '<span class="wine-star wine-star--half">★</span>'; for (var j = 0; j < e; j++) s += '<span class="wine-star wine-star--empty">★</span>'; return s; }
   function render(p) {
     var useVivino = (typeof p.vivinoRating === 'number' && typeof p.vivinoReviewCount === 'number' && p.vivinoReviewCount >= 1);
     var r = useVivino ? p.vivinoRating : (typeof p.rating === 'number' ? p.rating : 4);
     var count = useVivino ? p.vivinoReviewCount : p.reviewCount;
     var lab = count ? count + ' ' + tr('detail-reviews') : tr('detail-reviews');
-    var priceText = p.price ? (typeof window.formatPrice === 'function' ? window.formatPrice(p.price) : p.price + ' MDL') : tr('detail-price-request'), desc = (p.description || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+    var localizedDesc = (typeof window.getLocalizedProductDescription === 'function')
+      ? window.getLocalizedProductDescription(p)
+      : (p.description || '');
+    var priceText = p.price ? (typeof window.formatPrice === 'function' ? window.formatPrice(p.price) : p.price + ' MDL') : tr('detail-price-request'), desc = localizedDesc.replace(/</g, '&lt;').replace(/\n/g, '<br>');
     var lang = localStorage.getItem('aiwineLanguage') || 'ro';
     var vintageLabel = (tr('detail-vintage') || 'an');
     if (lang === 'ro') vintageLabel = String(vintageLabel).toLowerCase();
@@ -72,6 +76,7 @@
     if (!id || !window.WINE_PRODUCTS) { if (loading) loading.setAttribute('data-translate', 'detail-not-found'), loading.textContent = ''; if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro'); return; }
     var product = window.WINE_PRODUCTS.find(function (p) { return (p.id || '') === id; });
     if (!product) { if (loading) loading.setAttribute('data-translate', 'detail-not-found'); if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(localStorage.getItem('aiwineLanguage') || 'ro'); return; }
+    currentProduct = product;
     if (loading) loading.style.display = 'none';
     var catalogHref = (product.type === 'red') ? 'wines-red.html' : (product.type === 'sparkling') ? 'wines-sparkling.html' : 'wines-white.html';
     var backLink = document.getElementById('backToCatalogLink');
@@ -94,5 +99,10 @@
       if (typeof window.updateHeaderCartCount === 'function') window.updateHeaderCartCount();
     }
   }
+  window.updateWineDetailTranslations = function () {
+    var content = document.getElementById('wineDetailContent');
+    if (!content || !currentProduct) return;
+    content.innerHTML = render(currentProduct);
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

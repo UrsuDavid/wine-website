@@ -34,6 +34,7 @@
     function onLanguageChoose(l) {
       localStorage.setItem('aiwineLanguage', l);
       if (typeof window.applyLanguageToWebsite === 'function') window.applyLanguageToWebsite(l);
+      if (typeof window.updateWineDetailTranslations === 'function') window.updateWineDetailTranslations();
       updateLanguageUI();
       document.querySelectorAll('.language-selector').forEach(function (s) { s.classList.remove('active'); });
       if (navMenu && navMenu.classList.contains('open')) closeMenu();
@@ -106,10 +107,13 @@
     });
     var menuBtn = document.getElementById('menuBtn');
     var navMenu = document.getElementById('navMenu');
+    var navMenuClose = document.getElementById('navMenuClose');
     function setMenuOpen(open) {
       if (!navMenu) return;
       navMenu.classList.toggle('open', open);
       if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (navMenuClose) navMenuClose.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('nav-menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     }
     function closeMenu() { setMenuOpen(false); }
@@ -118,8 +122,22 @@
         e.stopPropagation();
         setMenuOpen(!navMenu.classList.contains('open'));
       });
+      if (navMenuClose) {
+        navMenuClose.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeMenu();
+        });
+      }
+      navMenu.querySelectorAll('.nav-menu-dropdown .nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          closeMenu();
+        });
+      });
       document.addEventListener('click', function (e) {
-        if (navMenu && navMenu.classList.contains('open') && !navMenu.contains(e.target)) closeMenu();
+        if (!navMenu || !navMenu.classList.contains('open')) return;
+        if (menuBtn && (e.target === menuBtn || menuBtn.contains(e.target))) return;
+        if (!navMenu.contains(e.target)) closeMenu();
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && navMenu && navMenu.classList.contains('open')) { closeMenu(); menuBtn && menuBtn.focus(); }
