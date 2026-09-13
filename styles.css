@@ -1083,6 +1083,41 @@ body.search-grid-open .page-grid-overlay {
   grid-column: 2;
   grid-row: 3;
 }
+.wine-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: #fafaf9;
+  border-radius: 16px;
+  border: 1px dashed rgba(92, 45, 45, 0.2);
+  margin: 1rem 0;
+}
+.wine-empty-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+.wine-reset-filters-btn {
+  padding: 0.65rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--wine);
+  color: #fff;
+  border: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.wine-reset-filters-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
 .wine-filter-group { background: #fff; border: 1px solid rgba(92,45,45,0.12); border-radius: 12px; padding: 1.25rem; margin: 0; }
 .wine-filter-group--brand { min-width: 0; }
 .wine-filter-legend { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); margin-bottom: 0.75rem; padding: 0; }
@@ -1091,6 +1126,10 @@ body.search-grid-open .page-grid-overlay {
 .wine-filter-brand-list .wine-filter-check { margin: 0; }
 .wine-filter-check { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--ink); cursor: pointer; padding: 0.35rem 0; }
 .wine-filter-check:hover { color: var(--wine); }
+.wine-filter-check.wine-filter-check--disabled { opacity: 0.38 !important; color: #a8a29e !important; cursor: not-allowed !important; user-select: none; }
+.wine-filter-check.wine-filter-check--disabled span { color: #a8a29e !important; }
+.wine-filter-check.wine-filter-check--disabled:hover { color: #a8a29e !important; }
+.wine-filter-check.wine-filter-check--disabled input { cursor: not-allowed !important; pointer-events: none; }
 .wine-filter-checkbox { width: 1.1rem; height: 1.1rem; accent-color: var(--wine); cursor: pointer; }
 .wine-filter-group--price { display: flex; flex-direction: column; gap: 0.75rem; }
 /* Awards (and similar) nested inside the price filter: no extra card frame */
@@ -1112,6 +1151,8 @@ body.search-grid-open .page-grid-overlay {
 .wine-filter-select { width: 100%; padding: 0.75rem 2.25rem 0.75rem 1rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em; color: var(--ink); background: #fff; border: 1px solid rgba(92,45,45,0.14); border-radius: 10px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a827a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 14px 14px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .wine-filter-select:hover { border-color: rgba(92,45,45,0.3); }
 .wine-filter-select:focus { outline: none; border-color: var(--wine); box-shadow: 0 0 0 2px rgba(92,45,45,0.15); }
+.wine-filter-select option:disabled,
+.wine-filter-select option.wine-option--disabled { color: #a8a29e !important; background-color: #fafaf9; }
 .wine-filters-toggle { display: none; }
 .wine-filters-close { display: none; }
 .wine-filters-backdrop { display: none; }

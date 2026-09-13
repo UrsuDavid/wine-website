@@ -18,15 +18,15 @@
     if (id === 'transport' && /achitare/i.test(brand + name)) return false;
     return true;
   }
-  function getFilterFn(typeFilter, filters) {
-    function getAwardsList(p) {
-      if (!p) return [];
-      if (Array.isArray(p.awards)) return p.awards.map(function (x) { return String(x || '').trim(); }).filter(Boolean);
-      if (typeof p.awards === 'string' && p.awards.trim()) {
-        return p.awards.split('|').map(function (x) { return String(x || '').trim(); }).filter(Boolean);
-      }
-      return [];
+  function getAwardsList(p) {
+    if (!p) return [];
+    if (Array.isArray(p.awards)) return p.awards.map(function (x) { return String(x || '').trim(); }).filter(Boolean);
+    if (typeof p.awards === 'string' && p.awards.trim()) {
+      return p.awards.split('|').map(function (x) { return String(x || '').trim(); }).filter(Boolean);
     }
+    return [];
+  }
+  function getFilterFn(typeFilter, filters) {
     return function (p) {
       if (!isBottleOnly(p)) return false;
       if (!typeFilter(p)) return false;
@@ -201,10 +201,36 @@
     var total = list.length;
     var toRender = list;
     if (pagination && typeof pagination.page === 'number' && typeof pagination.pageSize === 'number' && pagination.pageSize > 0) {
+      var totalPages = Math.ceil(total / pagination.pageSize) || 1;
+      if (pagination.page > totalPages || pagination.page < 1) {
+        pagination.page = 1;
+      }
       var start = (pagination.page - 1) * pagination.pageSize;
       toRender = list.slice(start, start + pagination.pageSize);
     }
     container.innerHTML = '';
+    if (total === 0) {
+      var emptyWrap = document.createElement('div');
+      emptyWrap.className = 'wine-empty-state';
+      var emptyTitle = document.createElement('p');
+      emptyTitle.className = 'wine-empty-title';
+      emptyTitle.setAttribute('data-translate', 'wines-empty-title');
+      emptyTitle.textContent = t('wines-empty-title') || 'Nu am găsit vinuri conform filtrelor selectate.';
+      var resetBtn = document.createElement('button');
+      resetBtn.type = 'button';
+      resetBtn.className = 'btn wine-reset-filters-btn';
+      resetBtn.setAttribute('data-translate', 'filter-reset');
+      resetBtn.textContent = t('filter-reset') || 'Resetează filtrele';
+      resetBtn.addEventListener('click', function () {
+        if (typeof window.resetWineExplorerFilters === 'function') {
+          window.resetWineExplorerFilters();
+        }
+      });
+      emptyWrap.appendChild(emptyTitle);
+      emptyWrap.appendChild(resetBtn);
+      container.appendChild(emptyWrap);
+      return 0;
+    }
     toRender.forEach(function (p) { container.appendChild(createCard(document, p)); });
     return total;
   };
@@ -235,8 +261,40 @@
     products.forEach(function (p) { if (p.price != null) { if (p.price < priceBounds.min) priceBounds.min = p.price; if (p.price > priceBounds.max) priceBounds.max = p.price; } });
     priceBounds.min = Math.floor(priceBounds.min / 10) * 10 || 0;
     priceBounds.max = Math.ceil(priceBounds.max / 10) * 10 || 2000;
+    function getFilteredProducts(excludeFacet) {
+      var f = {
+        searchQuery: state.searchQuery || null,
+        brandLabels: excludeFacet === 'brand' ? null : (state.brandLabels.length ? state.brandLabels : null),
+        selectedAwards: excludeFacet === 'awards' ? null : (state.selectedAwards.length ? state.selectedAwards : null),
+        priceMin: excludeFacet === 'price' ? null : state.priceMin,
+        priceMax: excludeFacet === 'price' ? null : state.priceMax,
+        preferredYear: excludeFacet === 'year' ? null : state.preferredYear,
+        preferredGrape: excludeFacet === 'grape' ? null : state.preferredGrape,
+        preferredTaste: excludeFacet === 'taste' ? null : state.preferredTaste,
+        ratingMin: excludeFacet === 'rating' ? null : state.ratingMin,
+        discountOnly: excludeFacet === 'discount' ? false : state.discountOnly
+      };
+      return products.filter(getFilterFn(typeFilter, f));
+    }
     function updateGrid() {
-      var n = window.renderWineGrid(gridId, typeFilter, state.sort, { brandLabels: state.brandLabels.length ? state.brandLabels : null, selectedAwards: state.selectedAwards.length ? state.selectedAwards : null, priceMin: state.priceMin, priceMax: state.priceMax, preferredYear: state.preferredYear, preferredGrape: state.preferredGrape, preferredTaste: state.preferredTaste, ratingMin: state.ratingMin, discountOnly: state.discountOnly, searchQuery: state.searchQuery || null }, { page: state.page, pageSize: PAGE_SIZE });
+      var f = {
+        brandLabels: state.brandLabels.length ? state.brandLabels : null,
+        selectedAwards: state.selectedAwards.length ? state.selectedAwards : null,
+        priceMin: state.priceMin,
+        priceMax: state.priceMax,
+        preferredYear: state.preferredYear,
+        preferredGrape: state.preferredGrape,
+        preferredTaste: state.preferredTaste,
+        ratingMin: state.ratingMin,
+        discountOnly: state.discountOnly,
+        searchQuery: state.searchQuery || null
+      };
+      var matchingCount = products.filter(getFilterFn(typeFilter, f)).length;
+      var totalPages = Math.ceil(matchingCount / PAGE_SIZE) || 1;
+      if (state.page > totalPages || state.page < 1) {
+        state.page = 1;
+      }
+      var n = window.renderWineGrid(gridId, typeFilter, state.sort, f, { page: state.page, pageSize: PAGE_SIZE });
       window._winePageState.resultCountId = resultCountId;
       window._winePageState.lastCount = n;
       var countEl = resultCountId ? document.getElementById(resultCountId) : null;
@@ -278,12 +336,40 @@
       var labels = Object.keys(labelSet).sort();
       brandEl.innerHTML = labels.map(function (label) {
         var ch = state.brandLabels.indexOf(label) !== -1; // default: all unchecked
-        return '<label class="wine-filter-check"><input type="checkbox" data-label="' + label.replace(/"/g, '&quot;') + '" ' + (ch ? 'checked' : '') + '> ' + label + '</label>';
+        return '<label class="wine-filter-check"><input type="checkbox" class="wine-filter-checkbox" data-label="' + label.replace(/"/g, '&quot;') + '" ' + (ch ? 'checked' : '') + '> <span>' + label + '</span></label>';
       }).join('');
       brandEl.querySelectorAll('input').forEach(function (cb) {
         cb.addEventListener('change', function () {
           state.brandLabels = Array.from(brandEl.querySelectorAll('input:checked')).map(function (c) { return c.getAttribute('data-label'); });
+          if (state.preferredYear) {
+            var matchingYear = products.filter(getFilterFn(typeFilter, {
+              brandLabels: state.brandLabels.length ? state.brandLabels : null,
+              preferredYear: state.preferredYear
+            }));
+            if (!matchingYear.length) {
+              state.preferredYear = null;
+            }
+          }
+          if (state.preferredGrape) {
+            var matchingGrape = products.filter(getFilterFn(typeFilter, {
+              brandLabels: state.brandLabels.length ? state.brandLabels : null,
+              preferredGrape: state.preferredGrape
+            }));
+            if (!matchingGrape.length) {
+              state.preferredGrape = null;
+            }
+          }
+          if (state.preferredTaste) {
+            var matchingTaste = products.filter(getFilterFn(typeFilter, {
+              brandLabels: state.brandLabels.length ? state.brandLabels : null,
+              preferredTaste: state.preferredTaste
+            }));
+            if (!matchingTaste.length) {
+              state.preferredTaste = null;
+            }
+          }
           state.page = 1;
+          updateFilterControls();
           updateGrid();
         });
       });
@@ -302,7 +388,7 @@
       var awardSet = {};
       defaultAwards.forEach(function (a) { awardSet[a] = true; });
       products.forEach(function (p) {
-        var arr = Array.isArray(p.awards) ? p.awards : (typeof p.awards === 'string' && p.awards.trim() ? p.awards.split('|') : []);
+        var arr = getAwardsList(p);
         arr.forEach(function (a) {
           var v = String(a || '').trim();
           if (v) awardSet[v] = true;
@@ -311,14 +397,22 @@
       var awards = Object.keys(awardSet).sort(function (a, b) { return a.localeCompare(b); });
       awardsEl.innerHTML = awards.map(function (aw) {
         var ch = state.selectedAwards.indexOf(aw) !== -1;
-        return '<label class="wine-filter-check"><input type="checkbox" data-award="' + aw.replace(/"/g, '&quot;') + '" ' + (ch ? 'checked' : '') + '> ' + aw + '</label>';
+        return '<label class="wine-filter-check"><input type="checkbox" class="wine-filter-checkbox" data-award="' + aw.replace(/"/g, '&quot;') + '" ' + (ch ? 'checked' : '') + '> <span>' + aw + '</span></label>';
       }).join('');
       awardsEl.querySelectorAll('input').forEach(function (cb) {
         cb.addEventListener('change', function () {
           state.selectedAwards = Array.from(awardsEl.querySelectorAll('input:checked')).map(function (c) { return c.getAttribute('data-award'); });
           state.page = 1;
+          updateFilterControls();
           updateGrid();
         });
+      });
+      awardsEl.addEventListener('click', function (e) {
+        var lbl = e.target.closest('.wine-filter-check');
+        if (lbl && (lbl.classList.contains('wine-filter-check--disabled') || (lbl.querySelector('input') && lbl.querySelector('input').disabled))) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       });
     }
     var priceMinEl = filterPriceMinId ? document.getElementById(filterPriceMinId) : null;
@@ -338,12 +432,22 @@
         var pLo = loStr.split(' '), pHi = hiStr.split(' ');
         priceDisplayEl.textContent = (pLo[0] || lo) + ' – ' + (pHi[0] || hi) + ' ' + (pLo[1] || 'MDL');
       }
-      function up() { var lo = parseInt(priceMinEl.value, 10), hi = parseInt(priceMaxEl.value, 10); if (lo > hi) priceMaxEl.value = lo; state.priceMin = parseInt(priceMinEl.value, 10); state.priceMax = parseInt(priceMaxEl.value, 10); formatRange(state.priceMin, state.priceMax); state.page = 1; updateGrid(); }
+      function up() {
+        var lo = parseInt(priceMinEl.value, 10), hi = parseInt(priceMaxEl.value, 10);
+        if (lo > hi) priceMaxEl.value = lo;
+        state.priceMin = parseInt(priceMinEl.value, 10);
+        state.priceMax = parseInt(priceMaxEl.value, 10);
+        formatRange(state.priceMin, state.priceMax);
+        state.page = 1;
+        updateFilterControls();
+        updateGrid();
+      }
       priceMinEl.addEventListener('input', up);
       priceMaxEl.addEventListener('input', up);
       formatRange(priceBounds.min, priceBounds.max);
       window.addEventListener('currencychange', function () { updateGrid(); if (priceDisplayEl && state) formatRange(state.priceMin, state.priceMax); });
     }
+    var masterYears = [];
     var yearEl = filterYearId ? document.getElementById(filterYearId) : null;
     if (yearEl) {
       var yearSet = {};
@@ -351,16 +455,20 @@
         var y = p && p.vintage ? String(p.vintage).trim() : '';
         if (/^\d{4}$/.test(y)) yearSet[y] = true;
       });
-      var years = Object.keys(yearSet).sort(function (a, b) { return Number(b) - Number(a); });
-      var yearOptions = ['<option value="">' + t('filter-any-year') + '</option>']
-        .concat(years.map(function (y) { return '<option value="' + y + '">' + y + '</option>'; }));
-      yearEl.innerHTML = yearOptions.join('');
+      masterYears = Object.keys(yearSet).sort(function (a, b) { return Number(b) - Number(a); });
       yearEl.addEventListener('change', function () {
+        var opt = this.options[this.selectedIndex];
+        if (opt && opt.disabled) {
+          this.value = state.preferredYear || '';
+          return;
+        }
         state.preferredYear = this.value ? this.value : null;
         state.page = 1;
+        updateFilterControls();
         updateGrid();
       });
     }
+    var masterGrapes = [];
     var grapeEl = filterGrapeId ? document.getElementById(filterGrapeId) : null;
     if (grapeEl) {
       var grapeSet = {};
@@ -368,19 +476,20 @@
         var g = p && p.grape ? String(p.grape).trim() : '';
         if (g) grapeSet[g] = true;
       });
-      var grapes = Object.keys(grapeSet).sort(function (a, b) { return a.localeCompare(b); });
-      var grapeOptions = ['<option value="">' + t('filter-any-grape') + '</option>']
-        .concat(grapes.map(function (g) {
-          var v = g.replace(/"/g, '&quot;');
-          return '<option value="' + v + '">' + g + '</option>';
-        }));
-      grapeEl.innerHTML = grapeOptions.join('');
+      masterGrapes = Object.keys(grapeSet).sort(function (a, b) { return a.localeCompare(b); });
       grapeEl.addEventListener('change', function () {
+        var opt = this.options[this.selectedIndex];
+        if (opt && opt.disabled) {
+          this.value = state.preferredGrape || '';
+          return;
+        }
         state.preferredGrape = this.value ? this.value : null;
         state.page = 1;
+        updateFilterControls();
         updateGrid();
       });
     }
+    var masterTastes = [];
     var tasteEl = filterTasteId ? document.getElementById(filterTasteId) : null;
     if (tasteEl) {
       var tasteSet = {};
@@ -388,22 +497,260 @@
         var ts = p && p.taste ? String(p.taste).trim() : '';
         if (ts) tasteSet[ts] = true;
       });
-      var tastes = Object.keys(tasteSet).sort(function (a, b) { return a.localeCompare(b); });
-      var tasteOptions = ['<option value="">' + t('filter-any-taste') + '</option>']
-        .concat(tastes.map(function (ts) {
-          var v = ts.replace(/"/g, '&quot;');
-          return '<option value="' + v + '">' + ts + '</option>';
-        }));
-      tasteEl.innerHTML = tasteOptions.join('');
+      masterTastes = Object.keys(tasteSet).sort(function (a, b) { return a.localeCompare(b); });
       tasteEl.addEventListener('change', function () {
+        var opt = this.options[this.selectedIndex];
+        if (opt && opt.disabled) {
+          this.value = state.preferredTaste || '';
+          return;
+        }
         state.preferredTaste = this.value ? this.value : null;
         state.page = 1;
+        updateFilterControls();
         updateGrid();
       });
     }
-    if (filterDiscountId) { var de = document.getElementById(filterDiscountId); if (de) de.addEventListener('change', function () { state.discountOnly = this.checked; state.page = 1; updateGrid(); }); }
-    if (filterRatingId) { var re = document.getElementById(filterRatingId); if (re) re.addEventListener('change', function () { state.ratingMin = this.value === '' ? null : parseFloat(this.value); state.page = 1; updateGrid(); }); }
+    if (filterDiscountId) {
+      var de = document.getElementById(filterDiscountId);
+      if (de) {
+        de.addEventListener('change', function () {
+          state.discountOnly = this.checked;
+          state.page = 1;
+          updateFilterControls();
+          updateGrid();
+        });
+        var pLbl = de.closest('.wine-filter-check');
+        if (pLbl) {
+          pLbl.addEventListener('click', function (e) {
+            if (de.disabled) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          });
+        }
+      }
+    }
+    if (filterRatingId) {
+      var re = document.getElementById(filterRatingId);
+      if (re) {
+        re.addEventListener('change', function () {
+          state.ratingMin = this.value === '' ? null : parseFloat(this.value);
+          state.page = 1;
+          updateFilterControls();
+          updateGrid();
+        });
+      }
+    }
     if (sortSelectId) { var se = document.getElementById(sortSelectId); if (se) se.addEventListener('change', function () { state.sort = this.value || ''; state.page = 1; updateGrid(); }); }
+
+    function updateFilterControls(iteration) {
+      var changed = false;
+      var iter = iteration || 0;
+
+      // 1. Preferred Year
+      if (yearEl) {
+        var prodsForYear = getFilteredProducts('year');
+        var availYears = {};
+        prodsForYear.forEach(function (p) {
+          var y = p && p.vintage ? String(p.vintage).trim() : '';
+          if (y) availYears[y] = true;
+        });
+        if (state.preferredYear && !availYears[String(state.preferredYear).trim()]) {
+          state.preferredYear = null;
+          changed = true;
+        }
+        var yearOptions = ['<option value="" data-translate="filter-any-year">' + t('filter-any-year') + '</option>']
+          .concat(masterYears.map(function (y) {
+            var isAvail = !!availYears[y];
+            var sel = (state.preferredYear === y) ? ' selected' : '';
+            var dis = isAvail ? '' : ' disabled class="wine-option--disabled"';
+            return '<option value="' + y + '"' + sel + dis + '>' + y + '</option>';
+          }));
+        yearEl.innerHTML = yearOptions.join('');
+        yearEl.value = state.preferredYear || '';
+      }
+
+      // 2. Preferred Grape
+      if (grapeEl) {
+        var prodsForGrape = getFilteredProducts('grape');
+        var availGrapes = {};
+        prodsForGrape.forEach(function (p) {
+          var g = p && p.grape ? String(p.grape).trim() : '';
+          if (g) availGrapes[g.toLowerCase()] = true;
+        });
+        if (state.preferredGrape && !availGrapes[String(state.preferredGrape).trim().toLowerCase()]) {
+          state.preferredGrape = null;
+          changed = true;
+        }
+        var grapeOptions = ['<option value="" data-translate="filter-any-grape">' + t('filter-any-grape') + '</option>']
+          .concat(masterGrapes.map(function (g) {
+            var isAvail = !!availGrapes[g.toLowerCase()];
+            var v = g.replace(/"/g, '&quot;');
+            var sel = (state.preferredGrape && state.preferredGrape.toLowerCase() === g.toLowerCase()) ? ' selected' : '';
+            var dis = isAvail ? '' : ' disabled class="wine-option--disabled"';
+            return '<option value="' + v + '"' + sel + dis + '>' + g + '</option>';
+          }));
+        grapeEl.innerHTML = grapeOptions.join('');
+        grapeEl.value = state.preferredGrape || '';
+      }
+
+      // 3. Preferred Taste
+      if (tasteEl) {
+        var prodsForTaste = getFilteredProducts('taste');
+        var availTastes = {};
+        prodsForTaste.forEach(function (p) {
+          var ts = p && p.taste ? String(p.taste).trim() : '';
+          if (ts) availTastes[ts.toLowerCase()] = true;
+        });
+        if (state.preferredTaste && !availTastes[String(state.preferredTaste).trim().toLowerCase()]) {
+          state.preferredTaste = null;
+          changed = true;
+        }
+        var tasteOptions = ['<option value="" data-translate="filter-any-taste">' + t('filter-any-taste') + '</option>']
+          .concat(masterTastes.map(function (ts) {
+            var isAvail = !!availTastes[ts.toLowerCase()];
+            var v = ts.replace(/"/g, '&quot;');
+            var sel = (state.preferredTaste && state.preferredTaste.toLowerCase() === ts.toLowerCase()) ? ' selected' : '';
+            var dis = isAvail ? '' : ' disabled class="wine-option--disabled"';
+            return '<option value="' + v + '"' + sel + dis + '>' + ts + '</option>';
+          }));
+        tasteEl.innerHTML = tasteOptions.join('');
+        tasteEl.value = state.preferredTaste || '';
+      }
+
+      // 4. Brands (always enabled so user can select any combination of brands)
+      if (brandEl) {
+        brandEl.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+          var label = cb.getAttribute('data-label');
+          var parentLabel = cb.closest('.wine-filter-check');
+          var isChecked = state.brandLabels.indexOf(label) !== -1;
+          cb.checked = isChecked;
+          cb.disabled = false;
+          if (parentLabel) {
+            parentLabel.style.display = '';
+            parentLabel.classList.remove('wine-filter-check--disabled');
+          }
+        });
+      }
+
+      // 5. Awards
+      if (awardsEl) {
+        var prodsForAwards = getFilteredProducts('awards');
+        var availAwards = {};
+        prodsForAwards.forEach(function (p) {
+          var arr = getAwardsList(p);
+          arr.forEach(function (a) {
+            if (a) availAwards[a.toLowerCase()] = true;
+          });
+        });
+        var validAwards = state.selectedAwards.filter(function (aw) { return !!availAwards[String(aw || '').toLowerCase()]; });
+        if (validAwards.length !== state.selectedAwards.length) {
+          state.selectedAwards = validAwards;
+          changed = true;
+        }
+        awardsEl.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+          var award = cb.getAttribute('data-award');
+          var isAvail = !!availAwards[String(award || '').toLowerCase()];
+          var parentLabel = cb.closest('.wine-filter-check');
+          var isChecked = state.selectedAwards.indexOf(award) !== -1;
+          cb.checked = isChecked;
+          if (isAvail) {
+            cb.disabled = false;
+            if (parentLabel) {
+              parentLabel.style.display = '';
+              parentLabel.classList.remove('wine-filter-check--disabled');
+            }
+          } else {
+            cb.disabled = true;
+            if (parentLabel) {
+              parentLabel.style.display = '';
+              parentLabel.classList.add('wine-filter-check--disabled');
+            }
+          }
+        });
+      }
+
+      // 6. Discount
+      if (filterDiscountId) {
+        var de = document.getElementById(filterDiscountId);
+        if (de) {
+          var prodsForDiscount = getFilteredProducts('discount');
+          var hasDiscount = prodsForDiscount.some(function (p) { return !!p.discount; });
+          if (state.discountOnly && !hasDiscount) {
+            state.discountOnly = false;
+            changed = true;
+          }
+          de.checked = state.discountOnly;
+          var parentLabel = de.closest('.wine-filter-check');
+          if (hasDiscount) {
+            de.disabled = false;
+            if (parentLabel) {
+              parentLabel.style.display = '';
+              parentLabel.classList.remove('wine-filter-check--disabled');
+            }
+          } else {
+            de.disabled = true;
+            if (parentLabel) {
+              parentLabel.style.display = '';
+              parentLabel.classList.add('wine-filter-check--disabled');
+            }
+          }
+        }
+      }
+
+      // 7. Price
+      if (priceMinEl && priceMaxEl) {
+        var prodsForPrice = getFilteredProducts('price');
+        var minAvail = Infinity, maxAvail = -Infinity;
+        prodsForPrice.forEach(function (p) {
+          if (p.price != null) {
+            if (p.price < minAvail) minAvail = p.price;
+            if (p.price > maxAvail) maxAvail = p.price;
+          }
+        });
+        if (minAvail !== Infinity && maxAvail !== -Infinity) {
+          if (state.priceMin != null && state.priceMin > maxAvail) {
+            state.priceMin = priceBounds.min;
+            priceMinEl.value = state.priceMin;
+            changed = true;
+          }
+          if (state.priceMax != null && state.priceMax < minAvail) {
+            state.priceMax = priceBounds.max;
+            priceMaxEl.value = state.priceMax;
+            changed = true;
+          }
+          if (priceDisplayEl && state.priceMin != null && state.priceMax != null) {
+            formatRange(state.priceMin, state.priceMax);
+          }
+        }
+      }
+
+      // If any facet was pruned/invalidated, re-run to convergence up to 4 passes
+      if (changed && iter < 4) {
+        updateFilterControls(iter + 1);
+        return;
+      }
+    }
+
+    function resetAllFilters() {
+      state.brandLabels = [];
+      state.selectedAwards = [];
+      state.priceMin = priceBounds.min;
+      state.priceMax = priceBounds.max;
+      state.preferredYear = null;
+      state.preferredGrape = null;
+      state.preferredTaste = null;
+      state.ratingMin = null;
+      state.discountOnly = false;
+      state.page = 1;
+      if (priceMinEl) priceMinEl.value = priceBounds.min;
+      if (priceMaxEl) priceMaxEl.value = priceBounds.max;
+      if (priceDisplayEl) formatRange(priceBounds.min, priceBounds.max);
+      updateFilterControls();
+      updateGrid();
+    }
+    window.resetWineExplorerFilters = resetAllFilters;
+    window.refreshWineExplorerFilterLabels = updateFilterControls;
 
     var gridEl = document.getElementById(gridId);
     if (gridEl && !gridEl._aiwinePaginationInited) {
@@ -462,6 +809,7 @@
       gridEl.parentNode.insertBefore(paginationWrap, gridEl.nextSibling);
     }
 
+    updateFilterControls();
     updateGrid();
 
     if (savedScroll != null) {
@@ -549,26 +897,29 @@
     }
   };
   window.updateWinePageTranslations = function () {
-      var s = window._winePageState;
-      if (s && s.resultCountId) { var el = document.getElementById(s.resultCountId); if (el) el.textContent = s.lastCount + ' ' + (s.lastCount === 1 ? t('wines-count-one') : t('wines-count')); }
-      document.querySelectorAll('.wine-filters-close').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-close')); });
-      document.querySelectorAll('.wine-filters-toggle').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-toggle')); });
-      document.querySelectorAll('.wine-filters-toggle-label').forEach(function (el) { el.textContent = t('filters-toggle'); });
-      var paginationEl = document.querySelector('.wine-pagination');
-      if (paginationEl && paginationEl.style.display !== 'none') {
-        var prev = paginationEl.querySelector('.wine-pagination-prev');
-        var next = paginationEl.querySelector('.wine-pagination-next');
-        var pageInput = paginationEl.querySelector('.wine-pagination-page-input');
-        var totalSpan = paginationEl.querySelector('.wine-pagination-total');
-        var pageLabel = paginationEl.querySelector('.wine-pagination-page-label');
-        var ofSpan = paginationEl.querySelector('.wine-pagination-of');
-        if (prev) prev.textContent = t('pagination-prev') || 'Previous';
-        if (next) next.textContent = t('pagination-next') || 'Next';
-        if (pageInput && s && s.currentPage != null) pageInput.value = s.currentPage;
-        if (pageInput && s && s.totalPages != null) pageInput.max = s.totalPages;
-        if (totalSpan && s && s.totalPages != null) totalSpan.textContent = '\u00a0' + s.totalPages;
-        if (pageLabel) pageLabel.textContent = (t('pagination-page') || 'Page') + ' ';
-        if (ofSpan) ofSpan.textContent = ' ' + (t('pagination-of') || 'of') + ' ';
-      }
-    };
+    var s = window._winePageState;
+    if (s && s.resultCountId) { var el = document.getElementById(s.resultCountId); if (el) el.textContent = s.lastCount + ' ' + (s.lastCount === 1 ? t('wines-count-one') : t('wines-count')); }
+    document.querySelectorAll('.wine-filters-close').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-close')); });
+    document.querySelectorAll('.wine-filters-toggle').forEach(function (btn) { btn.setAttribute('aria-label', t('filters-toggle')); });
+    document.querySelectorAll('.wine-filters-toggle-label').forEach(function (el) { el.textContent = t('filters-toggle'); });
+    document.querySelectorAll('.wine-empty-title').forEach(function (el) { el.textContent = t('wines-empty-title') || 'Nu am găsit vinuri conform filtrelor selectate.'; });
+    document.querySelectorAll('.wine-reset-filters-btn').forEach(function (btn) { btn.textContent = t('filter-reset') || 'Resetează filtrele'; });
+    if (typeof window.refreshWineExplorerFilterLabels === 'function') window.refreshWineExplorerFilterLabels();
+    var paginationEl = document.querySelector('.wine-pagination');
+    if (paginationEl && paginationEl.style.display !== 'none') {
+      var prev = paginationEl.querySelector('.wine-pagination-prev');
+      var next = paginationEl.querySelector('.wine-pagination-next');
+      var pageInput = paginationEl.querySelector('.wine-pagination-page-input');
+      var totalSpan = paginationEl.querySelector('.wine-pagination-total');
+      var pageLabel = paginationEl.querySelector('.wine-pagination-page-label');
+      var ofSpan = paginationEl.querySelector('.wine-pagination-of');
+      if (prev) prev.textContent = t('pagination-prev') || 'Previous';
+      if (next) next.textContent = t('pagination-next') || 'Next';
+      if (pageInput && s && s.currentPage != null) pageInput.value = s.currentPage;
+      if (pageInput && s && s.totalPages != null) pageInput.max = s.totalPages;
+      if (totalSpan && s && s.totalPages != null) totalSpan.textContent = '\u00a0' + s.totalPages;
+      if (pageLabel) pageLabel.textContent = (t('pagination-page') || 'Page') + ' ';
+      if (ofSpan) ofSpan.textContent = ' ' + (t('pagination-of') || 'of') + ' ';
+    }
+  };
 })();
